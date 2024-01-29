@@ -1,0 +1,76 @@
+body{
+    background-color: #eeeeee;
+}
+.card-body{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 0px;
+}
+.row-height{
+    height: 75px;
+}
+.row .btn{
+    margin-top: 20px;
+    height: 50px;
+    font-size: larger;
+}
+.btn-signin{
+    background-color: #42b62a;
+    color: #eff1f4;
+    position: relative;
+
+    width: fit-content;
+}
+.btn-signin:hover{
+    background-color: #36a320;
+    color: white;
+}
+.m-t-15px{
+    margin-top: 15px;
+    margin-bottom: 0px;
+}
+.m-b-15px{
+    margin-bottom: 15px !important;
+}
+.card{
+    padding: initial;
+}
+.input-lg{
+    height: 50px;
+}
+a{
+    text-decoration: none;
+}
+.logo{
+    font-size: xxx-large;
+    position: relative;
+    top: 190px;
+}
+.form-check{
+    margin-left: 14px;
+}
+.mini{
+    font-size: 14px;
+    padding-left: 5px;
+}
+.super-mini{
+    font-size: 11px;
+    padding-left: 5px;
+}
+#sub-title{
+    padding-left: 10px;
+}
+.btn-signup{
+    width: fit-content;
+    height: fit-content !important;
+    position: relative;
+    background-color: #00a301;
+    color: #eff1f4;
+}
+.btn-signup:hover{
+    background-color: #5d8851;
+    color: white;
+}
+.modal-body{
+    padding-top: 0px;
+}
