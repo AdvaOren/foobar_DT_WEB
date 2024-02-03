@@ -1,3 +1,75 @@
-{
-  "postText": "wowow!"
-}
+[
+  {
+    "text": "luka crazy game!",
+    "username": "daniel kfir",
+    "id": "1",
+    "time": "one day ago",
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "initLikes": 45
+  },
+  {
+    "text": "did you hear about the crazy game?",
+    "username": "daniel kfir",
+    "id": "2",
+    "time": "one week ago",
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+  },
+  {
+    "text": "foobar_DT is great!",
+    "username": "tzuriel luzon",
+    "id": "3",
+    "time": "now",
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "initLikes": 151
+  },
+  {
+    "text": "very good job",
+    "username": "eliya kfir",
+    "id": "4",
+    "time": "one day ago",
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "initLikes": 500
+  },
+  {
+    "text": "hemi says: nice job!",
+    "username": "hemi hemi",
+    "id": "5",
+    "time": "17:40 yesterday",
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+  },
+  {
+    "text": "pls work dammed btns",
+    "username": "daniel kfir",
+    "id": "6",
+    "time": "now",
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+  },
+  {
+    "text": "wow i have a lot of posts to write",
+    "username": "dan dan",
+    "id": "7",
+    "time": "one day ago",
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+  },
+  {
+    "text": "is this only the 8th one??",
+    "username": "daniel kfir",
+    "id": "8",
+    "time": "one day ago",
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+  },
+  {
+    "text": "one more to go!!!",
+    "username": "daniel kfir",
+    "id": "9",
+    "time": "one day ago",
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+  },
+  {
+    "text": "FINALLY!",
+    "username": "daniel kfir",
+    "id": "10",
+    "time": "one day ago",
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+  }
+]
