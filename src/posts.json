@@ -5,14 +5,16 @@
     "id": "1",
     "time": "one day ago",
     "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
-    "initLikes": 45
+    "initLikes": 45,
+    "comments": []
   },
   {
     "text": "did you hear about the crazy game?",
     "username": "daniel kfir",
     "id": "2",
     "time": "one week ago",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "comments": []
   },
   {
     "text": "foobar_DT is great!",
@@ -20,7 +22,8 @@
     "id": "3",
     "time": "now",
     "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
-    "initLikes": 151
+    "initLikes": 151,
+    "comments": []
   },
   {
     "text": "very good job",
@@ -28,48 +31,55 @@
     "id": "4",
     "time": "one day ago",
     "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
-    "initLikes": 500
+    "initLikes": 500,
+    "comments": []
   },
   {
     "text": "hemi says: nice job!",
     "username": "hemi hemi",
     "id": "5",
     "time": "17:40 yesterday",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "comments": []
   },
   {
     "text": "pls work dammed btns",
     "username": "daniel kfir",
     "id": "6",
     "time": "now",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "comments": []
   },
   {
     "text": "wow i have a lot of posts to write",
     "username": "dan dan",
     "id": "7",
     "time": "one day ago",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "comments": []
   },
   {
     "text": "is this only the 8th one??",
     "username": "daniel kfir",
     "id": "8",
     "time": "one day ago",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "comments": []
   },
   {
     "text": "one more to go!!!",
     "username": "daniel kfir",
     "id": "9",
     "time": "one day ago",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "comments": []
   },
   {
     "text": "FINALLY!",
     "username": "daniel kfir",
     "id": "10",
     "time": "one day ago",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg"
+    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "comments": []
   }
 ]

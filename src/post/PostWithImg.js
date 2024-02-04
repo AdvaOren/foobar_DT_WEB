@@ -2,7 +2,16 @@ import Likebtn from "./Likebtn";
 import CommentsBtn from "./CommentsBtn";
 import ShareBtn from "./ShareBtn";
 
-function PostWithImg({userImg, username, time, text, img,id,initLikes=0}) {
+function PostWithImg({
+                         userImg,
+                         username,
+                         time,
+                         text,
+                         img,
+                         id,
+                         initLikes = 0,
+                         comments
+                     }) {
     return (
         <div className="card">
             <div className="card-title post-title"><img src={userImg}
@@ -18,14 +27,16 @@ function PostWithImg({userImg, username, time, text, img,id,initLikes=0}) {
                     </div>
                     <div className="container text-center">
                         <div className="row">
-                            <Likebtn id={id + "l"} initLikes={initLikes}></Likebtn>
-                            <CommentsBtn></CommentsBtn>
+                            <Likebtn id={id + "l"}
+                                     initLikes={initLikes}></Likebtn>
+                            <CommentsBtn comments={comments}></CommentsBtn>
                             <ShareBtn></ShareBtn>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-                        );
-                        }
-                        export default PostWithImg
+    );
+}
+
+export default PostWithImg
