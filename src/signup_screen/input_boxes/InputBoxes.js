@@ -16,9 +16,7 @@ function InputBoxes({setFirstName, setLastName, setEmail, setPassword, setPasswo
     emailRef = React.useRef(null);
     passwordRef = React.useRef(null);
     passwordVerificationRef = React.useRef(null);
-    //window.bootstrap = bootstrap;
-    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-    //const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
 
     return (
         <div className="row">

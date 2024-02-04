@@ -3,10 +3,13 @@ import {useRef, useState} from "react";
 import React from "react";
 
 
+let loginBoxRef;
+
 function LoginBox({loginMembers}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const passwordRef = useRef(null);
+    loginBoxRef = useRef('')
 
 
     //check is a function that check if the email and password exists in the login members
@@ -28,12 +31,13 @@ function LoginBox({loginMembers}) {
         else {
             e.preventDefault()
             console.log("exists")
+            loginBoxRef.current.classList.remove('was-validated')
             //somehow move to feed
         }
     }
 
     return (
-        <form className="container-fluid g-3 needs-validation" noValidate id="loginForm">
+        <form className="container-fluid g-3 needs-validation" noValidate id="loginForm" ref={loginBoxRef}>
             <div className="row">
                 <div className="col-7"></div>
                 <div className="card shadow col-4">
@@ -78,26 +82,18 @@ function LoginBox({loginMembers}) {
     );
 }
 
+/**
+ * The function disabling login form submissions if there are invalid fields
+ */
 function valid() {
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-
     'use strict'
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    const forms = document.querySelectorAll('.needs-validation')
-    // Loop over them and prevent submission
-    Array.from(forms).forEach(form => {
-        if (form.id === "loginForm") {
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
-
-                form.classList.add('was-validated')
-
-            }, false)
+    loginBoxRef.current.addEventListener('submit', event => {
+        if (!loginBoxRef.current.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
         }
-    })
+        loginBoxRef.current.classList.add('was-validated')
+    }, false)
 }
 
 export default LoginBox;

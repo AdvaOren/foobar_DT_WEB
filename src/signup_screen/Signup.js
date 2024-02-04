@@ -4,16 +4,16 @@ import Gender from "./gender/Gender";
 import InputBoxes, {updateValuesInputBox} from "./input_boxes/InputBoxes"
 import {useRef, useState} from "react";
 
-let firstName, setFirstName
-let lastName, setLastName
-let email, setEmail
-let password, setPassword
-let passwordVerification, setPasswordVerification
-let day, setDay
-let month, setMonth
-let year, setYear
-let gender, setGender
-
+let firstName, setFirstName;
+let lastName, setLastName;
+let email, setEmail;
+let password, setPassword;
+let passwordVerification, setPasswordVerification;
+let day, setDay;
+let month, setMonth;
+let year, setYear;
+let gender, setGender;
+let signupRef;
 
 function Signup({loginMembers}) {
 
@@ -27,6 +27,7 @@ function Signup({loginMembers}) {
     [year, setYear] = useState('');
     [gender, setGender] = useState('M');
     const closeRef = useRef(null);
+    signupRef = useRef('');
 
     const newMember = {
         "firstName": "",
@@ -83,12 +84,14 @@ function Signup({loginMembers}) {
                         </div>
                     </div>
                     <div className="modal-body">
-                        <form className="container-fluid g-3 needs-validation" noValidate id="signUpForm">
+                        <form className="container-fluid g-3 needs-validation" noValidate id="signUpForm" ref={signupRef}>
                             <InputBoxes member={newMember} setFirstName={setFirstName} setLastName={setLastName}
                                         setEmail={setEmail} setPassword={setPassword}
                                         setPasswordVerification={setPasswordVerification}/>
                             <Birthdate member={newMember} setDay={setDay} setMonth={setMonth} setYear={setYear}/>
                             <Gender member={newMember} setGender={setGender}/>
+                            <label className="form-label" htmlFor="customFile">Default file input example</label>
+                            <input type="file" className="form-control" id="customFile"/>
                             <p className="super-mini text-secondary-emphasis">People who use our service
                                 may have uploaded your contact information to Facebook. Learn more.</p>
                             <p className="super-mini text-secondary-emphasis">By clicking Sign Up, you
@@ -155,6 +158,7 @@ function addMember(e, newMember, loginMembers, closeRef) {
     updateValuesBirthdate("", "", "");
     initMemeber(newMember);
     closeRef.current.click();
+    signupRef.current.classList.remove('was-validated')
 }
 
 /**
@@ -231,26 +235,17 @@ function isDateValid(date) {
 }
 
 /**
- * The function disabling form submissions if there are invalid fields
+ * The function disabling signup form submissions if there are invalid fields
  */
 function valid() {
-
     'use strict'
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    const forms = document.querySelectorAll('.needs-validation')
-    // Loop over them and prevent submission
-    Array.from(forms).forEach(form => {
-        if (form.id === "signUpForm") {
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
-
-                form.classList.add('was-validated')
-            }, false)
+    signupRef.current.addEventListener('submit', event => {
+        if (!signupRef.current.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
         }
-    })
+        signupRef.current.classList.add('was-validated')
+    }, false)
 }
 
 export default Signup;
