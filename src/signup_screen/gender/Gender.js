@@ -1,6 +1,6 @@
 import './Gender.css'
 
-function Gender({member,setGender}) {
+function Gender({setGender}) {
     return (
         <div>
             <p className=" mini m-t-15px">Gender</p>

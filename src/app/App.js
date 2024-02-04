@@ -1,18 +1,20 @@
 import Logo from "../login_screen/logo/Logo";
 import LoginBox from "../login_screen/login_box/LoginBox";
+import Signup from "../signup_screen/Signup";
+import React from "react";
 
 
 function App() {
 
-    const members =[{
-        "firstName":"a",
-        "lastName":"aa",
-        "email":"zxc",
-        "password":"zz",
-        "day":"1",
-        "month":"2",
-        "year":"2024",
-        "gender":"M"
+    const members = [{
+        "firstName": "a",
+        "lastName": "aa",
+        "email": "zxc",
+        "password": "zz",
+        "day": "1",
+        "month": "2",
+        "year": "2024",
+        "gender": "M"
     }, {
         "firstName": "q",
         "lastName": "qq",
@@ -23,15 +25,12 @@ function App() {
         "year": "2022",
         "gender": "F"
     }]
-    console.log(members)
     return (
-        <form className="container-fluid  g-3 needs-validation" noValidate id="loginForm">
-            <Logo />
-            <div className="row">
-                <div className="col-7"></div>
-                <LoginBox loginMembers={members}/>
-            </div>
-        </form>
+        <>
+            <Logo/>
+            <LoginBox loginMembers={members}/>
+            <Signup loginMembers={members}/>
+        </>
     );
 }
 

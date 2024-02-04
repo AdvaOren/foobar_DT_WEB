@@ -10,7 +10,7 @@ function Logo(){
             </div>
             <div className="row logo">
                 <div className="col-2"></div>
-                <div className="col-5 fs-3">Foobar_DT helps you connect and share with the people in your life.
+                <div className="col-4 fs-3">Foobar_DT helps you connect and share with the people in your life.
                 </div>
             </div>
         </div>

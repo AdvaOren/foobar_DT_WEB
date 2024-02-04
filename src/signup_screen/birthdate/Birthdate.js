@@ -6,7 +6,7 @@ let monthRef;
 let yearRef;
 
 
-function Birthdate({member,setDay,setMonth,setYear}) {
+function Birthdate({setDay,setMonth,setYear}) {
     dayRef = React.useRef(null);
     monthRef = React.useRef(null);
     yearRef = React.useRef(null);

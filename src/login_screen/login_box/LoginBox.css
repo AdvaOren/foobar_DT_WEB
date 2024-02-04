@@ -32,7 +32,9 @@
 .card{
     padding: initial;
 }
-
+.input-lg{
+    height: 50px;
+}
 a{
     text-decoration: none;
 }
