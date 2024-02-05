@@ -40,6 +40,13 @@ code {
 .nav-bg {
   background-color: lightblue;
 }
+.nav-icons {
+  margin: 10px;
+  width: 50px;
+}
+.nav-icons:hover {
+  cursor: pointer;
+}
 .logo-btn {
   border: 0;
   background-color: transparent;
@@ -63,7 +70,6 @@ code {
   background-color: lightgray;
 }
 .left-menu {
-  position: fixed;
   text-align: right;
 }
 .active-like-btn {
@@ -91,7 +97,7 @@ code {
   width: 450px;
 }
 .right-menu {
-  position: fixed;
+
 }
 .post-options {
   text-align: left;

@@ -4,7 +4,7 @@ function DeletePostBtn({postList, setPostList,id}) {
         setPostList(newList);
     }
     return (
-        <div className="row">
+        <div className="dropdown-item">
             <button className="dropdown-item" onClick={deletePost}>delete post
                 <svg xmlns="http://www.w3.org/2000/svg"
                      width="16"

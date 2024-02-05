@@ -1,7 +1,7 @@
 import AddPostBtn from "./AddPostBtn";
 import DeletePostBtn from "../post/DeletePostBtn";
 import SavePostBtn from "./SavePostBtn";
-import EditPostBtn from "../post/EditPostBtn";
+import EditPostBtn from "../post/EditPost/EditPostBtn";
 
 function RightMenu({postList,setPostList,username}) {
     return (

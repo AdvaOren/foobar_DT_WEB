@@ -2,7 +2,7 @@ import Likebtn from "./Likebtn";
 import CommentsBtn from "./comments/CommentsBtn";
 import ShareBtn from "./ShareBtn";
 import DeletePostBtn from "./DeletePostBtn";
-import EditPostBtn from "./EditPostBtn";
+import EditPostBtn from "./EditPost/EditPostBtn";
 import {useRef} from "react";
 
 function PostWithImg({
