@@ -4,20 +4,24 @@ import LeftMenu from "../left-menu/LeftMenu";
 import RightMenu from "../rightMenu/RightMenu";
 import NavBar from "../NavBar/NavBar";
 import posts from "../posts.json"
-function App() {
+import {useState} from "react";
 
+function App() {
+    const [postList, setPostList] = useState(posts)
+    const username = "username"
     return (
         <div className="App">
             <NavBar></NavBar>
             <div className="container text-center bg-body-tertiary">
                 <div className="row">
-                    <LeftMenu></LeftMenu>
+                    <LeftMenu username={username}></LeftMenu>
                     <div className="col">
                         {
-                            posts.map((posts) => <PostWithImg {...posts}/>)
+                            postList.map((post) => <PostWithImg {...post} postList={postList} setPostList={setPostList}/>)
                         }
                     </div>
-                    <RightMenu></RightMenu>
+                    <RightMenu postList={postList} setPostList={setPostList}
+                               username={username}></RightMenu>
                 </div>
             </div>
         </div>

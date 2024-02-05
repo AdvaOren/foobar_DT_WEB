@@ -1,7 +1,10 @@
 function SavedPostsBtn() {
+    const notReady = () => {
+        alert("sorry, this button isn't available yet")
+    }
     return (
         <div className="row">
-            <button className="menu-btn">
+            <button className="menu-btn" onClick={notReady}>
                 <svg xmlns="http://www.w3.org/2000/svg"
                      width="16"
                      height="16" fill="currentColor"

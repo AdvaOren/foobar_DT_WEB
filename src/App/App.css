@@ -50,6 +50,7 @@ code {
 .post-user-img {
   width: 30px;
   border-radius: 15px;
+  float: right;
 }
 .left-menu-btn {
   text-align: center;
@@ -62,6 +63,7 @@ code {
   background-color: lightgray;
 }
 .left-menu {
+  position: fixed;
   text-align: right;
 }
 .active-like-btn {
@@ -75,3 +77,30 @@ code {
   text-align: left;
   list-style: none;
 }
+.input-comment {
+  background-color: lightgray;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+  padding: 5px;
+}
+.comment-section-title {
+  text-align: center;
+}
+.add-post-img {
+  width: 450px;
+}
+.right-menu {
+  position: fixed;
+}
+.post-options {
+  text-align: left;
+}
+.post-dropdown {
+  width: 50px;
+  background-color: transparent;
+  border: 0;
+}
+
+
+

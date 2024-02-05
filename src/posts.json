@@ -4,9 +4,13 @@
     "username": "daniel kfir",
     "id": "1",
     "time": "one day ago",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "img": "%PUBLIC_URL%/images/luka73.jpg",
     "initLikes": 45,
-    "comments": []
+    "comments": [
+      {
+        "commentText": "hi"
+      }
+    ]
   },
   {
     "text": "did you hear about the crazy game?",

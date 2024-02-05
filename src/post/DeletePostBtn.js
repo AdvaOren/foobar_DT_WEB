@@ -1,7 +1,11 @@
-function DeletePostBtn() {
+function DeletePostBtn({postList, setPostList,id}) {
+    const deletePost = () => {
+        const newList = postList.filter((oldPost) => oldPost.id !== id)
+        setPostList(newList);
+    }
     return (
         <div className="row">
-            <button className="left-menu-btn">delete post
+            <button className="dropdown-item" onClick={deletePost}>delete post
                 <svg xmlns="http://www.w3.org/2000/svg"
                      width="16"
                      height="16" fill="currentColor"
@@ -14,6 +18,7 @@ function DeletePostBtn() {
                 </svg>
             </button>
         </div>
+
     )
 }
 

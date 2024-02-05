@@ -1,7 +1,7 @@
 function NavBar() {
     return (
         <nav className="navbar navbar-expand-lg nav-bg">
-            <div className="container-fluid">
+            <div id="navbarFix" className="container-fluid">
                 <button className="logo-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
                          height="16"

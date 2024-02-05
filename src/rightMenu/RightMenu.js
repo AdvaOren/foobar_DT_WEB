@@ -1,17 +1,14 @@
 import AddPostBtn from "./AddPostBtn";
-import DeletePostBtn from "./DeletePostBtn";
+import DeletePostBtn from "../post/DeletePostBtn";
 import SavePostBtn from "./SavePostBtn";
-import EditPostBtn from "./EditPostBtn";
+import EditPostBtn from "../post/EditPostBtn";
 
-function RightMenu() {
+function RightMenu({postList,setPostList,username}) {
     return (
         <div className="col">
             <div className="container left-menu">
-                <div className="row left-menu">user options</div>
-                <AddPostBtn></AddPostBtn>
-                <DeletePostBtn></DeletePostBtn>
+                <AddPostBtn postList={postList} setPostList={setPostList} username={username}></AddPostBtn>
                 <SavePostBtn></SavePostBtn>
-                <EditPostBtn></EditPostBtn>
             </div>
         </div>
     )
