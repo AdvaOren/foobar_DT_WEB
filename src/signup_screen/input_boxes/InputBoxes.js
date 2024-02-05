@@ -1,7 +1,5 @@
 import './InputBoxes.css';
 import React from "react";
-//import 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js';
-//import * as bootstrap from 'bootstrap';
 
 
 let firstNameRef;

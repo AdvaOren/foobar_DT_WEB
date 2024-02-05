@@ -24,9 +24,7 @@ function App() {
         "month": "3",
         "year": "2022",
         "gender": "F",
-        "do":[]
     }]
-    members.map((m) => console.log(m))
     return (
         <>
             <Logo/>

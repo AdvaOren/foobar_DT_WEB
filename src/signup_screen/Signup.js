@@ -3,6 +3,7 @@ import Birthdate, {updateValuesBirthdate} from "./birthdate/Birthdate";
 import Gender from "./gender/Gender";
 import InputBoxes, {updateValuesInputBox} from "./input_boxes/InputBoxes"
 import {useRef, useState} from "react";
+import Image from "./image/Image";
 
 let firstName, setFirstName;
 let lastName, setLastName;
@@ -13,6 +14,7 @@ let day, setDay;
 let month, setMonth;
 let year, setYear;
 let gender, setGender;
+let img, setImg
 let signupRef;
 
 function Signup({loginMembers}) {
@@ -26,6 +28,7 @@ function Signup({loginMembers}) {
     [month, setMonth] = useState('');
     [year, setYear] = useState('');
     [gender, setGender] = useState('M');
+    [img, setImg] = useState('');
     const closeRef = useRef(null);
     signupRef = useRef('');
 
@@ -35,8 +38,10 @@ function Signup({loginMembers}) {
         "email": "",
         "password": "",
         "date": "",
-        "gender": ""
+        "gender": "",
+        "img":""
     }
+
     const signupCLicked = function (e) {
         initMemeber(newMember);
         let hasEmptyInputBox = checkForEmptyInput(newMember);
@@ -90,8 +95,7 @@ function Signup({loginMembers}) {
                                         setPasswordVerification={setPasswordVerification}/>
                             <Birthdate member={newMember} setDay={setDay} setMonth={setMonth} setYear={setYear}/>
                             <Gender member={newMember} setGender={setGender}/>
-                            <label className="form-label" htmlFor="customFile">Default file input example</label>
-                            <input type="file" className="form-control" id="customFile"/>
+                            <Image img={img} setImg={setImg}/>
                             <p className="super-mini text-secondary-emphasis">People who use our service
                                 may have uploaded your contact information to Facebook. Learn more.</p>
                             <p className="super-mini text-secondary-emphasis">By clicking Sign Up, you
@@ -154,8 +158,9 @@ function addMember(e, newMember, loginMembers, closeRef) {
     e.preventDefault()
     loginMembers.push(newMember);
     console.log("add new member")
-    updateValuesInputBox("", "", "", "");
+    updateValuesInputBox("", "", "", "","");
     updateValuesBirthdate("", "", "");
+    setImg("");
     initMemeber(newMember);
     closeRef.current.click();
     signupRef.current.classList.remove('was-validated')
@@ -220,6 +225,7 @@ function initMemeber(member) {
         setMonth("0" + month);
     member.date = year + "-" + month + "-" + day;
     member.gender = gender;
+    member.img = img;
 }
 
 /** the function check two thing:
