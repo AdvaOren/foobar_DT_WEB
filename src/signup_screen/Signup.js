@@ -3,7 +3,7 @@ import Birthdate, {updateValuesBirthdate} from "./birthdate/Birthdate";
 import Gender from "./gender/Gender";
 import InputBoxes, {updateValuesInputBox} from "./input_boxes/InputBoxes"
 import {useRef, useState} from "react";
-import Image from "./image/Image";
+import Image, {updateValuesImage} from "./image/Image";
 
 let firstName, setFirstName;
 let lastName, setLastName;
@@ -160,8 +160,8 @@ function addMember(e, newMember, loginMembers, closeRef) {
     console.log("add new member")
     updateValuesInputBox("", "", "", "","");
     updateValuesBirthdate("", "", "");
-    setImg("");
-    initMemeber(newMember);
+    updateValuesImage("");
+    resetMember(newMember);
     closeRef.current.click();
     signupRef.current.classList.remove('was-validated')
 }
@@ -226,6 +226,16 @@ function initMemeber(member) {
     member.date = year + "-" + month + "-" + day;
     member.gender = gender;
     member.img = img;
+}
+
+/**The function reset the member
+ * Input: the member to reset
+ */
+function resetMember(member) {
+    Object.keys(member).forEach(key => {
+        member[key] = ""
+    });
+    img =""
 }
 
 /** the function check two thing:

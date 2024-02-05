@@ -73,7 +73,9 @@ function InputBoxes({setFirstName, setLastName, setEmail, setPassword, setPasswo
     );
 }
 
-
+/** The function update the input boxes
+ * Input: the new values for firstName, lastName, email, password, passwordVerification
+ */
 export function updateValuesInputBox(firstName, lastName, email, password, passwordVerification) {
     firstNameRef.current.value = firstName;
     lastNameRef.current.value = lastName;

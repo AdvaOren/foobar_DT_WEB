@@ -131,6 +131,9 @@ function Birthdate({setDay,setMonth,setYear}) {
     );
 }
 
+/** The function update the input dropdown
+ * Input: the new values for day, month, year
+ */
 export function updateValuesBirthdate(day, month, year){
     dayRef.current.value = day;
     monthRef.current.value = month;
