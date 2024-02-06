@@ -3,8 +3,9 @@ import PostWithImg from "../post/PostWithImg";
 import LeftMenu from "../left-menu/LeftMenu";
 import RightMenu from "../rightMenu/RightMenu";
 import NavBar from "../NavBar/NavBar";
-import posts from "../posts.json"
+import posts from "../posts.js"
 import {useState} from "react";
+import ten from '../10.jpg'
 
 function App() {
     const [postList, setPostList] = useState(posts)
@@ -17,7 +18,7 @@ function App() {
                     <LeftMenu username={username}></LeftMenu>
                     <div className="col">
                         {
-                            postList.map((post) => <PostWithImg {...post} postList={postList} setPostList={setPostList}/>)
+                            postList.map((post) => <PostWithImg {...post} postList={postList} setPostList={setPostList} userImg={ten}/>)
                         }
                     </div>
                     <RightMenu postList={postList} setPostList={setPostList}

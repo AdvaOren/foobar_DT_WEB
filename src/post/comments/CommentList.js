@@ -1,7 +1,6 @@
 import Comment from "./Comment";
 
 function CommentList({id, commentList, input, username, addComment}) {
-
     return (
         <div className="modal fade" id={"comments-section" + id}
              tabIndex="-1"
@@ -20,9 +19,11 @@ function CommentList({id, commentList, input, username, addComment}) {
                         <ul>
                             {
                                 commentList?.map((comment, key) =>
+
                                     <Comment
                                         className="comment" {...comment}
                                         key={key}></Comment>)
+
                             }</ul>
                     </div>
                     <div className="modal-footer">

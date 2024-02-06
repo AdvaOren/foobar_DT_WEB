@@ -21,7 +21,6 @@ function CommentsBtn({comments, id, username}) {
         console.log(commentList.length)
         numComments = commentList.length + 1
         visual.innerHTML = numComments + " comments"
-        console.log(numComments)
     }
     return (
         <div className="col">

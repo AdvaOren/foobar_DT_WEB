@@ -17,7 +17,7 @@ function EditPostModal({id, postText}) {
                                 data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         <h1 className="modal-title fs-5 comment-section-title"
-                            id="exampleModalLabel1">modal title
+                            id="exampleModalLabel">modal title
                             section</h1>
                     </div>
                     <div className="modal-body">

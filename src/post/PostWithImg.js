@@ -46,7 +46,7 @@ function PostWithImg({
                 <div className="post-time">{time}</div>
             </div>
             <p className="card-text" ref={PostText}> {text}</p>
-            <img src={img}></img>
+            <img src={img} alt={""}></img>
             <div className="card-body">
                 <div className="container text-center">
                     <div className="row">

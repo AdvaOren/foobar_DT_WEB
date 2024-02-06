@@ -1,10 +1,10 @@
 function Likebtn({id, initLikes = 0}) {
     let isLiked = false
     let likeCount = initLikes
-
     const addLike = () => {
         const likes = document.getElementById(id);
         const btn = document.getElementById(id + 'b')
+
         if (!isLiked) {
             likeCount++
             likes.innerHTML = likeCount + " likes"

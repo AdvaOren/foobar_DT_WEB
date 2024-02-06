@@ -2,6 +2,8 @@ import UsernameBtn from "./UsernameBtn";
 import SavedPostsBtn from "./SavedPostsBtn";
 import CommunitiesBtn from "./CommunitiesBtn";
 import FriendBtn from "./FriendBtn";
+import Memories from "./Memories";
+import Salesbtn from "./Salesbtn";
 
 function LeftMenu({username}) {
     return (
@@ -11,6 +13,8 @@ function LeftMenu({username}) {
                 <SavedPostsBtn></SavedPostsBtn>
                 <FriendBtn></FriendBtn>
                 <CommunitiesBtn></CommunitiesBtn>
+                <Memories></Memories>
+                <Salesbtn></Salesbtn>
             </div>
         </div>
     )

@@ -1,10 +1,11 @@
+
 [
   {
     "text": "luka crazy game!",
     "username": "daniel kfir",
     "id": "1",
     "time": "one day ago",
-    "img": "%PUBLIC_URL%/images/luka73.jpg",
+    "img": ".../public/luka73new.jpg",
     "initLikes": 45,
     "comments": [
       {
@@ -17,7 +18,7 @@
     "username": "daniel kfir",
     "id": "2",
     "time": "one week ago",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "img": "",
     "comments": []
   },
   {
@@ -25,7 +26,7 @@
     "username": "tzuriel luzon",
     "id": "3",
     "time": "now",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "img": "",
     "initLikes": 151,
     "comments": []
   },
@@ -34,7 +35,7 @@
     "username": "eliya kfir",
     "id": "4",
     "time": "one day ago",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "img": "",
     "initLikes": 500,
     "comments": []
   },
@@ -43,7 +44,7 @@
     "username": "hemi hemi",
     "id": "5",
     "time": "17:40 yesterday",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "img": "public/nice job.jpg",
     "comments": []
   },
   {
@@ -51,7 +52,7 @@
     "username": "daniel kfir",
     "id": "6",
     "time": "now",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "img": "",
     "comments": []
   },
   {
@@ -59,7 +60,7 @@
     "username": "dan dan",
     "id": "7",
     "time": "one day ago",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "img": "",
     "comments": []
   },
   {
@@ -67,7 +68,7 @@
     "username": "daniel kfir",
     "id": "8",
     "time": "one day ago",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "img": "",
     "comments": []
   },
   {
@@ -75,7 +76,7 @@
     "username": "daniel kfir",
     "id": "9",
     "time": "one day ago",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "img": "",
     "comments": []
   },
   {
@@ -83,7 +84,7 @@
     "username": "daniel kfir",
     "id": "10",
     "time": "one day ago",
-    "img": "C:\\Users\\danie\\CLionProjects\\foobar_DT_WEB\\public\\images\\luka73.jpg",
+    "img": "public/10.jpg",
     "comments": []
   }
 ]
