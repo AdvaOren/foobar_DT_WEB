@@ -1,6 +1,6 @@
 import './Signup.css'
 import Birthdate, {updateValuesBirthdate} from "./birthdate/Birthdate";
-import Gender from "./gender/Gender";
+import Gender, {updateValuesGender} from "./gender/Gender";
 import InputBoxes, {updateValuesInputBox} from "./input_boxes/InputBoxes"
 import {useRef, useState} from "react";
 import Image, {updateValuesImage} from "./image/Image";
@@ -30,9 +30,10 @@ function Signup({loginMembers}) {
     [gender, setGender] = useState('M');
     [img, setImg] = useState('');
     const closeRef = useRef(null);
+    const resetRef = useRef(null);
     signupRef = useRef('');
 
-    const newMember = {
+    let newMember = {
         "firstName": "",
         "lastName": "",
         "email": "",
@@ -65,7 +66,7 @@ function Signup({loginMembers}) {
         } else if (!checkPassword()) { //check the password stand in the criteria
             handlePasswordNotValid(newMember);
         } else { //add the new member
-            addMember(e, newMember, loginMembers, closeRef);
+            addMember(e, newMember, loginMembers, closeRef,resetRef);
         }
     }
 
@@ -102,11 +103,12 @@ function Signup({loginMembers}) {
                                 agree to our Terms, Privacy Policy and Cookies Policy. You may receive
                                 SMS notifications from us and can opt out at any time.</p>
                             <div className="row">
-                                <button type="submit" onClick={signupCLicked}
-                                        className="col-4 fs-5 p-0 btn btn-signup fw-bold top-50 start-50 translate-middle-x">Sign
-                                    Up
+                                <button type="submit" onClick={signupCLicked} title="submit-btn"
+                                        className="col-4 fs-5 p-0 btn btn-signup fw-bold top-50 start-50 translate-middle-x">
+                                    Sign Up
                                 </button>
                             </div>
+                            <button className="float-start d-none" type="reset" ref={resetRef}></button>
                         </form>
                     </div>
                 </div>
@@ -152,16 +154,18 @@ function handlePasswordsNotMatch(newMember) {
 
 /**
  * The function add new member to the system
- * Input: the event, the new member, all the members, and ref to the close button
+ * Input: the event, the new member, all the members, and ref to the close button and the reset button
  */
-function addMember(e, newMember, loginMembers, closeRef) {
+function addMember(e, newMember, loginMembers, closeRef,resetRef) {
     e.preventDefault()
-    loginMembers.push(newMember);
+    const copy = JSON.parse(JSON.stringify(newMember));
+    loginMembers.push(copy);
     console.log("add new member")
     updateValuesInputBox("", "", "", "","");
     updateValuesBirthdate("", "", "");
     updateValuesImage("");
-    resetMember(newMember);
+    updateValuesGender("")
+    resetMember(newMember,resetRef);
     closeRef.current.click();
     signupRef.current.classList.remove('was-validated')
 }
@@ -231,11 +235,11 @@ function initMemeber(member) {
 /**The function reset the member
  * Input: the member to reset
  */
-function resetMember(member) {
+function resetMember(member,resetRef) {
     Object.keys(member).forEach(key => {
         member[key] = ""
     });
-    img =""
+    resetRef.current.click();
 }
 
 /** the function check two thing:

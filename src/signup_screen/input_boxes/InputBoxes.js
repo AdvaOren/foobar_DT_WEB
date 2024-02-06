@@ -54,9 +54,7 @@ function InputBoxes({setFirstName, setLastName, setEmail, setPassword, setPasswo
                 <input type="password" className="form-control bg-body-secondary m-t-10px"
                        id="validationSignUpPassword"
                        placeholder="password" required ref={passwordRef}
-                       onChange={(e) => setPassword(e.target.value)}
-                       data-bs-toggle="popover" data-bs-custom-class="custom-popover" data-bs-title="Custom popover"
-                       data-bs-content="This popover is themed via CSS variables."></input>
+                       onChange={(e) => setPassword(e.target.value)}></input>
                 <div className="invalid-feedback">Password don't stand in the criteria</div>
 
             </div>

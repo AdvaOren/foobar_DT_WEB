@@ -6,25 +6,7 @@ import React from "react";
 
 function App() {
 
-    const members = [{
-        "firstName": "a",
-        "lastName": "aa",
-        "email": "zxc",
-        "password": "zz",
-        "day": "1",
-        "month": "2",
-        "year": "2024",
-        "gender": "M"
-    }, {
-        "firstName": "q",
-        "lastName": "qq",
-        "email": "qwe",
-        "password": "ww",
-        "day": "11",
-        "month": "3",
-        "year": "2022",
-        "gender": "F",
-    }]
+    const members = []
     return (
         <>
             <Logo/>

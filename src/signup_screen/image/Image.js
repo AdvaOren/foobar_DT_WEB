@@ -10,7 +10,7 @@ function Image({img,setImg}) {
     return (
         <>
             <label className="form-label" htmlFor="imgFile">Default file input example</label>
-            <input type="file" className="form-control" id="imgFile" required ref={imgInputRef}
+            <input type="file" className="form-control" id="imgFile" required ref={imgInputRef} title="img-input"
                    onChange={(e) => setImg(URL.createObjectURL(e.target.files[0]))}></input>
             <img src={img} className="rounded m-t-10px" alt="" ref={imgRef}></img>
         </>

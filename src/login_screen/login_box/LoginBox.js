@@ -52,14 +52,13 @@ function LoginBox({loginMembers}) {
                         <div className="row  m-t-0">
                             <label htmlFor="validationLogin2" className="form-label"></label>
                             <input type="password" className="form-control input-lg" id="validationLogin2"
-                                   placeholder="password" required ref={passwordRef}
+                                   placeholder="Password" required ref={passwordRef}
                                    onChange={(e) => setPassword(e.target.value)}></input>
                             <div className="invalid-feedback">email or password incorrect</div>
                         </div>
                         <div className="row ">
                             <button className="btn btn-primary btn-login-box fw-bold" type="submit"
-                                    onClick={check}>Log
-                                in
+                                    onClick={check}>Log in
                             </button>
                         </div>
                         <div className="row text-center m-t-15px">
