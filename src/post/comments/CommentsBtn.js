@@ -4,21 +4,23 @@ import CommentList from "./CommentList";
 
 function CommentsBtn({comments, id, username}) {
     let numComments = comments.length;
-
     const input = useRef(null)
-    let [commentList, setComments] = useState(comments)
+    const [commentList, setCommentList] = useState(comments)
+    const [commentsNumID, setCommentsNumID] = useState(comments.length)
 
     const addComment = () => {
         const visual = document.getElementById(id + "visual")
         const newComment = {
-            "commentText": input.current.value
+            "commentText":
+            input.current.value,
+            "id": id + commentsNumID,
         }
         if (input.current.value === '') {
             return
         }
-        setComments([...commentList, newComment])
+        setCommentList([...commentList, newComment])
+        setCommentsNumID(commentsNumID + 1)
         input.current.value = ''
-        console.log(commentList.length)
         numComments = commentList.length + 1
         visual.innerHTML = numComments + " comments"
     }
@@ -43,7 +45,7 @@ function CommentsBtn({comments, id, username}) {
 
                 <CommentList id={id} commentList={commentList}
                              addComment={addComment} username={username}
-                             input={input}></CommentList>
+                             input={input} setCommentsList={setCommentList}></CommentList>
             </div>
         </div>
     )

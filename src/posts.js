@@ -3,6 +3,11 @@ import thinking from './thinking.jpg'
 import luka from './luka73new.jpg'
 import great from './great.jpg'
 import nice from './nice job.jpg'
+import aLot from './a lot pf posts.jpg'
+import DK from './DKprofimg.jpg'
+import LUZON from './luzonprofImg.jpg'
+import hemi from './hemi.jpg'
+import eliya from './eliya.png'
 const posts = [
     {
         "text": "luka crazy game!",
@@ -10,6 +15,7 @@ const posts = [
         "id": "1",
         "time": "one day ago",
         "img": luka,
+        "userImg": DK,
         "initLikes": 45,
         "comments": [
             {
@@ -23,6 +29,7 @@ const posts = [
         "id": "2",
         "time": "one week ago",
         "img": luka,
+        "userImg": DK,
         "comments": []
     },
     {
@@ -30,7 +37,8 @@ const posts = [
         "username": "tzuriel luzon",
         "id": "3",
         "time": "now",
-        "img": "",
+        "img": great,
+        "userImg": LUZON,
         "initLikes": 151,
         "comments": []
     },
@@ -40,6 +48,7 @@ const posts = [
         "id": "4",
         "time": "one day ago",
         "img": great,
+        "userImg": eliya,
         "initLikes": 500,
         "comments": []
     },
@@ -49,6 +58,7 @@ const posts = [
         "id": "5",
         "time": "17:40 yesterday",
         "img": nice,
+        "userImg": hemi,
         "comments": []
     },
     {
@@ -56,6 +66,7 @@ const posts = [
         "username": "daniel kfir",
         "id": "6",
         "time": "now",
+        "userImg": DK,
         "img": thinking,
         "comments": []
     },
@@ -64,7 +75,8 @@ const posts = [
         "username": "dan dan",
         "id": "7",
         "time": "one day ago",
-        "img": "",
+        "img": aLot,
+        "userImg": DK,
         "comments": []
     },
     {
@@ -72,7 +84,8 @@ const posts = [
         "username": "daniel kfir",
         "id": "8",
         "time": "one day ago",
-        "img": "",
+        "img": aLot,
+        "userImg": DK,
         "comments": []
     },
     {
@@ -80,7 +93,8 @@ const posts = [
         "username": "daniel kfir",
         "id": "9",
         "time": "one day ago",
-        "img": "",
+        "img": aLot,
+        "userImg": DK,
         "comments": []
     },
     {
@@ -89,6 +103,7 @@ const posts = [
         "id": "10",
         "time": "one day ago",
         "img": ten ,
+        "userImg": DK,
         "comments": []
     }
 ]

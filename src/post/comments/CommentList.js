@@ -1,6 +1,13 @@
 import Comment from "./Comment";
 
-function CommentList({id, commentList, input, username, addComment}) {
+function CommentList({
+                         id,
+                         commentList,
+                         input,
+                         username,
+                         addComment,
+                         setCommentsList
+                     }) {
     return (
         <div className="modal fade" id={"comments-section" + id}
              tabIndex="-1"
@@ -22,13 +29,14 @@ function CommentList({id, commentList, input, username, addComment}) {
 
                                     <Comment
                                         className="comment" {...comment}
-                                        key={key}></Comment>)
+                                        key={key} commentList={commentList}
+                                        setCommentList={setCommentsList}></Comment>)
 
                             }</ul>
                     </div>
                     <div className="modal-footer">
-                        <input ref={input} className={"input-comment"}/>type
-                        your comment here!
+                        <input ref={input} className={"input-comment"}
+                               placeholder={"type your comment here!"}/>
                         <button type="button"
                                 className="btn btn-primary"
                                 onClick={addComment}>

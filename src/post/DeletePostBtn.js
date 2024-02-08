@@ -1,10 +1,10 @@
-function DeletePostBtn({postList, setPostList,id}) {
 
+
+function DeletePostBtn({postList, setPostList,id}) {
     const deletePost = () => {
         const newList = postList.filter((oldPost) => oldPost.id !== id);
         setPostList(newList);
     }
-    console.log(postList)
     return (
         <div className="dropdown-item">
             <button className="dropdown-item" onClick={deletePost}>delete post

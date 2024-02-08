@@ -5,7 +5,7 @@ import EditPostBtn from "../post/EditPost/EditPostBtn";
 
 function RightMenu({postList,setPostList,username}) {
     return (
-        <div className="col">
+        <div className="col-2">
             <div className="container left-menu">
                 <AddPostBtn postList={postList} setPostList={setPostList} username={username}></AddPostBtn>
                 <SavePostBtn></SavePostBtn>

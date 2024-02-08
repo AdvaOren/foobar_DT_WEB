@@ -4,7 +4,7 @@ function EditPostBtn({postText, id}) {
 
     return (
         <div>
-            <div className="dropdown-item">
+            {/*<div className="dropdown-item">
                 <button className="dropdown-item" data-bs-toggle="modal"
                         data-bs-target={"#editPostModal" + id}>edit post
                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -16,7 +16,7 @@ function EditPostBtn({postText, id}) {
                     </svg>
                 </button>
             </div>
-            <EditPostModal id={id} postText={postText}></EditPostModal>
+            <EditPostModal id={id} postText={postText}></EditPostModal>*/}
         </div>
     )
 }

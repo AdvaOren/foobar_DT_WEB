@@ -7,7 +7,7 @@ import Salesbtn from "./Salesbtn";
 
 function LeftMenu({username}) {
     return (
-        <div className="col">
+        <div className="col-4">
             <div className="container right-menu">
                 <UsernameBtn username={username}></UsernameBtn>
                 <SavedPostsBtn></SavedPostsBtn>

@@ -2,8 +2,9 @@ import {useRef} from "react";
 
 function EditPostModal({id, postText}) {
     const newText = useRef(null)
+
     const handleEdit = () => {
-        postText.innerHTML = newText.current.value;
+        postText.current.innerText = newText.current.value;
         newText.current.value = ''
     }
     return (
@@ -21,11 +22,10 @@ function EditPostModal({id, postText}) {
                             section</h1>
                     </div>
                     <div className="modal-body">
-                        ...
-                    </div>
-                    <div className="modal-footer">
                         <input className={"input-comment"} ref={newText}/>put
                         new text here!
+                    </div>
+                    <div className="modal-footer">
                         <button type="button"
                                 className="btn btn-primary"
                                 onClick={handleEdit}>edit post
