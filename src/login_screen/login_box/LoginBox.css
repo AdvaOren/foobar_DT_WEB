@@ -14,7 +14,6 @@
 .btn-signin{
     background-color: #42b62a;
     color: #eff1f4;
-    position: relative;
 
     width: fit-content;
 }
@@ -37,4 +36,7 @@
 }
 a{
     text-decoration: none;
+}
+.LF-DM {
+    background-color: #313331;
 }

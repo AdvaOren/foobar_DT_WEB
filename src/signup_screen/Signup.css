@@ -7,7 +7,6 @@
 }
 .btn-signup{
     height: fit-content !important;
-    position: relative;
     background-color: #00a301;
     color: #eff1f4;
 }
@@ -25,4 +24,8 @@
 }
 #sub-title{
     padding-left: 10px;
+}
+.signup-img {
+    width: 300px;
+    border-radius: 5px;
 }

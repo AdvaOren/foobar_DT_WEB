@@ -4,7 +4,7 @@ import './Logo.css'
 function Logo(){
     return (
         <div>
-            <div className="row logo">
+            <div id={"logo"} className="row logo">
                 <div className="col-2"></div>
                 <div className="col-2 fw-bolder text-primary ">foobar_DT</div>
             </div>

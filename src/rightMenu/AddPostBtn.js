@@ -1,7 +1,7 @@
 import {useRef, useState} from "react";
 
 let numPosts = 10;
-function AddPostBtn({postList, setPostList, username}) {
+function AddPostBtn({postList, setPostList, username,userImg}) {
     const ref = useRef(null)
     const [img, setImg] = useState('')
     const addPost = () => {
@@ -9,6 +9,7 @@ function AddPostBtn({postList, setPostList, username}) {
             "text": ref.current.value,
             "id": numPosts + 1,
             "username": username,
+            "userImg" : userImg,
             "img": img,
             "time": "now",
             "comments": []
