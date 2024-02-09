@@ -1,0 +1,139 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+.post-title{
+  text-align: right;
+}
+.card {
+  border: 0;
+  margin: 20px;
+  width: 30rem;
+}
+.post-btn{
+  width: 120px;
+}
+.post-btn:hover{
+  background-color: lightgray;
+}
+.post-btn:active {
+  background-color: lightgray;
+}
+.menu-btn {
+  border: 0;
+  background-color: transparent;
+  width: 300px;
+  height: 40px;
+}
+.menu-btn:hover{
+  background-color: lightgray;
+}
+.nav-bg-light {
+  background-color: lightblue;
+}
+.nav-icons {
+  margin: 10px;
+  width: 50px;
+  background-color: transparent;
+  border: 0;
+}
+.nav-icons:hover {
+  cursor: pointer;
+}
+.logo-btn {
+  border: 0;
+  background-color: transparent;
+}
+.logo:hover {
+  cursor: pointer;
+}
+.post-user-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 7px;
+  float: right;
+}
+.post-user-img:hover {
+  cursor: pointer;
+}
+.left-menu-btn {
+  text-align: center;
+  border: 0;
+  background-color: transparent;
+  width: 300px;
+  height: 40px;
+}
+.left-menu-btn:hover {
+  background-color: lightgray;
+}
+.left-menu {
+  text-align: right;
+}
+.active-like-btn {
+  background-color: lightgray;
+}
+.comment {
+  background-color: lightgray;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  text-align: left;
+  list-style: none;
+}
+.input-comment {
+  background-color: lightgray;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+  padding: 5px;
+}
+.comment-section-title {
+  text-align: center;
+}
+.add-post-img {
+  width: 450px;
+}
+.right-menu {
+
+}
+.post-options {
+  text-align: left;
+}
+.post-dropdown {
+  width: 50px;
+  background-color: transparent;
+  border: 0;
+}
+.comment-dropdown {
+  height: 20px;
+  float: right;
+  position: relative;
+}
+.edit-comment-btn {
+  text-align: center;
+  width: 190px;
+  border: 0;
+  border-radius: 5px;
+}
+.dark-mode-app {
+  background-color: black;
+}
+.nav-bg-dark {
+ background-color: darkblue;
+}
+.body-dark {
+  background-color: #313331;
+}
+
+
+
+
