@@ -72,7 +72,7 @@ function Signup({loginMembers}) {
 
 
     return (
-        <div className="modal fade" id="signinModal" tabIndex="-1" aria-labelledby="modalLabel"
+        <div className="modal fade" id="signupModal"  tabIndex="-1" aria-labelledby="modalLabel"
              aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">

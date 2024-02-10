@@ -16,7 +16,7 @@ function FeedScreen() {
     const [postList, setPostList] = useState(posts)
     console.log(firstN," " ,lastN)
     return (
-        <div id={"app"} className="App dark-mode-app">
+        <div id={"app"} className="App">
             <NavBar></NavBar>
             <div id={"body"} className="container text-center bg-body-tertiary">
                 <div className="row">

@@ -51,16 +51,19 @@ function LoginBox({loginMembers}) {
     const changeColorMode = () => {
         const loginForm =document.getElementById("loginForm")
         const logo = document.getElementById("logo")
-        const signUpForm = document.getElementById("signinModal")
+        const signUpForm = document.getElementById("signupModal")
+        const bg = document.getElementById("signin-bg")
         if (loginForm.className === "container-fluid g-3 needs-validation") {
             loginForm.className = "container-fluid g-3 needs-validation LF-DM"
             logo.className = "row logo L-DM"
             signUpForm.className = "modal fade SUF-DM"
+            bg.className = "DM"
         }
         else {
             loginForm.className = "container-fluid g-3 needs-validation"
             logo.className = "row logo"
             signUpForm.className = "modal fade"
+            bg.className = ''
         }
     }
 

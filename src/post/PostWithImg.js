@@ -17,6 +17,7 @@ function PostWithImg({
                          comments, postList, setPostList
 
                      }) {
+    const [Rimg, setImg] = useState(img)
     const PostText = useRef(text)
     return (
         <div className="card">
@@ -62,8 +63,8 @@ function PostWithImg({
                 <div className="post-time">{time}</div>
             </div>
             <p className="card-text" ref={PostText}> {text}</p>
-            <EditPostModal id={id} postText={PostText}></EditPostModal>
-            <img src={img} alt={""}></img>
+            <EditPostModal id={id} postText={PostText} img={Rimg} setImg={setImg}></EditPostModal>
+            <img src={Rimg} alt={""}></img>
             <div className="card-body">
                 <div className="container text-center">
                     <div className="row">

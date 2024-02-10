@@ -10,7 +10,7 @@ function App() {
 
     const members = []
     return (
-        <>
+        <div id={"signin-bg"}>
             <BrowserRouter>
                 <Routes>
                     <Route path={"/"} element={<><Logo/> <LoginBox
@@ -19,7 +19,7 @@ function App() {
                 </Routes>
             </BrowserRouter>
             <Signup loginMembers={members}/>
-        </>
+        </div>
     );
 }
 
