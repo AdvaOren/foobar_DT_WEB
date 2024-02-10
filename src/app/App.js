@@ -8,7 +8,12 @@ import FeedScreen from "../feedScreen/FeedScreen";
 
 function App() {
 
-    const members = []
+    const members = [{
+        "email": "a",
+        "first name": "d",
+        "last name": "k",
+        "password": "a"
+    }]
     return (
         <div id={"signin-bg"}>
             <BrowserRouter>
