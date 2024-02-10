@@ -6,7 +6,6 @@ import Memories from "./Memories";
 import Salesbtn from "./Salesbtn";
 
 function LeftMenu({firstN,LastN,img}) {
-    console.log(firstN)
     return (
         <div className="col-4">
             <div className="container right-menu">

@@ -1,8 +1,20 @@
-
-
-function DeletePostBtn({postList, setPostList,id}) {
+function DeletePostBtn({postList, setPostList, id}) {
     const deletePost = () => {
-        const newList = postList.filter((oldPost) => oldPost.id !== id);
+        let list = postList;
+        let index = 0;
+        list.forEach((post) => {
+            if (post.id === id) {
+                index = list.indexOf(post);
+            }
+        })
+        for (let i = index; i < list.length - 1; i++) {
+            let temp = list[i];
+            list[i] = list[i + 1];
+            list[i + 1] = temp;
+        }
+        console.log(list)
+        const newList = list.filter((oldPost) => oldPost.id !== id);
+        console.log(newList)
         setPostList(newList);
     }
     return (

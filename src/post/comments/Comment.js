@@ -1,7 +1,14 @@
 import {useRef, useState} from "react";
 
-function Comment({commentText, id, commentList, setCommentList}) {
-    const [text,setText] = useState(commentText)
+function Comment({
+                     commentText,
+                     id,
+                     commentList,
+                     setCommentList,
+                     currentUsername,
+                     currentUserImg
+                 }) {
+    const [text, setText] = useState(commentText)
     const ref = useRef(null)
     const newText = useRef(null)
     const deleteComment = () => {
@@ -18,7 +25,10 @@ function Comment({commentText, id, commentList, setCommentList}) {
     }
 
     return (
-        <li className={"comment"} id={id} ref={ref}>{text}
+        <li className={"comment"} id={id} ref={ref}>
+            <div>{currentUsername} <img src={currentUserImg}></img></div>
+            {text}
+
             <button
                 className={"btn comment-dropdown dropdown dropdown-toggle"}
                 type="button" data-bs-toggle="dropdown"

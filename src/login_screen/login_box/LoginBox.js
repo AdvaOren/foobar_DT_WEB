@@ -37,7 +37,7 @@ function LoginBox({loginMembers}) {
             //userMember.firstName;
             //userMember.lastName;
             //userMember.img;
-            console.log(userMember.firstName)
+            console.log(userMember.firstName, userMember.lastName)
             navigate("/feedScreen", {
                     state: {
                         firstN: userMember.firstName,
@@ -117,7 +117,7 @@ function LoginBox({loginMembers}) {
                                     data-bs-target="#signinModal">create new
                                 account
                             </button>
-                            <button className="color-mode-btn" onClick={changeColorMode}>
+                            <button className="color-mode-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      width="16" height="16" fill="currentColor"
                                      className="bi bi-palette-fill"

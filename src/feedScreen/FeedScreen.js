@@ -14,7 +14,8 @@ function FeedScreen() {
     const lastN = location.state.LastN;
     const userImg = location.state.userImg
     const [postList, setPostList] = useState(posts)
-    console.log(firstN," " ,lastN)
+
+
     return (
         <div id={"app"} className="App">
             <NavBar></NavBar>
@@ -25,6 +26,8 @@ function FeedScreen() {
                     <div className="col-6">
                         {
                             postList.map((post) => <PostWithImg {...post}
+                                                                currentUsername={firstN + " " + lastN}
+                                                                currentUserImg={userImg}
                                                                 postList={postList}
                                                                 setPostList={setPostList}/>)
                         }

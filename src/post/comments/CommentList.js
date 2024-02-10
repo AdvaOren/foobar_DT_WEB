@@ -30,7 +30,8 @@ function CommentList({
                                     <Comment
                                         className="comment" {...comment}
                                         key={key} commentList={commentList}
-                                        setCommentList={setCommentsList}></Comment>)
+                                        setCommentList={setCommentsList}
+                                    ></Comment>)
 
                             }</ul>
                     </div>

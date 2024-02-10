@@ -2,7 +2,13 @@ import {useRef, useState} from "react";
 import CommentList from "./CommentList";
 
 
-function CommentsBtn({comments, id, username}) {
+function CommentsBtn({
+                         comments,
+                         id,
+                         username,
+                         currentUserImg,
+                         currentUsername
+                     }) {
     let numComments = comments.length;
     const input = useRef(null)
     const [commentList, setCommentList] = useState(comments)
@@ -11,9 +17,10 @@ function CommentsBtn({comments, id, username}) {
     const addComment = () => {
         const visual = document.getElementById(id + "visual")
         const newComment = {
-            "commentText":
-            input.current.value,
+            "commentText": input.current.value,
             "id": id + commentsNumID,
+            currentUsername: currentUsername,
+            currentUserImg: currentUserImg
         }
         if (input.current.value === '') {
             return
@@ -44,8 +51,10 @@ function CommentsBtn({comments, id, username}) {
 
 
                 <CommentList id={id} commentList={commentList}
-                             addComment={addComment} username={username}
-                             input={input} setCommentsList={setCommentList}></CommentList>
+                             addComment={addComment}
+                             username={username}
+                             input={input}
+                             setCommentsList={setCommentList}></CommentList>
             </div>
         </div>
     )
