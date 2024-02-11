@@ -1,18 +1,12 @@
-function NavBar() {
-    const changeColorMode = () => {
-        const nav = document.getElementsByTagName("nav-fix");
-        const app = document.getElementById("app");
-        const body = document.getElementById("body");
-        if (app.className === "App") {
-            app.className = "App dark-mode-app";
-            nav.className = "navbar navbar-expand-lg nav-bg-dark"
-            body.className = "container text-center body-dark"
-        }
-        else {
-            app.className = "App";
-            nav.className = "navbar navbar-expand-lg nav-bg-light"
-            body.className = "container text-center bg-body-tertiary"
-        }
+import {useState} from "react";
+
+function NavBar({oldTheme}) {
+    const [theme, setTheme] = useState('light');
+    const changeColorMode = (e) => {
+        e.preventDefault();
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        document.documentElement.setAttribute('data-bs-theme', newTheme);
     }
     return (
         <nav className="navbar navbar-expand-lg nav-bg-light">
@@ -38,7 +32,8 @@ function NavBar() {
                      id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li>
-                            <button className={"nav-item nav-icons"} onClick={changeColorMode}>
+                            <button className={"nav-item nav-icons"}
+                                    onClick={changeColorMode}>
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      width="16" height="16" fill="currentColor"
                                      className="bi bi-palette-fill"

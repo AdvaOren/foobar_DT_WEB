@@ -4,20 +4,30 @@ import LeftMenu from "../left-menu/LeftMenu";
 import RightMenu from "../rightMenu/RightMenu";
 import NavBar from "../NavBar/NavBar";
 import posts from "../posts.js"
-import {useState} from "react";
-import {useLocation} from 'react-router-dom';
+import {useEffect, useState} from "react";
+import {useLocation, useNavigate} from 'react-router-dom';
 
 
 function FeedScreen() {
     const location = useLocation();
-    const firstN = location.state.firstN
-    const lastN = location.state.LastN;
-    const userImg = location.state.userImg
-    const [postList, setPostList] = useState(posts)
+    const navigate = useNavigate()
 
+    const firstN = location?.state?.firstN
+    const lastN = location?.state?.LastN;
+    const userImg = location?.state?.userImg
+    const theme = location?.state?.theme
+    const didLogin = location?.state?.didLogin
+    useEffect(() => {
+        if (didLogin === undefined) {
+            console.log(didLogin)
+            navigate("/");
+        }
+    });
+
+    const [postList, setPostList] = useState(posts)
     return (
         <div id={"app"} className="App">
-            <NavBar></NavBar>
+            <NavBar theme={theme}></NavBar>
             <div id={"body"} className="container text-center bg-body-tertiary">
                 <div className="row">
                     <LeftMenu firstN={firstN} LastN={lastN}
@@ -28,7 +38,8 @@ function FeedScreen() {
                                                                 currentUsername={firstN + " " + lastN}
                                                                 currentUserImg={userImg}
                                                                 postList={postList}
-                                                                setPostList={setPostList}/>)
+                                                                setPostList={setPostList}
+                                                                key={post.id}/>)
                         }
                     </div>
                     <RightMenu postList={postList} setPostList={setPostList}
