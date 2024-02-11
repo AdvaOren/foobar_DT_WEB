@@ -15,7 +15,6 @@ function FeedScreen() {
     const userImg = location.state.userImg
     const [postList, setPostList] = useState(posts)
 
-
     return (
         <div id={"app"} className="App">
             <NavBar></NavBar>

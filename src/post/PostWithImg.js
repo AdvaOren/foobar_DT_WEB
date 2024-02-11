@@ -84,7 +84,7 @@ function PostWithImg({
                             <CommentsBtn id={id + "c"} comments={comments}
                                          username={username}
                                          currentUsername={currentUsername}
-                                         currentuserImg={currentUserImg}>
+                                         currentUserImg={currentUserImg}>
 
                             </CommentsBtn>
                             <ShareBtn></ShareBtn>

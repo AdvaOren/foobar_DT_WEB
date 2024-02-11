@@ -138,3 +138,7 @@ code {
     border-radius: 2px;
     float: left;
 }
+.comment-user-img {
+    width: 50px;
+    border-radius: 5px;
+}

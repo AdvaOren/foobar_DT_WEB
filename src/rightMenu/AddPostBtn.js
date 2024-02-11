@@ -5,6 +5,7 @@ function AddPostBtn({postList, setPostList, username,userImg}) {
     const ref = useRef(null)
     const [img, setImg] = useState('')
     const addPost = () => {
+        console.log(userImg)
         const newPost = {
             "text": ref.current.value,
             "id": numPosts + 1,

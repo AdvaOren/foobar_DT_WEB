@@ -12,10 +12,10 @@ function DeletePostBtn({postList, setPostList, id}) {
             list[i] = list[i + 1];
             list[i + 1] = temp;
         }
-        console.log(list)
         const newList = list.filter((oldPost) => oldPost.id !== id);
-        console.log(newList)
-        setPostList(newList);
+        setPostList(postList => list);
+        setPostList(list => newList);
+        //postList.forceUpdate(setPostList);
     }
     return (
         <div className="dropdown-item">

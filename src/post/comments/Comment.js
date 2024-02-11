@@ -26,7 +26,7 @@ function Comment({
 
     return (
         <li className={"comment"} id={id} ref={ref}>
-            <div>{currentUsername} <img src={currentUserImg}></img></div>
+            <div>{currentUsername} <img src={currentUserImg} className={"comment-user-img"} alt={""}></img></div>
             {text}
 
             <button
