@@ -19,7 +19,6 @@ function FeedScreen() {
     const didLogin = location?.state?.didLogin
     useEffect(() => {
         if (didLogin === undefined) {
-            console.log(didLogin)
             navigate("/");
         }
     });
