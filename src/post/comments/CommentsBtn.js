@@ -2,18 +2,23 @@ import {useRef, useState} from "react";
 import CommentList from "./CommentList";
 
 
-function CommentsBtn({comments, id, username}) {
-    let numComments = comments.length;
+function CommentsBtn({
+                         comments,
+                         id,
+                         username,
+                         currentUserImg,
+                         currentUsername
+                     }) {
     const input = useRef(null)
+    const [numComments,setNumComments] = useState(comments.length)
     const [commentList, setCommentList] = useState(comments)
     const [commentsNumID, setCommentsNumID] = useState(comments.length)
-
     const addComment = () => {
-        const visual = document.getElementById(id + "visual")
         const newComment = {
-            "commentText":
-            input.current.value,
+            "commentText": input.current.value,
             "id": id + commentsNumID,
+            currentUsername: currentUsername,
+            currentUserImg: currentUserImg
         }
         if (input.current.value === '') {
             return
@@ -21,8 +26,8 @@ function CommentsBtn({comments, id, username}) {
         setCommentList([...commentList, newComment])
         setCommentsNumID(commentsNumID + 1)
         input.current.value = ''
-        numComments = commentList.length + 1
-        visual.innerHTML = numComments + " comments"
+        setNumComments(numComments => numComments + 1);
+        console.log(numComments)
     }
     return (
         <div className="col">
@@ -44,8 +49,12 @@ function CommentsBtn({comments, id, username}) {
 
 
                 <CommentList id={id} commentList={commentList}
-                             addComment={addComment} username={username}
-                             input={input} setCommentsList={setCommentList}></CommentList>
+                             addComment={addComment}
+                             username={username}
+                             input={input}
+                             setCommentsList={setCommentList}
+                             setNumComments={setNumComments}
+                             numComments={numComments}></CommentList>
             </div>
         </div>
     )

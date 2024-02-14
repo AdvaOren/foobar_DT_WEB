@@ -1,6 +1,6 @@
 import {useRef} from "react";
 
-function EditPostModal({id, postText}) {
+function EditPostModal({id, postText ,setImg,img}) {
     const newText = useRef(null)
 
     const handleEdit = () => {
@@ -22,10 +22,19 @@ function EditPostModal({id, postText}) {
                             section</h1>
                     </div>
                     <div className="modal-body">
-                        <input className={"input-comment"} ref={newText}/>put
-                        new text here!
+                        <>
+                            <label className="form-label"
+                                   htmlFor="imgFile"></label>
+                            <input type="file" className="form-control"
+                                   id="imgFile"
+                                   onChange={(e) => setImg(URL.createObjectURL(e.target.files[0]))}></input>
+                            <img src={img} className="rounded add-post-img"
+                                 alt=""></img>
+                        </>
                     </div>
                     <div className="modal-footer">
+                        <input className={"input-comment"} placeholder={"put" +
+                            " new text here!"} ref={newText}/>
                         <button type="button"
                                 className="btn btn-primary"
                                 onClick={handleEdit}>edit post

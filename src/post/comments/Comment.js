@@ -1,12 +1,23 @@
 import {useRef, useState} from "react";
 
-function Comment({commentText, id, commentList, setCommentList}) {
-    const [text,setText] = useState(commentText)
+function Comment({
+                     commentText,
+                     id,
+                     commentList,
+                     setCommentList,
+                     currentUsername,
+                     currentUserImg,
+                     setNumComments,
+                     numComments
+                 }) {
+    const [text, setText] = useState(commentText)
     const ref = useRef(null)
     const newText = useRef(null)
     const deleteComment = () => {
         const newList = commentList?.filter((c) => c.id !== id)
         setCommentList(newList)
+        setNumComments(numComments => numComments -1);
+        console.log(numComments)
     }
     const handleEdit = () => {
         if (newText.current.value === '') {
@@ -18,7 +29,12 @@ function Comment({commentText, id, commentList, setCommentList}) {
     }
 
     return (
-        <li className={"comment"} id={id} ref={ref}>{text}
+        <li className={"comment"} id={id} ref={ref}>
+            <div>{currentUsername} <img src={currentUserImg}
+                                        className={"comment-user-img"}
+                                        alt={""}></img></div>
+            {text}
+
             <button
                 className={"btn comment-dropdown dropdown dropdown-toggle"}
                 type="button" data-bs-toggle="dropdown"

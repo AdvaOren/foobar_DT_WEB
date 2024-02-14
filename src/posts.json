@@ -4,29 +4,28 @@
     "text": "luka crazy game!",
     "username": "daniel kfir",
     "id": "1",
+    "userImg": "/images/DKprofimg.jpg",
     "time": "one day ago",
-    "img": ".../public/luka73new.jpg",
+    "img": "/images/luka73new.jpg",
     "initLikes": 45,
-    "comments": [
-      {
-        "commentText": "hi"
-      }
-    ]
+    "comments": []
   },
   {
     "text": "did you hear about the crazy game?",
     "username": "daniel kfir",
     "id": "2",
+    "userImg": "/images/DKprofimg.jpg",
     "time": "one week ago",
-    "img": "",
+    "img": "/images/luka73new.jpg",
     "comments": []
   },
   {
     "text": "foobar_DT is great!",
     "username": "tzuriel luzon",
     "id": "3",
+    "userImg": "/images/luzonprofimg.jpg",
     "time": "now",
-    "img": "",
+    "img": "/images/great.jpg",
     "initLikes": 151,
     "comments": []
   },
@@ -34,8 +33,9 @@
     "text": "very good job",
     "username": "eliya kfir",
     "id": "4",
+    "userImg": "/images/eliya.jpg",
     "time": "one day ago",
-    "img": "",
+    "img": "/images/great.jpg",
     "initLikes": 500,
     "comments": []
   },
@@ -43,48 +43,54 @@
     "text": "hemi says: nice job!",
     "username": "hemi hemi",
     "id": "5",
+    "userImg": "/images/hemi.jpg",
     "time": "17:40 yesterday",
-    "img": "public/nice job.jpg",
+    "img": "/images/nice job.jpg",
     "comments": []
   },
   {
     "text": "pls work dammed btns",
     "username": "daniel kfir",
     "id": "6",
+    "userImg": "/images/DKprofimg.jpg",
     "time": "now",
-    "img": "",
+    "img": "/images/thinking.jpg",
     "comments": []
   },
   {
-    "text": "wow i have a lot of posts to write",
+    "text": "wow i have a lot pf posts to write",
     "username": "dan dan",
     "id": "7",
+    "userImg": "/images/DKprofimg.jpg",
     "time": "one day ago",
-    "img": "",
+    "img": "/images/a lot pf posts2.jpg",
     "comments": []
   },
   {
     "text": "is this only the 8th one??",
     "username": "daniel kfir",
     "id": "8",
+    "userImg": "/images/DKprofimg.jpg",
     "time": "one day ago",
-    "img": "",
+    "img": "/images/a lot pf posts2.jpg",
     "comments": []
   },
   {
     "text": "one more to go!!!",
     "username": "daniel kfir",
     "id": "9",
+    "userImg": "/images/DKprofimg.jpg",
     "time": "one day ago",
-    "img": "",
+    "img": "/images/a lot pf posts2.jpg",
     "comments": []
   },
   {
     "text": "FINALLY!",
     "username": "daniel kfir",
     "id": "10",
+    "userImg": "/images/DKprofimg.jpg",
     "time": "one day ago",
-    "img": "public/10.jpg",
+    "img": "/images/ten.jpg",
     "comments": []
   }
 ]

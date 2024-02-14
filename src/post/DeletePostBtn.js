@@ -1,9 +1,21 @@
-
-
-function DeletePostBtn({postList, setPostList,id}) {
+function DeletePostBtn({postList, setPostList, id}) {
     const deletePost = () => {
-        const newList = postList.filter((oldPost) => oldPost.id !== id);
-        setPostList(newList);
+        let list = postList;
+        let index = 0;
+        list.forEach((post) => {
+            if (post.id === id) {
+                index = list.indexOf(post);
+            }
+        })
+        for (let i = index; i < list.length - 1; i++) {
+            let temp = list[i];
+            list[i] = list[i + 1];
+            list[i + 1] = temp;
+        }
+        const newList = list.filter((oldPost) => oldPost.id !== id);
+        setPostList(postList => list);
+        setPostList(list => newList);
+        //postList.forceUpdate(setPostList);
     }
     return (
         <div className="dropdown-item">
