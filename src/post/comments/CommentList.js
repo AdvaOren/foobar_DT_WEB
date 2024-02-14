@@ -6,7 +6,9 @@ function CommentList({
                          input,
                          username,
                          addComment,
-                         setCommentsList
+                         setCommentsList,
+                         setNumComments,
+                         numComments
                      }) {
     return (
         <div className="modal fade" id={"comments-section" + id}
@@ -25,12 +27,15 @@ function CommentList({
                     <div className="modal-body">
                         <ul>
                             {
-                                commentList?.map((comment, key) =>
+                                commentList?.map((comment) =>
 
                                     <Comment
                                         className="comment" {...comment}
-                                        key={key} commentList={commentList}
+                                        key={comment.id}
+                                        commentList={commentList}
                                         setCommentList={setCommentsList}
+                                        setNumComments={setNumComments}
+                                        numComments={numComments}
                                     ></Comment>)
 
                             }</ul>

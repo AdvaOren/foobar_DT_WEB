@@ -3,7 +3,7 @@ import PostWithImg from "../post/PostWithImg";
 import LeftMenu from "../left-menu/LeftMenu";
 import RightMenu from "../rightMenu/RightMenu";
 import NavBar from "../NavBar/NavBar";
-import posts from "../posts.js"
+import posts from "../posts.json"
 import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from 'react-router-dom';
 

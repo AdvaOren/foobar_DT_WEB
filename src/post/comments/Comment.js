@@ -6,7 +6,9 @@ function Comment({
                      commentList,
                      setCommentList,
                      currentUsername,
-                     currentUserImg
+                     currentUserImg,
+                     setNumComments,
+                     numComments
                  }) {
     const [text, setText] = useState(commentText)
     const ref = useRef(null)
@@ -14,6 +16,8 @@ function Comment({
     const deleteComment = () => {
         const newList = commentList?.filter((c) => c.id !== id)
         setCommentList(newList)
+        setNumComments(numComments => numComments -1);
+        console.log(numComments)
     }
     const handleEdit = () => {
         if (newText.current.value === '') {
@@ -26,7 +30,9 @@ function Comment({
 
     return (
         <li className={"comment"} id={id} ref={ref}>
-            <div>{currentUsername} <img src={currentUserImg} className={"comment-user-img"} alt={""}></img></div>
+            <div>{currentUsername} <img src={currentUserImg}
+                                        className={"comment-user-img"}
+                                        alt={""}></img></div>
             {text}
 
             <button

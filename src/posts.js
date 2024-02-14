@@ -17,11 +17,7 @@ const posts = [
         "img": luka,
         "userImg": DK,
         "initLikes": 45,
-        "comments": [
-            {
-                "commentText": "hi"
-            }
-        ]
+        "comments": []
     },
     {
         "text": "did you hear about the crazy game?",

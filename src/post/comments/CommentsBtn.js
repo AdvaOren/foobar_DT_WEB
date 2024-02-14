@@ -9,13 +9,11 @@ function CommentsBtn({
                          currentUserImg,
                          currentUsername
                      }) {
-    let numComments = comments.length;
     const input = useRef(null)
+    const [numComments,setNumComments] = useState(comments.length)
     const [commentList, setCommentList] = useState(comments)
     const [commentsNumID, setCommentsNumID] = useState(comments.length)
-
     const addComment = () => {
-        const visual = document.getElementById(id + "visual")
         const newComment = {
             "commentText": input.current.value,
             "id": id + commentsNumID,
@@ -28,8 +26,8 @@ function CommentsBtn({
         setCommentList([...commentList, newComment])
         setCommentsNumID(commentsNumID + 1)
         input.current.value = ''
-        numComments = commentList.length + 1
-        visual.innerHTML = numComments + " comments"
+        setNumComments(numComments => numComments + 1);
+        console.log(numComments)
     }
     return (
         <div className="col">
@@ -54,7 +52,9 @@ function CommentsBtn({
                              addComment={addComment}
                              username={username}
                              input={input}
-                             setCommentsList={setCommentList}></CommentList>
+                             setCommentsList={setCommentList}
+                             setNumComments={setNumComments}
+                             numComments={numComments}></CommentList>
             </div>
         </div>
     )

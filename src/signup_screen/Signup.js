@@ -63,7 +63,7 @@ function Signup({loginMembers}) {
             handleIllegalDate(newMember);
         } else if (password !== passwordVerification) { //check the passwords identical
             handlePasswordsNotMatch(newMember);
-        } else if (!checkPassword()) { //check the password stand in the criteria
+        } else if (!checkPassword(password)) { //check the password stand in the criteria
             handlePasswordNotValid(newMember);
         } else { //add the new member
             addMember(e, newMember, loginMembers, closeRef,resetRef);
@@ -134,10 +134,10 @@ function handlePasswordNotValid(newMember) {
  * The function check if the password stand in the criteria
  * Output: if the password is legal or not
  */
-function checkPassword() {
+export function checkPassword(passwordForTest) {
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    return /[A-Z]/.test(password) && /[a-z]/.test(password)
-        && specialChars.test(password) && password.length >= 8;
+    return /[A-Z]/.test(passwordForTest) && /[a-z]/.test(passwordForTest)
+        && specialChars.test(passwordForTest) && passwordForTest.length >= 8;
 }
 
 /**
@@ -248,7 +248,7 @@ function resetMember(member,resetRef) {
  * Input:  the date to check
  * Output: if the date is fine
  */
-function isDateValid(date) {
+export function isDateValid(date) {
     let today = new Date()
     let gotDate = new Date(date)
     return (today > gotDate && date.slice(-2) == gotDate.getDate());
