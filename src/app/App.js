@@ -8,12 +8,7 @@ import FeedScreen from "../feedScreen/FeedScreen";
 
 function App() {
     const [theme, setTheme] = useState('light')
-    const members = [{
-        "email": "a",
-        "first name": "d",
-        "last name": "k",
-        "password": "a"
-    }]
+    const members = []
     return (
         <div id={"signin-bg"}>
             <BrowserRouter>
