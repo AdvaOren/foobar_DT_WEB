@@ -1,0 +1,68 @@
+@import url('../../mode.css');
+
+.share {
+    width: 100vw;
+    height: 100%;
+    background-color: var(--topbar-posts-background-color);
+    position: fixed;
+    box-shadow: 10px 10px 5px #cfd1d0;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sharePattern {
+    border-radius: 10px;
+    width: 50vw;
+    height: 50%;
+    background-color: var(--topbar-posts-background-color);
+}
+
+.topShare {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 40%;
+    flex-grow: 1;
+}
+
+#closeButton {
+    width: 5%;
+    height: 5%;
+}
+
+
+.iconsShare {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 10px;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+}
+
+.eachShare {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 40%;
+    transition: background-color 0.3s ease, opacity 0.8s ease;
+    gap: 5px;
+    padding-left: 10px;
+    padding-right: 1px;
+    
+}
+
+.eachShare:hover {
+    background-color: var(--menu-hover-color);
+    opacity: 0.8;
+    border-radius: 8%;
+    justify-content: center;
+}

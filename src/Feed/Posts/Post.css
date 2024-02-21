@@ -1,0 +1,122 @@
+@import url('../mode.css');
+
+#posts {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+
+.eachPost {
+    border-style: groove;
+    margin: auto;
+    width: 50vw;
+
+    height: 800px;
+    border-radius: 10px;
+    border-color: #e1e2e3;
+    border-width: 1px;
+    background-color: var(--topbar-posts-background-color);
+    color: var(--text-color);
+
+}
+
+.topOfPost {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.profileImg {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    padding: 15px;
+}
+
+.nameAndDate {
+    bottom: 0;
+    align-self: self-end;
+    text-align: left;
+    flex-grow: 7;
+    color: var(--text-color);
+}
+
+.imagePost {
+    width: 100%;
+    height: 60%;
+}
+
+.postText {
+    text-align: left;
+}
+
+.likeNdComm {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.like,
+.comm {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+hr {
+    color: #e1e2e3;
+}
+
+.commentsAndNum,
+.likesAndNum {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px
+}
+
+.bottomPost {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+
+}
+
+.bottomIcon {
+    height: 50px !important;
+    width: 50px !important;
+}
+
+.eachItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 30%;
+    transition: background-color 0.3s ease, opacity 0.8s ease;
+
+}
+
+.class1 {
+    display: flex;
+    justify-content: center;
+}
+
+.item1:hover,
+.item2:hover,
+.item3:hover {
+
+    background-color: var(--menu-hover-color);
+    opacity: 0.8;
+    border-radius: 10%;
+    justify-content: center;
+}
+
+#editIcon {
+    width: 40px;
+    height: 40px;
+    padding: 15px;
+    flex-grow: 1;
+}
