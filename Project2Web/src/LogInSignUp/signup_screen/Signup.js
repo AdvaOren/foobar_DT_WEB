@@ -1,9 +1,9 @@
 import './Signup.css'
-import Birthdate, {updateValuesBirthdate} from "./birthdate/Birthdate";
-import Gender, {updateValuesGender} from "./gender/Gender";
-import InputBoxes, {updateValuesInputBox} from "./input_boxes/InputBoxes"
+import Birthdate, {updateValuesBirthdate} from "./birthdate/Birthdate.js";
+import Gender, {updateValuesGender} from "./gender/Gender.js";
+import InputBoxes, {updateValuesInputBox} from "./input_boxes/InputBoxes.js"
 import {useRef, useState} from "react";
-import Image, {updateValuesImage} from "./image/Image";
+import Image, {updateValuesImage} from "./image/Image.js";
 
 let firstName, setFirstName;
 let lastName, setLastName;
@@ -18,7 +18,6 @@ let img, setImg
 let signupRef;
 
 function Signup({loginMembers}) {
-
     [firstName, setFirstName] = useState('');
     [lastName, setLastName] = useState('');
     [email, setEmail] = useState('');

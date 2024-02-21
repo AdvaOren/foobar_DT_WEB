@@ -4,7 +4,7 @@ import { ReactComponent as FacebookLogo } from '../../Images/Feed/facebook-logo.
 import { ReactComponent as DarkMode } from '../../Images/Feed/mode-dark.svg';
 import { ReactComponent as LightMode } from '../../Images/Feed/mode-light.svg';
 
-import { AuthContext } from '../../AuthContext';
+import { AuthContext } from '../../AuthContext.js';
 
 function TopBar() {
     const { logout, toggleTheme, theme } = useContext(AuthContext);

@@ -9,9 +9,9 @@ import { ReactComponent as Save } from '../../Images/Feed/done.svg';
 import { ReactComponent as Delete } from '../../Images/Feed/delete-black.svg';
 
 
-import { AuthContext } from '../../AuthContext';
+import { AuthContext } from '../../AuthContext.js';
 
-import Posts from '../Posts/Posts';
+import Posts from '../Posts/Posts.js';
 
 function Comments({ userId, id, likes, postUrl, comments, text, name, profileImage, date, setCommentPressed }) {
     const [inputText, setInputText] = useState('');

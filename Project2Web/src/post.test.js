@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { AuthProvider } from './AuthContext';
+import { AuthProvider } from './AuthContext.js';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Posts from './Feed/Posts/Posts';
+import Posts from './Feed/Posts/Posts.js';
 
 test('adds new comment when send button is clicked', () => {
     const { getByTestId, getByText } = render(

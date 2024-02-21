@@ -10,10 +10,10 @@ import { ReactComponent as EditWhite } from '../../Images/Feed/edit-white.svg';
 
 import { ReactComponent as ShareB } from '../../Images/Feed/share-svgrepo-com.svg';
 import { ReactComponent as CommentB } from '../../Images/Feed/comment.svg';
-import Comments from '../Comments/Comments';
-import Share from './Share/Share'
-import NewPostModal from '../NewPost/NewPostModal';
-import { AuthContext } from '../../AuthContext';
+import Comments from '../Comments/Comments.js';
+import Share from './Share/Share.js'
+import NewPostModal from '../NewPost/NewPostModal.js';
+import { AuthContext } from '../../AuthContext.js';
 
 
 

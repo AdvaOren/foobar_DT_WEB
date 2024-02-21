@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Comments from './Feed/Comments/Comments';
-import { AuthProvider } from './AuthContext';
+import Comments from './Feed/Comments/Comments.js';
+import { AuthProvider } from './AuthContext.js';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 test('renders correctly with comments', () => {

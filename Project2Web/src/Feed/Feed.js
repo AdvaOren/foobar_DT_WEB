@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext  } from 'react';
 import "./Feed.css"
 import "./Posts/Post.css";
-import Menu from './Menu/Menu';
-import NewPost from './NewPost/NewPost';
-import Posts from './Posts/Posts';
-import TopBar from './TopBar/TopBar';
-import { AuthContext } from '../AuthContext';
+import Menu from './Menu/Menu.js';
+import NewPost from './NewPost/NewPost.js';
+import Posts from './Posts/Posts.js';
+import TopBar from './TopBar/TopBar.js';
+import { AuthContext } from '../AuthContext.js';
 
 function Feed() {
     const [newPostPressed, setNewPostPressed] = useState(0);

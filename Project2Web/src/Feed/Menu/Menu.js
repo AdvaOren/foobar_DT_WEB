@@ -9,7 +9,7 @@ import { ReactComponent as Video } from '../../Images/Feed/video-icon.svg';
 import { ReactComponent as MarketPlace } from '../../Images/Feed/market.svg';
 import { ReactComponent as Feeds } from '../../Images/Feed/feed.svg';
 import { ReactComponent as Events } from '../../Images/Feed/calendar.svg';
-import { AuthContext } from '../../AuthContext';
+import { AuthContext } from '../../AuthContext.js';
 
 function Menu() {
     const { user } = useContext(AuthContext);

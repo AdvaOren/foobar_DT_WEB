@@ -8,7 +8,7 @@ import { ReactComponent as SendBlue } from '../../Images/Feed/send-blue.svg';
 import { ReactComponent as DeleteB } from '../../Images/Feed/delete-black.svg';
 import { ReactComponent as DeleteW } from '../../Images/Feed/delete-white.svg';
 
-import { AuthContext } from '../../AuthContext';
+import { AuthContext } from '../../AuthContext.js';
 
 
 function NewPostModal({ id, profileImage, name, setNewPostPressed, postText, postImage, editPost }) {
@@ -120,9 +120,9 @@ NewPostModal.propTypes = {
     name: PropTypes.string.isRequired,
     setNewPostPressed: PropTypes.func.isRequired,
     postText: PropTypes.string,
-    postImage: PropTypes.URL,
+    postImage: URL,
     editPost: PropTypes.bool,
-    id: PropTypes.int
+    
 };
 
 export default NewPostModal;

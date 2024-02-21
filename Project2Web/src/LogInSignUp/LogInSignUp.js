@@ -1,14 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useState} from 'react';
 import "./LogInSignUp.css"
-import { UserNameValid } from '../Validation/Validation.js'
-import { PasswordValid } from '../Validation/Validation.js'
+import {UserNameValid} from '../Validation/Validation.js'
+import {PasswordValid} from '../Validation/Validation.js'
 import StartScreenLogo from '../Logo/StartScreenLogo.js';
-import { AuthContext } from '../AuthContext.js';
-import { useNavigate } from 'react-router-dom';
+import {AuthContext} from '../AuthContext.js';
+import {useNavigate} from 'react-router-dom';
+import Signup from "./signup_screen/Signup.js";
 
 function LogInSignUp() {
     const navigate = useNavigate();
-    const { login, addUser, usersList } = useContext(AuthContext);
+    const {login, addUser, usersList} = useContext(AuthContext);
     const [cantFindUser, setCantFindUser] = useState("");
     const [passwordFix, setPasswordFix] = useState("");
     const [ConfirmPasswordFix, setConfirmPasswordFix] = useState("");
@@ -18,7 +19,6 @@ function LogInSignUp() {
     const [loginPage, setLoginPage] = useState(1);
 
     const [selectedFile, setSelectedFile] = useState(null);
-
 
 
     function getUserInput() {
@@ -70,7 +70,7 @@ function LogInSignUp() {
 
         if (UserNameValid(userName) == "" && UserNameValid(name) == "" && PasswordValid(password) == "" && password == confirmPassword) {
             addUser(userId, userName, name, profileImage, password);
-            login({ username: userName, name: name, id: userId, profileImage: profileImage });
+            login({username: userName, name: name, id: userId, profileImage: profileImage});
             navigate('/feed'); // Navigate to feed
         }
         if (password != confirmPassword) {
@@ -79,6 +79,7 @@ function LogInSignUp() {
 
 
     }
+
     // Event handlers for input change
     const handleUsernameChange = (event, setter) => {
         const value = event.target.value;
@@ -101,31 +102,42 @@ function LogInSignUp() {
 
 
     return (
-        <div id="loginContent" style={{ height: window.screen.height }}>
-            <StartScreenLogo />
+        <div id="loginContent" style={{height: window.screen.height}}>
+            <StartScreenLogo/>
             <div className="box">
-                <span style={{ color: 'red' }}>{usernameFix}</span>
-                <input id="userName" type="userName" className="inputText" placeholder="User Name" aria-label="User Name" required onChange={(event) => handleUsernameChange(event, setUsernameFix)} />
-                <span style={{ color: 'red' }}>{passwordFix}</span>
-                <input id="password" className="inputText" type="password" placeholder="Password" aria-label="Password" required onChange={(event) => handlePasswordChange(event, setPasswordFix)}></input>
+                <span style={{color: 'red'}}>{usernameFix}</span>
+                <input id="userName" type="userName" className="inputText" placeholder="User Name"
+                       aria-label="User Name" required
+                       onChange={(event) => handleUsernameChange(event, setUsernameFix)}/>
+                <span style={{color: 'red'}}>{passwordFix}</span>
+                <input id="password" className="inputText" type="password" placeholder="Password" aria-label="Password"
+                       required onChange={(event) => handlePasswordChange(event, setPasswordFix)}></input>
 
                 {!loginPage &&
                     <>
-                        <span style={{ color: 'red' }}>{ConfirmPasswordFix}</span>
-                        <input id="confirmPassword" className="inputText" type="password" placeholder="Confirm Password" aria-label="Confirm Password" required onChange={(event) => handlePasswordChange(event, setConfirmPasswordFix)}></input>
-                        <span style={{ color: 'red' }}>{nameFix}</span>
-                        <input id="name" className="inputText" type="userName" placeholder="Name" aria-label="Name" required onChange={(event) => handleUsernameChange(event, setNameFix)} />
-                        {selectedFile != null && <img id="selectedImage" src={URL.createObjectURL(selectedFile)} />}
-                        <input type="file" onChange={handleFileChange} id="inputFilePost" />
+                        <span style={{color: 'red'}}>{ConfirmPasswordFix}</span>
+                        <input id="confirmPassword" className="inputText" type="password" placeholder="Confirm Password"
+                               aria-label="Confirm Password" required
+                               onChange={(event) => handlePasswordChange(event, setConfirmPasswordFix)}></input>
+                        <span style={{color: 'red'}}>{nameFix}</span>
+                        <input id="name" className="inputText" type="userName" placeholder="Name" aria-label="Name"
+                               required onChange={(event) => handleUsernameChange(event, setNameFix)}/>
+                        {selectedFile != null && <img id="selectedImage" src={URL.createObjectURL(selectedFile)}/>}
+                        <input type="file" onChange={handleFileChange} id="inputFilePost"/>
                     </>
                 }
-                <button id="logInButton" type="submit" onClick={loginPage ? getUserInput : addNewUser}>{loginPage ? "Log In" : "Sign Up"}</button>
-                <span style={{ color: 'red' }}>{cantFindUser}</span>
+                <button id="logInButton" type="submit"
+                        onClick={loginPage ? getUserInput : addNewUser}>{loginPage ? "Log In" : "Sign Up"}</button>
+                <span style={{color: 'red'}}>{cantFindUser}</span>
                 <div className="bordLine">
                     <hr className="line"></hr>
                 </div>
                 <div className="newAccount">
-                    <div id="newAccount" onClick={() => setLoginPage(!loginPage)}>{loginPage ? "Create New Account" : "I have an account"}</div>
+                    <button type="button" className={"SU-btn"}
+                            id="newAccount" data-bs-toggle="modal"
+                            data-bs-target="#signinModal">create new
+                        account
+                    </button>
                 </div>
 
             </div>

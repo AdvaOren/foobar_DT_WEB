@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import LogInSignUp from './LogInSignUp/LogInSignUp';
-import { AuthProvider } from "./AuthContext";
+import LogInSignUp from './LogInSignUp/LogInSignUp.js';
+import { AuthProvider } from "./AuthContext.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 describe('LogInSignUp component', () => {

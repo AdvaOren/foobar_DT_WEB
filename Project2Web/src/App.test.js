@@ -1,6 +1,6 @@
 
-import { AuthProvider } from './AuthContext';
-import App from './App';
+import { AuthProvider } from './AuthContext.js';
+import App from './App.js';
 
 import React from 'react';
 import { render, fireEvent, waitFor, screen } from '@testing-library/react';
