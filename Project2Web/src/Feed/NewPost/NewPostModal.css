@@ -1,0 +1,102 @@
+@import url('../mode.css');
+
+.newPostModal {
+    width: 100vw;
+    height: 100%;
+    background-color: rgb(207, 209, 208, 0.6);
+    position: fixed;
+    box-shadow: 10px 10px 5px #cfd1d0;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.newPostPattern {
+    border-radius: 10px;
+    width: 60vw;
+    height: 90%;
+    background-color: var(--newpost-background);
+    overflow: scroll;
+    color: var(--text-color);
+}
+
+.topModal {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    margin: 10px;
+    /* margin-left: 50%; */
+}
+
+#closeButton, #deleteIcon{
+    width: 40px !important;
+    height: 40px !important;
+}
+
+#sendIcon {
+    width: 4%;
+    height: 4%;
+    margin-left: 2%;
+}
+
+#inputLinePost {
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 16px;
+    height: 80px;
+    width: 80%;
+    background-color: var(--search-bar-background-color);
+    margin-left: 20px;
+
+}
+
+.profileNameImg{
+    display: flex;
+    flex-direction: row;
+}
+.profileImg{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    padding: 15px;
+}
+
+.name{
+    margin-bottom: 50px;
+    bottom: none;
+    align-self: self-end;
+    text-align: left;
+    color: var(--text-color);
+}
+
+#addNewPost{
+    margin-top: 10px;
+}
+
+#inputFilePost{
+    margin-top: 30px;
+    font-size: 16px;
+    color: var(--text-color);
+    justify-content: center;
+}
+
+#postImageFromUser {
+    width: 100%;
+    height: 60%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+ 
+#iconsContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    /* flex-grow: 1; */
+}
