@@ -1,0 +1,22 @@
+.theme-light {
+    --feed-background-color: #F0F2F5;
+    --topbar-posts-background-color: #FFFFFF;
+    --placeholder-text-color: #8A8D91;
+    --search-bar-background-color: #F0F2F5;
+    --text-color: black;
+    --comments-background-color: rgb(207, 209, 208, 0.6);
+    --menu-hover-color: rgba(209, 209, 209, 0.6);
+    --newpost-background: rgb(207, 209, 208);
+}
+
+.theme-dark {
+    --feed-background-color: #18191A;
+    --topbar-posts-background-color: rgba(11, 11, 11);
+    --placeholder-text-color: #8A8D91;
+    --search-bar-background-color: #3E4042;
+    --text-color: white;
+    --comments-background-color: rgba(62, 64, 66, 0.6);
+    --menu-hover-color: rgba(62, 64, 66, 0.6);
+    --newpost-background: rgb(11, 11, 11);
+
+}

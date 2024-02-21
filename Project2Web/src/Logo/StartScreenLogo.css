@@ -1,0 +1,24 @@
+@import url('../Feed/mode.css');
+
+html {
+    background-color: var(--feed-background-color);
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+  }
+  
+  .facebookLogo {
+    width: 60% !important;
+  }
+  
+   h1 {
+    font-size: 30px;
+    margin-left: 5%;
+    text-align: left;
+    color: var(--text-color)
+  }
+  
+
