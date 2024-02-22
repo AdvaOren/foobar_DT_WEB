@@ -14,11 +14,13 @@ import Comments from '../Comments/Comments.js';
 import Share from './Share/Share.js'
 import NewPostModal from '../NewPost/NewPostModal.js';
 import { AuthContext } from '../../AuthContext.js';
+import { useNavigate } from 'react-router';
 
 
 
 
 function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage, date, fromComments }) {
+    const navigate = useNavigate();
     const [likePressed, setLikePressed] = useState(0);
     const { user, postsList, setPostsListFun, theme } = useContext(AuthContext);
 
@@ -26,7 +28,11 @@ function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage,
 
     const [sharePressed, setSharePressed] = useState(0);
     const [editPost, setEditPost] = useState(0);
-
+    const userDet = {
+        userId: id,
+        profilePic: profileImage,
+        name: name
+    };
 
 
     function addLike() {
@@ -54,10 +60,10 @@ function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage,
     }
     return (
         <div className="eachPost">
-            {commentPressed ? <Comments likes={likes} postUrl={postUrl} comments={comments} text={text} name={name} profileImage={profileImage} date={date} setCommentPressed={setCommentPressed} id={id} userId={userId} />: <div></div> }
-            {sharePressed ? <Share setSharePressed={setSharePressed} />: <div></div>}
+            {commentPressed ? <Comments likes={likes} postUrl={postUrl} comments={comments} text={text} name={name} profileImage={profileImage} date={date} setCommentPressed={setCommentPressed} id={id} userId={userId} /> : <div></div>}
+            {sharePressed ? <Share setSharePressed={setSharePressed} /> : <div></div>}
             {editPost ? <NewPostModal id={id} editPost={true} profileImage={profileImage} name={name} setNewPostPressed={setEditPost} postText={text} postImage={postUrl} /> : <div></div>}
-            <div className='topOfPost'>
+            <div className='topOfPost' onClick={() => navigate("/profilePage", { state: userDet })}>
                 <img className='profileImg' src={profileImage} alt="post" />
                 <div className='nameAndDate'>
                     <div className='name'>{name}</div>
@@ -66,7 +72,7 @@ function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage,
                 {userId == user.id && (theme == "theme-light" ? <Edit onClick={() => setEditPost(!editPost)} id="editIcon" /> : <EditWhite onClick={() => setEditPost(!editPost)} id="editIcon" />)}
             </div>
             <p className='postText'>{text}</p>
-            <img className='imagePost' src={postUrl} />
+            <img alt="image post" className='imagePost' src={postUrl} />
             <div className='class1'>
                 <div className="likeNdComm">
                     <div className='commentsAndNum'>

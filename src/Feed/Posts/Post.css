@@ -1,9 +1,10 @@
-@import url('../mode.css');
+@import url('../../mode.css');
 
 #posts {
     display: flex;
     flex-direction: column;
     gap: 100px;
+    margin-top: 20px;
 }
 
 .eachPost {

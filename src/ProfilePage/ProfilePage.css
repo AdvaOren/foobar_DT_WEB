@@ -1,0 +1,75 @@
+@import url('../mode.css');
+
+#profileDetails {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100vw;
+    height: 350px;
+    background-color: var(--topbar-posts-background-color);
+    margin-top: 80px;
+    padding: 50px;
+}
+
+.menuText {
+    color: var(--text-color);
+}
+
+#profileImageInPage {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+#editProfile {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-end;
+    width: 15vw;
+    height: 40px;
+    border-radius: 10px;
+    background-color: var(--buttons-background);
+    font-size: 1em;
+}
+
+#editProfile:hover {
+    background-color: var(--menu-hover-color);
+    cursor: pointer;
+}
+
+.editIcon {
+    width: 20px;
+    height: 20px;
+}
+
+
+#nameAndImg {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+#addFriendBtn {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-end;
+    width: 15vw;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 1em;
+    background-color: #1877f2;
+    cursor: pointer;
+    color: white
+}
+
+#addFriendBtn:hover {
+    background-color: #1265d1;
+    cursor: pointer;
+}

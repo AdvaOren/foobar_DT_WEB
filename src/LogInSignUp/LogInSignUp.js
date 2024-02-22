@@ -5,7 +5,6 @@ import {PasswordValid} from '../Validation/Validation.js'
 import StartScreenLogo from '../Logo/StartScreenLogo.js';
 import {AuthContext} from '../AuthContext.js';
 import {useNavigate} from 'react-router-dom';
-import Signup from "./signup_screen/Signup.js";
 
 function LogInSignUp() {
     const navigate = useNavigate();
@@ -133,11 +132,11 @@ function LogInSignUp() {
                     <hr className="line"></hr>
                 </div>
                 <div className="newAccount">
-                    <button type="button" className={"SU-btn"}
+                    <div type="button" className={"SU-btn"}
                             id="newAccount" data-bs-toggle="modal"
                             data-bs-target="#signinModal">create new
                         account
-                    </button>
+                    </div>
                 </div>
 
             </div>
