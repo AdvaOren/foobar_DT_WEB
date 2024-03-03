@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
+import React, {useContext, useEffect} from 'react';
 import "./NewPost.css";
 import { ReactComponent as Video } from '../../Images/Feed/video.svg';
 import { ReactComponent as ImagesIcon } from '../../Images/Feed/images-icon.svg';
 import { ReactComponent as Smiley } from '../../Images/Feed/smiley.svg';
 import NewPostModal from './NewPostModal.js'; // Import the NewPostModal component
 import { AuthContext } from '../../AuthContext.js';
+import {useParams} from "react-router";
 
 function NewPost({ id, newPostPressed, setNewPostPressed }) {
     const { user } = useContext(AuthContext);
-
     let message = "What's on your mind, " + user.name + "?";
 
     function addNewPost() {
