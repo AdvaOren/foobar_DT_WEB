@@ -1,26 +1,19 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import "./LogInSignUp.css"
-import {UserNameValid} from '../Validation/Validation.js'
-import {PasswordValid} from '../Validation/Validation.js'
+import { UserNameValid } from '../Validation/Validation.js'
+import { PasswordValid } from '../Validation/Validation.js'
 import StartScreenLogo from '../Logo/StartScreenLogo.js';
-import {AuthContext} from '../AuthContext.js';
-import {useNavigate} from 'react-router-dom';
+import { AuthContext } from '../AuthContext.js';
+import { useNavigate } from 'react-router-dom';
 
 function LogInSignUp() {
     const navigate = useNavigate();
-    const {login, addUser, usersList} = useContext(AuthContext);
+    const { login } = useContext(AuthContext);
     const [cantFindUser, setCantFindUser] = useState("");
     const [passwordFix, setPasswordFix] = useState("");
-    const [ConfirmPasswordFix, setConfirmPasswordFix] = useState("");
-    const [nameFix, setNameFix] = useState("");
-
     const [usernameFix, setUsernameFix] = useState("");
-    const [loginPage, setLoginPage] = useState(1);
 
-    const [selectedFile, setSelectedFile] = useState(null);
-
-
-    function getUserInput() {
+    async function getUserInput() {
         if (document.getElementById('userName') == null || document.getElementById('password') == null) {
             alert("enter UserName and Password")
         }
@@ -31,53 +24,54 @@ function LogInSignUp() {
         var password = document.getElementById('password').value;
         passwordValid = PasswordValid(password);
         if (passwordValid == "" && nameValid == "") {
-            const userDetails = userExists(userName, password);
-            if (!userDetails) {
+            const userDetails = await userExists(userName);
+            if (!userDetails || (userDetails && userDetails.password != password)) {
                 setCantFindUser("User does not exist");
                 return;
             }
-            login(userDetails);
+            let userDet = {
+                username: userDetails.email,
+                name: userDetails.firstName + " " + userDetails.lastName,
+                id: userDetails._id,
+                profileImage: userDetails.img,
+                token: 0,
+                email: userDetails.email,
+                password: userDetails.password
+            }
+
+            const res = await fetch('http://localhost:8080/api/tokens', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userDetails),
+            });
+
+            const json = await res.json()
+            userDet.token = json.token;
+
+            login(userDet);
             // Navigate to the desired path
             navigate('/feed');
         }
     }
 
-    function userExists(userName, password) {
-        return usersList.find(item => item.userName === userName && item.password === password);
-
+    const userExists = async (email) => {
+        const res = await fetch(`http://localhost:8080/api/users/${email}`); // Find user exists by email
+        if (res.ok) {
+            const data = await res.json(); // Parse response body as JSON
+            if (data && Object.keys(data).length > 0) {
+                return data; // User found
+            } else {
+                return false // User not found
+            }
+        } else {
+            console.error('Error:', res.status);
+            return false;
+        }
     }
 
-    function addNewUser() {
-        if (selectedFile == null) {
-            setCantFindUser("Select a picture");
-            return;
 
-        }
-        var userName = document.getElementById('userName').value;
-        const userInfo = usersList.find(item => item.userName === userName);
-        if (userInfo != undefined) {
-            setCantFindUser("User exist");
-            return
-        }
-
-        var userId = usersList.length + 1;
-        var name = document.getElementById('name').value;
-        var profileImage = URL.createObjectURL(selectedFile);
-        var password = document.getElementById('password').value;
-        var confirmPassword = document.getElementById('confirmPassword').value;
-
-
-        if (UserNameValid(userName) == "" && UserNameValid(name) == "" && PasswordValid(password) == "" && password == confirmPassword) {
-            addUser(userId, userName, name, profileImage, password);
-            login({username: userName, name: name, id: userId, profileImage: profileImage});
-            navigate('/feed'); // Navigate to feed
-        }
-        if (password != confirmPassword) {
-            setCantFindUser("Verify password and password do not match");
-        }
-
-
-    }
 
     // Event handlers for input change
     const handleUsernameChange = (event, setter) => {
@@ -92,49 +86,28 @@ function LogInSignUp() {
         setter(newPassFix);
     };
 
-    const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0]);
-        if (cantFindUser == "Select a picture") {
-            setCantFindUser("");
-        }
-    };
-
 
     return (
-        <div id="loginContent" style={{height: window.screen.height}}>
-            <StartScreenLogo/>
+        <div id="loginContent" style={{ height: window.screen.height }}>
+            <StartScreenLogo />
             <div className="box">
-                <span style={{color: 'red'}}>{usernameFix}</span>
+                <span style={{ color: 'red' }}>{usernameFix}</span>
                 <input id="userName" type="userName" className="inputText" placeholder="User Name"
-                       aria-label="User Name" required
-                       onChange={(event) => handleUsernameChange(event, setUsernameFix)}/>
-                <span style={{color: 'red'}}>{passwordFix}</span>
+                    aria-label="User Name" required
+                    onChange={(event) => handleUsernameChange(event, setUsernameFix)} />
+                <span style={{ color: 'red' }}>{passwordFix}</span>
                 <input id="password" className="inputText" type="password" placeholder="Password" aria-label="Password"
-                       required onChange={(event) => handlePasswordChange(event, setPasswordFix)}></input>
-
-                {!loginPage &&
-                    <>
-                        <span style={{color: 'red'}}>{ConfirmPasswordFix}</span>
-                        <input id="confirmPassword" className="inputText" type="password" placeholder="Confirm Password"
-                               aria-label="Confirm Password" required
-                               onChange={(event) => handlePasswordChange(event, setConfirmPasswordFix)}></input>
-                        <span style={{color: 'red'}}>{nameFix}</span>
-                        <input id="name" className="inputText" type="userName" placeholder="Name" aria-label="Name"
-                               required onChange={(event) => handleUsernameChange(event, setNameFix)}/>
-                        {selectedFile != null && <img id="selectedImage" src={URL.createObjectURL(selectedFile)}/>}
-                        <input type="file" onChange={handleFileChange} id="inputFilePost"/>
-                    </>
-                }
+                    required onChange={(event) => handlePasswordChange(event, setPasswordFix)} />
                 <button id="logInButton" type="submit"
-                        onClick={loginPage ? getUserInput : addNewUser}>{loginPage ? "Log In" : "Sign Up"}</button>
-                <span style={{color: 'red'}}>{cantFindUser}</span>
+                    onClick={getUserInput}>Log In</button>
+                <span style={{ color: 'red' }}>{cantFindUser}</span>
                 <div className="bordLine">
                     <hr className="line"></hr>
                 </div>
                 <div className="newAccount">
                     <div type="button" className={"SU-btn"}
-                            id="newAccount" data-bs-toggle="modal"
-                            data-bs-target="#signinModal">create new
+                        id="newAccount" data-bs-toggle="modal"
+                        data-bs-target="#signinModal">create new
                         account
                     </div>
                 </div>

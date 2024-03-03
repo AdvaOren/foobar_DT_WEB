@@ -13,11 +13,16 @@ function AuthProvider({ children }) {
         username: '',
         name: '',
         id: 0,
-        profileImage: ''
+        profileImage: '',
+        token: ''
     });
     const [usersList, setUsersList] = useState(users);
     const [postsList, setPostsList] = useState(posts);
-    const [theme, setTheme] = useState("theme-light")
+    const [theme, setTheme] = useState("theme-light");
+
+    async function getusersList() {
+        const res = await fetch('http://localhost:8080/api/')
+    }
 
     // function to toggle between light and dark theme
     function toggleTheme() {
@@ -31,7 +36,24 @@ function AuthProvider({ children }) {
 
 
     const login = (userData) => {
+
         setIsLoggedIn(true);
+        //let image = userData.img;
+        // let binary = Buffer.from(image.data); 
+        // let imgData = new Blob(binary.buffer, { type: 'application/octet-binary' });
+        // let link = URL.createObjectURL(imgData);
+
+        // let img = new Image();
+        // img.onload = () => URL.revokeObjectURL(link);
+        // img.src = link;
+        //const base64String = btoa(String.fromCharCode.apply(null, image.data));
+
+        // const user = {
+        //     username: userData.email,
+        //     name: userData.firstName + " " + userData.lastName,
+        //     id: userData.email,
+        //     profileImage: `data:image/jpeg;base64,${base64String}`
+        // }
         setUser(userData);
     };
 
@@ -41,21 +63,60 @@ function AuthProvider({ children }) {
         setTheme('theme-light');
     };
 
-    const addUser = (userId, username, name, profileImage, password) => {
+    const addUser = async (userData) => {
         const updatedUsersList = usersList ? [...usersList] : [];
+        let newUser = {
+            username: userData.username,
+            name: userData.firstName + " " + userData.lastName,
+            id: 0,
+            profileImage: userData.profileImage,
+            token: 0,
+            email: userData.email,
+            password: userData.password
+        }
+        try {
+            const response = await fetch('http://localhost:8080/api/users', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+            newUser.id = await response.json();
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            } else {
+                const res = await fetch('http://localhost:8080/api/tokens', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData),
+                });
 
-        // Create a new post object
-        const newUser = {
-            id: userId,
-            userName: username,
-            name: name,
-            profileImage: profileImage,
-            password: password
-        };
-
+                const json = await res.json()
+                newUser.token = json.token;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
         // Update the post list in the component's state
         setUsersList([...updatedUsersList, newUser]);
-
+        return newUser
+    }
+    const userExists = async (email, password) => {
+        const res = await fetch(`http://localhost:8080/api/users/exists/${email}/${password}`); // Find user exists
+        if (res.ok) {
+            const data = await res.json(); // Parse response body as JSON
+            if (data && Object.keys(data).length > 0) {
+                return data; // User found
+            } else {
+                return false // User not found
+            }
+        } else {
+            console.error('Error:', res.status);
+            return false;
+        }
     }
 
     const setPostsListFun = (val) => {
@@ -63,7 +124,7 @@ function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, login, logout, user, addUser, usersList, setPostsListFun, postsList, theme, toggleTheme }}>
+        <AuthContext.Provider value={{ isLoggedIn, login, logout, user, addUser, usersList, setPostsListFun, postsList, theme, toggleTheme, userExists }}>
             {children}
         </AuthContext.Provider>
     );

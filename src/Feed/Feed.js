@@ -10,7 +10,6 @@ import { AuthContext } from '../AuthContext.js';
 function Feed() {
     const [newPostPressed, setNewPostPressed] = useState(0);
     const { postsList, setPostsListFun, user } = useContext(AuthContext);
-
     
     useEffect(() => {
         // Sort postList by date in descending order
@@ -37,8 +36,8 @@ function Feed() {
                     <NewPost id={user.id} newPostPressed={newPostPressed} setNewPostPressed={setNewPostPressed} />
                     <div id="posts">
                         {
-                            postsList.map((post) =>
-                                <Posts setNewPostPressed={setNewPostPressed} fromComments={0} key={post.id} {...post} />
+                            postsList.map((post, index) =>
+                                <Posts setNewPostPressed={setNewPostPressed} fromComments={0} key={index} {...post} />
                             )
                         }
                     </div>

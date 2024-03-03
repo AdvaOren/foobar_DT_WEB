@@ -63,9 +63,9 @@ function Menu() {
                 <p className='menuText' style={{ fontWeight: 'bold' }}>{user.name}</p>
             </div>
             {
-                menuDetails.map((detail) => {
+                menuDetails.map((detail, index) => {
                     return (
-                        <div className="patternContent" key={user.id}>
+                        <div className="patternContent" key={index}>
                             <detail.url className='detailsIcon' />
                             <p className='menuText'>{detail.text}</p>
                         </div>

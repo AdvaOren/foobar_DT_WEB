@@ -6,7 +6,7 @@
     align-items: stretch;
     background-color: var(--feed-background-color);
     gap: 10px;
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
 }
 
 #contentPage {

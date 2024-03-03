@@ -139,9 +139,9 @@ function Comments({ userId, id, likes, postUrl, comments, text, name, profileIma
                 </div>
                 <div id="allCommentsContent">
                     <Posts fromComments={1} likes={likes} postUrl={postUrl} comments={comments} text={text} name={name} profileImage={profileImage} date={date} userId={userId} />
-                    {comments.map((comment) => {
+                    {comments.map((comment, index) => {
                         return (
-                            <div key={comment.id} id="commentAndProfile">
+                            <div key={index} id="commentAndProfile">
                                 <img className="profileImageComments" src={getUserInfoById(comment.id).profileImage} alt="profile" />
                                 <div id="eachComment">
                                     <p style={{ fontWeight: 'bold' }}>{getUserInfoById(comment.id).name}</p>

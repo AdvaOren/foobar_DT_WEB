@@ -5,7 +5,6 @@ import "./mode.css";
 import App from './App.js';
 import reportWebVitals from './reportWebVitals.js';
 import { AuthProvider } from './AuthContext.js';
-import ProfilePage from './ProfilePage/ProfilePage.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

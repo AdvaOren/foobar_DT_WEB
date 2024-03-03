@@ -45,8 +45,8 @@ function ProfilePage() {
                     {user.id === userId && <NewPost id={user.id} newPostPressed={newPostPressed} setNewPostPressed={setNewPostPressed} />}
                     <div id="posts">
                         {
-                            postsList.map((post) =>
-                                <Posts setNewPostPressed={setNewPostPressed} fromComments={0} key={post.id} {...post} />
+                            postsList.map((post, index) =>
+                                <Posts setNewPostPressed={setNewPostPressed} fromComments={0} key={index} {...post} />
                             )
                         }
                     </div>

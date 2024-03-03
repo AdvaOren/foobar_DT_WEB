@@ -19,8 +19,8 @@ function App() {
                     <Route path="/feed" element={<PrivateRoute Component={Feed} />} />
                     <Route path='/profilePage' element={<PrivateRoute Component={ProfilePage} />} />
                 </Routes>
+            <Signup />
             </BrowserRouter>
-            <Signup loginMembers={usersList}></Signup>
         </div>
 
 
