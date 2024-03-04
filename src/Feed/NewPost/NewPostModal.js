@@ -41,8 +41,9 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
             })
         })
         const newPost = await response.json();
+        const add = {...newPost, "likes": 0, "comments":[]}
         // Update the post list in the component's state
-        setPostsListFun([newPost, ...updatedPostList]);
+        setPostsListFun([add, ...updatedPostList]);
 
         // Close the modal
         setNewPostPressed(0);
