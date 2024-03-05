@@ -27,21 +27,26 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
     };
 
     const addNewPost = async () => {
+        console.log("user from newPoSt: ", user)
         if (selectedFile == null) return;
         const updatedPostList = postsList ? [...postsList] : [];
-        const response = await fetch((`http://foo.com/api/users/${user.id}/posts`), {
+        const response = await fetch((`http://localhost:8080/api/users/${user.id}/posts`), {
             "method": "POST",
             headers: {
                 "Content-Type": "application/json",
                 'authorization': 'bearer ' + user.token // attach the token
             },
             body: JSON.stringify({
-                content: inputText, img: selectedFile ? URL.createObjectURL(selectedFile) : null,
-                userId: user.id, date: new Date().toISOString()
+                content: inputText,
+                img: selectedFile ? URL.createObjectURL(selectedFile) : null,
+                userId: user.id,
+                date: new Date().toISOString()
             })
         })
+
         const newPost = await response.json();
-        const add = {...newPost, "likes": 0, "comments":[]}
+        const add = {...newPost, "likes": 0, "comments": []}
+        console.log("newPostModal: newPost: ", newPost, "add: ", add);
         // Update the post list in the component's state
         setPostsListFun([add, ...updatedPostList]);
 
@@ -81,7 +86,7 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
     const changePost = async () => {
         const updatedPostList = await postsList.map(async post => {
                     if (post.id === id) {
-                        const response = fetch((`http://foo.com/api/users/${user.id}/posts/${id}`), {
+                        const response = fetch((`http://localhost:8080/api/users/${user.id}/posts/${id}`), {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",

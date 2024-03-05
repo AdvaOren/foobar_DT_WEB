@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useContext } from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import "./Comments.css";
 import { ReactComponent as Close } from '../../Images/Feed/close-circle.svg';
 import { ReactComponent as SendGray } from '../../Images/Feed/send-gray.svg';
@@ -13,13 +13,36 @@ import { AuthContext } from '../../AuthContext.js';
 
 import Posts from '../Posts/Posts.js';
 
-function Comments({ userId, id, likes, postUrl, comments, text, name, profileImage, date, setCommentPressed }) {
+function Comments({ userId, id, likes, postUrl, text, name, profileImage, date, setCommentPressed }) {
     const [inputText, setInputText] = useState('');
     const [commentText, setCommentText] = useState('');
     const { user, usersList, postsList, setPostsListFun } = useContext(AuthContext);
     const [editComment, setEditComment] = useState(false);
     const [inputHeight, setInputHeight] = useState('auto'); // State to manage input height
     const [commentIdChanged, seCommentIdChaged] = useState();
+    const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+        const fetchComments = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/api/posts/${id}/comments`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'authorization': 'bearer ' + user.token // attach the token
+                    }
+                })
+                const commentList = await response.json()
+                setComments(commentList);
+            } catch (error) {
+// handle error
+            }
+        };
+        fetchComments();
+    }, []);
+
+
+
     const handleInputChange = (event, setter) => {
         setter(event.target.value);
         adjustHeight(event.target);

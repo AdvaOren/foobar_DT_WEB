@@ -1,41 +1,53 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useContext } from 'react';
+import React, {useState, useContext} from 'react';
 import "./Post.css"
-import { ReactComponent as Like } from '../../Images/Feed/facebook-like-logo.svg';
-import { ReactComponent as Comment } from '../../Images/Feed/speech-bubble.svg';
-import { ReactComponent as LikeBlack } from '../../Images/Feed/like-black.svg';
-import { ReactComponent as LikeBlue } from '../../Images/Feed/like-blue.svg';
-import { ReactComponent as Edit } from '../../Images/Feed/edit.svg';
-import { ReactComponent as EditWhite } from '../../Images/Feed/edit-white.svg';
+import {ReactComponent as Like} from '../../Images/Feed/facebook-like-logo.svg';
+import {ReactComponent as Comment} from '../../Images/Feed/speech-bubble.svg';
+import {ReactComponent as LikeBlack} from '../../Images/Feed/like-black.svg';
+import {ReactComponent as LikeBlue} from '../../Images/Feed/like-blue.svg';
+import {ReactComponent as Edit} from '../../Images/Feed/edit.svg';
+import {ReactComponent as EditWhite} from '../../Images/Feed/edit-white.svg';
 
-import { ReactComponent as ShareB } from '../../Images/Feed/share-svgrepo-com.svg';
-import { ReactComponent as CommentB } from '../../Images/Feed/comment.svg';
+import {ReactComponent as ShareB} from '../../Images/Feed/share-svgrepo-com.svg';
+import {ReactComponent as CommentB} from '../../Images/Feed/comment.svg';
 import Comments from '../Comments/Comments.js';
 import Share from './Share/Share.js'
 import NewPostModal from '../NewPost/NewPostModal.js';
-import { AuthContext } from '../../AuthContext.js';
-import { useNavigate } from 'react-router';
+import {AuthContext} from '../../AuthContext.js';
+import {useNavigate} from 'react-router';
 
 
-
-
-function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage, date, fromComments }) {
+function Posts({id, userId, likes, postUrl, comments, text, name, profileImage, date, fromComments}) {
     const navigate = useNavigate();
     const [likePressed, setLikePressed] = useState(0);
-    const { user, postsList, setPostsListFun, theme } = useContext(AuthContext);
+    const {user, postsList, setPostsListFun, theme} = useContext(AuthContext);
 
     const [commentPressed, setCommentPressed] = useState(0);
 
     const [sharePressed, setSharePressed] = useState(0);
     const [editPost, setEditPost] = useState(0);
     const userDet = {
-        userId: id,
+        userId: userId,
         profilePic: profileImage,
         name: name
     };
 
 
-    function addLike() {
+    async function addLike() {
+        const response = await fetch(`http://localhost:8080/api/posts/${id}/like/${user.id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                'authorization': 'bearer ' + user.token // attach the token
+            },
+         //   body: JSON.stringify({userId: user.id, postId: id})
+        });
+        //extract like count from response
+        const amount = await response.json()
+        const extractedNumber = amount.amount
+        const likeCount = extractedNumber.likes
+
+
         const postIndex = postsList.findIndex((post) => post.id === id);
         // Check if the post with the specified id exists
         if (postIndex !== -1) {
@@ -45,44 +57,54 @@ function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage,
             // Update the likes for the post at the found index
             updatedPosts[postIndex] = {
                 ...updatedPosts[postIndex],
-                likes: updatedPosts[postIndex].likes + (likePressed ? -1 : 1),
+                //amount.amount == like amount from server
+                likes: likeCount ,
             };
             setLikePressed(likePressed ? 0 : 1);
             setPostsListFun(updatedPosts);
         }
     }
+
     function addComment() {
         setCommentPressed(commentPressed ? 0 : 1);
 
     }
+
     function share() {
         setSharePressed(sharePressed ? 0 : 1);
     }
+
     return (
         <div className="eachPost">
-            {commentPressed ? <Comments likes={likes} postUrl={postUrl} comments={comments} text={text} name={name} profileImage={profileImage} date={date} setCommentPressed={setCommentPressed} id={id} userId={userId} /> : <div></div>}
-            {sharePressed ? <Share setSharePressed={setSharePressed} /> : <div></div>}
-            {editPost ? <NewPostModal id={id} editPost={true} profileImage={profileImage} name={name} setNewPostPressed={setEditPost} postText={text} postImage={postUrl} /> : <div></div>}
-            <div className='topOfPost' onClick={() => navigate("/profilePage", { state: userDet })}>
-                <img className='profileImg' src={profileImage} alt="post" />
+            {commentPressed ? <Comments likes={likes} postUrl={postUrl} comments={comments} text={text} name={name}
+                                        profileImage={profileImage} date={date} setCommentPressed={setCommentPressed}
+                                        id={id} userId={userId}/> : <div></div>}
+            {sharePressed ? <Share setSharePressed={setSharePressed}/> : <div></div>}
+            {editPost ? <NewPostModal id={id} editPost={true} profileImage={profileImage} name={name}
+                                      setNewPostPressed={setEditPost} postText={text} postImage={postUrl}/> :
+                <div></div>}
+            <div className='topOfPost' onClick={() => navigate("/profilePage", {state: userDet})}>
+                <img className='profileImg' src={profileImage} alt="post"/>
                 <div className='nameAndDate'>
                     <div className='name'>{name}</div>
                     <div className='date'>{date}</div>
                 </div>
-                {userId == user.id && (theme == "theme-light" ? <Edit onClick={() => setEditPost(!editPost)} id="editIcon" /> : <EditWhite onClick={() => setEditPost(!editPost)} id="editIcon" />)}
+                {userId == user.id && (theme == "theme-light" ?
+                    <Edit onClick={() => setEditPost(!editPost)} id="editIcon"/> :
+                    <EditWhite onClick={() => setEditPost(!editPost)} id="editIcon"/>)}
             </div>
             <p className='postText'>{text}</p>
-            <img alt="image post" className='imagePost' src={postUrl} />
+            <img alt="image post" className='imagePost' src={postUrl}/>
             <div className='class1'>
                 <div className="likeNdComm">
                     <div className='commentsAndNum'>
-                        <Comment className='comm' />
+                        <Comment className='comm'/>
                         <p>{comments.length}</p>
                     </div>
 
                     <div className='likesAndNum'>
                         <p>{likes}</p>
-                        <Like className='like' />
+                        <Like className='like'/>
                     </div>
                 </div>
             </div>
@@ -94,15 +116,15 @@ function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage,
                     <hr></hr>
                     <div className='bottomPost'>
                         <div className='eachItem item1' data-testid="addlike" onClick={addLike}>
-                            {likePressed ? <LikeBlue className='bottomIcon' /> : <LikeBlack className='bottomIcon' />}
+                            {likePressed ? <LikeBlue className='bottomIcon'/> : <LikeBlack className='bottomIcon'/>}
                             <p>Like</p>
                         </div>
                         <div className='eachItem item2' onClick={addComment}>
-                            <CommentB className='bottomIcon' />
+                            <CommentB className='bottomIcon'/>
                             <p>Comment</p>
                         </div>
                         <div className='eachItem item3' onClick={share}>
-                            <ShareB className='bottomIcon' />
+                            <ShareB className='bottomIcon'/>
                             <p>Share</p>
                         </div>
                     </div>
