@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import users from "./data/users.json"
 import posts from "./data/posts.json"
 import axios from 'axios';
+import { getToken, addUserServer } from './serverCalls/LogInSignUp.js';
 
 
 const AuthContext = React.createContext();
@@ -20,10 +21,6 @@ function AuthProvider({ children }) {
     const [usersList, setUsersList] = useState(users);
     const [postsList, setPostsList] = useState(posts);
     const [theme, setTheme] = useState("theme-light");
-
-    async function getusersList() {
-        const res = await fetch('http://localhost:8080/api/')
-    }
 
     // function to toggle between light and dark theme
     function toggleTheme() {
@@ -59,20 +56,13 @@ function AuthProvider({ children }) {
             password: userData.password
         }
         try {
-            const response = await axios.post('http://localhost:8080/api/users', userData);
+            const response = await addUserServer(userData);
             newUser.id = await response.data;
             console.log(response);
             if (response.statusText != "OK") {
                 throw new Error('Network response was not ok');
             } else {
-                const res = await fetch('http://localhost:8080/api/tokens', {
-                    method: 'post',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({username: userData.email, password: userData.password, email: userData.email}),
-                });
-
+                const res = await getToken(userData.email, userData.password, userData.email); 
                 const json = await res.json()
                 newUser.token = json.token;
             }
@@ -83,27 +73,13 @@ function AuthProvider({ children }) {
         setUsersList([...updatedUsersList, newUser]);
         return newUser
     }
-    const userExists = async (email, password) => {
-        const res = await fetch(`http://localhost:8080/api/users/exists/${email}/${password}`); // Find user exists
-        if (res.ok) {
-            const data = await res.json(); // Parse response body as JSON
-            if (data && Object.keys(data).length > 0) {
-                return data; // User found
-            } else {
-                return false // User not found
-            }
-        } else {
-            console.error('Error:', res.status);
-            return false;
-        }
-    }
 
     const setPostsListFun = (val) => {
         setPostsList(val);
     }
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, login, logout, user, addUser, usersList, setPostsListFun, postsList, theme, toggleTheme, userExists }}>
+        <AuthContext.Provider value={{ isLoggedIn, login, logout, user, addUser, usersList, setPostsListFun, postsList, theme, toggleTheme }}>
             {children}
         </AuthContext.Provider>
     );

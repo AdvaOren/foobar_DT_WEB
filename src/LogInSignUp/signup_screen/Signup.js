@@ -6,6 +6,7 @@ import { useRef, useState, useContext } from "react";
 import Image, { updateValuesImage } from "./image/Image.js";
 import { AuthContext } from '../../AuthContext.js';
 import { useNavigate } from 'react-router';
+import { userExists } from '../../serverCalls/LogInSignUp.js';
 
 let firstName, setFirstName;
 let lastName, setLastName;
@@ -46,15 +47,17 @@ function Signup() {
         "img": ""
     }
 
-    const signupCLicked = function (e) {
+    const signupCLicked = async function (e) {
         initMemeber(newMember);
         let hasEmptyInputBox = checkForEmptyInput(newMember);
         if (hasEmptyInputBox) {
             valid()
             return;
         }
-        const exists =userExists(newMember.email); //check for existing user by email
-        if (!exists) {
+        const exists = await userExists(newMember.email); //check for existing user by email
+        console.log("ex", exists);
+        alert(exists);
+        if (exists && Object.keys(exists).length > 0) {
             handleExists(newMember);
         } else if (!isDateValid(newMember.date)) { //check that the date is valid
             handleIllegalDate(newMember);
@@ -274,19 +277,6 @@ function valid() {
     }, false)
 }
 
-const userExists = async (email) => {
-    const res = await fetch(`http://localhost:8080/api/users/${email}`); // Find user exists by email
-    if (res.ok) {
-        const data = await res.json(); // Parse response body as JSON
-        if (data && Object.keys(data).length > 0) {
-            return true; // User found
-        } else {
-            return false // User not found
-        }
-    } else {
-        console.error('Error:', res.status);
-        return false;
-    }
-}
+
 
 export default Signup;

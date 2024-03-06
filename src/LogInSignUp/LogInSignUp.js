@@ -5,7 +5,7 @@ import { PasswordValid } from '../Validation/Validation.js'
 import StartScreenLogo from '../Logo/StartScreenLogo.js';
 import { AuthContext } from '../AuthContext.js';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { userExists, getToken } from '../serverCalls/LogInSignUp.js';
 
 function LogInSignUp() {
     const navigate = useNavigate();
@@ -39,42 +39,14 @@ function LogInSignUp() {
                 email: userDetails.email,
                 password: userDetails.password
             }
-            const res = await fetch('http://localhost:8080/api/tokens', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({username: userDetails.email, password: userDetails.password, email: userDetails.email}),
-            });
-
+            const res = await getToken(userDetails.email, userDetails.password, userDetails.email);
             const json = await res.json()
             userDet.token = json.token;
-
             login(userDet);
             // Navigate to the desired path
             navigate('/feed');
         }
     }
-
-    const userExists = async (email) => {
-        const res = await axios.get(`http://localhost:8080/api/users/${email}`);
-        if (res.statusText == "OK") {
-            const data = await res.data; // Parse response body as JSON
-            const user = await data.user; // Access the 'user' property from the response body
-            if (user && Object.keys(user).length > 0) {
-                const newUrl = "data:image/png;base64," + user.img;
-                user.img = newUrl;
-                return user; // User found
-            } else {
-                return false // User not found
-            }
-        } else {
-            console.error('Error:', res.status);
-            return false;
-        }
-    }
-
-
 
     // Event handlers for input change
     const handleUsernameChange = (event, setter) => {
