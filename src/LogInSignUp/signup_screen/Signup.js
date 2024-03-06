@@ -55,7 +55,6 @@ function Signup() {
             return;
         }
         const exists = await userExists(newMember.email); //check for existing user by email
-        console.log("ex", exists);
         alert(exists);
         if (exists && Object.keys(exists).length > 0) {
             handleExists(newMember);
@@ -82,7 +81,7 @@ function Signup() {
             firstName: copy.firstName,
             lastName: copy.lastName,
             password: copy.password,
-            img: copy.img,
+            img: copy.img
         };
         const newUser = await addUser(userData);
         updateValuesInputBox("", "", "", "", "");

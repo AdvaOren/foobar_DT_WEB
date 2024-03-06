@@ -10,26 +10,30 @@ import { ReactComponent as AddFriend } from '../Images/add-friend.svg'
 import { useLocation } from 'react-router';
 import "../Feed/Posts/Post.css";
 
+import EditProfileModal from './EditProfileModal.js';
 
 //TODO change list of post for each user, check if friend or not, add logic of adding friend and edit profile
 function ProfilePage() {
     const [newPostPressed, setNewPostPressed] = useState(0);
     const { postsList, user, theme } = useContext(AuthContext);
     const location = useLocation();
-    const { userId, profilePic, name } = location.state;
+    let { userId, name, profilePic } = location.state;
+    const [editClicked, setEditClicked] = useState(false);
     
     return (
         <div className="mainContent">
+            {editClicked ? <EditProfileModal userId={userId} setEditClicked={setEditClicked} /> : <div></div>}
             <TopBar />
-
             <div id="menuAndPost">
                 <div id="profileDetails">
                     <div id="nameAndImg" >
-                        <img id="profileImageInPage" alt="profileImg" src={profilePic} />
-                        <div className='menuTextInPage' style={{ fontWeight: 'bold', fontSize: '3em', bottom: 0 }}>{name}</div>
+                        <img id="profileImageInPage" alt="profileImg" src={userId === user.id ? user.profileImage : profilePic} />
+                        <div className='menuTextInPage' style={{ fontWeight: 'bold', fontSize: '3em', bottom: 0 }}>{userId === user.id ? user.name : name}</div>
                     </div>
                     {userId === user.id ?
-                        <div id="editProfile">
+                        <div
+                            id="editProfile"
+                            onClick={() => setEditClicked(true)}>
                             Edit Profile
                             {theme === 'theme-light' ? <Edit className="editIcon" /> : <EditW className="editIcon" />}
                         </div>

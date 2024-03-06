@@ -16,7 +16,10 @@ function AuthProvider({ children }) {
         name: '',
         id: 0,
         profileImage: '',
-        token: ''
+        token: '',
+        firstName: '',
+        lastName: '',
+        password: ''
     });
     const [usersList, setUsersList] = useState(users);
     const [postsList, setPostsList] = useState(posts);
@@ -44,6 +47,10 @@ function AuthProvider({ children }) {
         setTheme('theme-light');
     };
 
+    const setUserVar = (userDet) => {
+        setUser(userDet);
+    }
+
     const addUser = async (userData) => {
         const updatedUsersList = usersList ? [...usersList] : [];
         let newUser = {
@@ -53,16 +60,17 @@ function AuthProvider({ children }) {
             profileImage: userData.img,
             token: 0,
             email: userData.email,
-            password: userData.password
+            password: userData.password,
+            firstName: userData.firstName,
+            lastName: userData.lastName
         }
         try {
             const response = await addUserServer(userData);
             newUser.id = await response.data;
-            console.log(response);
             if (response.statusText != "OK") {
                 throw new Error('Network response was not ok');
             } else {
-                const res = await getToken(userData.email, userData.password, userData.email); 
+                const res = await getToken(userData.email, userData.password, userData.email);
                 const json = await res.json()
                 newUser.token = json.token;
             }
@@ -79,7 +87,7 @@ function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, login, logout, user, addUser, usersList, setPostsListFun, postsList, theme, toggleTheme }}>
+        <AuthContext.Provider value={{ isLoggedIn, login, logout, user, addUser, usersList, setPostsListFun, postsList, theme, toggleTheme, setUserVar }}>
             {children}
         </AuthContext.Provider>
     );

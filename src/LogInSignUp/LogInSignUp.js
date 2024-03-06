@@ -33,11 +33,13 @@ function LogInSignUp() {
             let userDet = {
                 username: userDetails.email,
                 name: userDetails.firstName + " " + userDetails.lastName,
-                id: userDetails.id,
+                id: userDetails._id,
                 profileImage: userDetails.img,
                 token: 0,
                 email: userDetails.email,
-                password: userDetails.password
+                password: userDetails.password,
+                lastName: userDetails.lastName,
+                firstName: userDetails.firstName,
             }
             const res = await getToken(userDetails.email, userDetails.password, userDetails.email);
             const json = await res.json()

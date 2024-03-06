@@ -27,7 +27,6 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
     };
 
     const addNewPost = async () => {
-        console.log("user from newPoSt: ", user)
         if (selectedFile == null) return;
         const updatedPostList = postsList ? [...postsList] : [];
         const response = await fetch((`http://localhost:8080/api/users/${user.id}/posts`), {
