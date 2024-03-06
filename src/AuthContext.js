@@ -37,24 +37,7 @@ function AuthProvider({ children }) {
 
 
     const login = (userData) => {
-
         setIsLoggedIn(true);
-        //let image = userData.img;
-        // let binary = Buffer.from(image.data); 
-        // let imgData = new Blob(binary.buffer, { type: 'application/octet-binary' });
-        // let link = URL.createObjectURL(imgData);
-
-        // let img = new Image();
-        // img.onload = () => URL.revokeObjectURL(link);
-        // img.src = link;
-        //const base64String = btoa(String.fromCharCode.apply(null, image.data));
-
-        // const user = {
-        //     username: userData.email,
-        //     name: userData.firstName + " " + userData.lastName,
-        //     id: userData.email,
-        //     profileImage: `data:image/jpeg;base64,${base64String}`
-        // }
         setUser(userData);
     };
 
@@ -78,7 +61,8 @@ function AuthProvider({ children }) {
         try {
             const response = await axios.post('http://localhost:8080/api/users', userData);
             newUser.id = await response.data;
-            if (!response.ok) {
+            console.log(response);
+            if (response.statusText != "OK") {
                 throw new Error('Network response was not ok');
             } else {
                 const res = await fetch('http://localhost:8080/api/tokens', {
@@ -86,7 +70,7 @@ function AuthProvider({ children }) {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(userData),
+                    body: JSON.stringify({username: userData.email, password: userData.password, email: userData.email}),
                 });
 
                 const json = await res.json()

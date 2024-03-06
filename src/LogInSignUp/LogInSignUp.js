@@ -58,7 +58,7 @@ function LogInSignUp() {
 
     const userExists = async (email) => {
         const res = await axios.get(`http://localhost:8080/api/users/${email}`);
-        if (res.statusText) {
+        if (res.statusText == "OK") {
             const data = await res.data; // Parse response body as JSON
             const user = await data.user; // Access the 'user' property from the response body
             if (user && Object.keys(user).length > 0) {
