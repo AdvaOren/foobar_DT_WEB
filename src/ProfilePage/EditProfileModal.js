@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext } from "react";
 import "./EditProfileModal.css"
 import { ReactComponent as Close } from '../Images/Feed/close-circle.svg';
-import { editUserNImage } from "../serverCalls/EditProfile.js";
+import { editUserNImage, editUserWImage } from "../serverCalls/EditProfile.js";
 import { AuthContext } from "../AuthContext.js";
 
 function EditProfileModal({ userId, setEditClicked }) {
@@ -43,20 +43,27 @@ function EditProfileModal({ userId, setEditClicked }) {
         try {
             // Image has changed
             if (selectedFile != null) {
-                return;
+                await editUserWImage(user.id, email, firstName, lastName, password, user.token, selectedFile);
             }
             // Image has not changed
-            await editUserNImage(user.id, email, firstName, lastName, password, user.token);
+            else{
+                await editUserNImage(user.id, email, firstName, lastName, password, user.token);
+            }
             setUserVar(userDet);
             setEditClicked(false);
-
         } catch (error) {
             console.error('Error:', error);
         }
     };
 
     const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0]);
+
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setSelectedFile(reader.result);
+        };
+        reader.readAsDataURL(file);
     };
     function isValidHttpUrl(string) {
         let url;
@@ -71,33 +78,63 @@ function EditProfileModal({ userId, setEditClicked }) {
     }
 
     return (
-        <div id="editProfileModalContent">
-            <div id="editModalPattern">
-                <div id="topEditPattern">
-                    <p style={{ fontWeight: 'bold' }}>Edit Profile</p>
-                    <Close id="closeButtonEdit" onClick={() => setEditClicked(false)} />
-                </div>
+        <div className="newPostModal">
+            <div className='newPostPattern'>
+                <div className="topModal">
+                    <p style={{
+                        fontWeight: 'bold',
+                        width: "100%",
+                        flexGrow: 1
+                    }}>Edit Profile</p>
 
-                <input id="firstName" type="text" className="inputTextEdit" placeholder="First Name"
-                    aria-label="First Name"
-                />
-                <input id="lastName" className="inputTextEdit" type="text" placeholder="Last Name" aria-label="Last Name"
-                />
-                <input id="password" className="inputTextEdit" type="text" placeholder="New Password" aria-label="New Password"
-                />
-                <input id="email" className="inputTextEdit" type="text" placeholder="New Email" aria-label="New Email"
-                />
-                {selectedFile != null &&
-                    <img src={isValidHttpUrl(selectedFile) ? selectedFile : URL.createObjectURL(selectedFile)}
-                        id="postImageEdit" />}
-                <div id="inputFileEdit">
-
-                    <input type="file" onChange={handleFileChange}  />
+                    <div id="iconsContent">
+                        <Close id="closeButton" onClick={() => setEditClicked(false)} />
+                    </div>
                 </div>
-                <button id="saveButton" type="submit"
-                    onClick={saveDet}>Save</button>
+                <hr style={{ width: "90%", color: "#e3e3e3", opacity: 0.3 }}></hr>
+
+                <div id="addNewPost">
+                    <input id="firstName" type="text" className="inputTextEdit" placeholder="First Name"
+                        aria-label="First Name"
+                    />
+                    <input id="lastName" className="inputTextEdit" type="text" placeholder="Last Name" aria-label="Last Name"
+                    />
+                    <input id="password" className="inputTextEdit" type="text" placeholder="New Password" aria-label="New Password"
+                    />
+                    <input id="email" className="inputTextEdit" type="text" placeholder="New Email" aria-label="New Email"
+                    />
+                    {selectedFile != null &&
+                        <img src={isValidHttpUrl(selectedFile) ? selectedFile : URL.createObjectURL(selectedFile)}
+                            id="postImageFromUser" />}
+                    <input type="file" onChange={(e)=>handleFileChange(e)} id="inputFilePost" />
+                </div>
+                <button id="saveButton" type="submit" onClick={saveDet}>Save</button>
             </div>
         </div>
+        // <div id="editProfileModalContent">
+        //     <div id="editModalPattern">
+        //         <div id="topEditPattern">
+        //             <p style={{ fontWeight: 'bold' }}>Edit Profile</p>
+        //             <Close id="closeButtonEdit" onClick={() => setEditClicked(false)} />
+        //         </div>
+
+        //         <input id="firstName" type="text" className="inputTextEdit" placeholder="First Name"
+        //             aria-label="First Name"
+        //         />
+        //         <input id="lastName" className="inputTextEdit" type="text" placeholder="Last Name" aria-label="Last Name"
+        //         />
+        //         <input id="password" className="inputTextEdit" type="text" placeholder="New Password" aria-label="New Password"
+        //         />
+        //         <input id="email" className="inputTextEdit" type="text" placeholder="New Email" aria-label="New Email"
+        //         />
+        //         {selectedFile != null &&
+        //             <img src={isValidHttpUrl(selectedFile) ? selectedFile : URL.createObjectURL(selectedFile)}
+        //                 id="postImageEdit" />}
+
+        //         <input id="inputFileEdit" type="file" onChange={handleFileChange} />
+        //         <button id="saveButton" type="submit" onClick={saveDet}>Save</button>
+        //     </div>
+        // </div>
     );
 }
 
