@@ -33,7 +33,7 @@ function LogInSignUp() {
             let userDet = {
                 username: userDetails.email,
                 name: userDetails.firstName + " " + userDetails.lastName,
-                id: userDetails._id,
+                id: userDetails.id,
                 profileImage: userDetails.img,
                 token: 0,
                 email: userDetails.email,

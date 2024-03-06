@@ -1,25 +1,47 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useContext } from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import "./Comments.css";
-import { ReactComponent as Close } from '../../Images/Feed/close-circle.svg';
-import { ReactComponent as SendGray } from '../../Images/Feed/send-gray.svg';
-import { ReactComponent as SendBlue } from '../../Images/Feed/send-blue.svg';
-import { ReactComponent as Edit } from '../../Images/Feed/edit.svg';
-import { ReactComponent as Save } from '../../Images/Feed/done.svg';
-import { ReactComponent as Delete } from '../../Images/Feed/delete-black.svg';
+import {ReactComponent as Close} from '../../Images/Feed/close-circle.svg';
+import {ReactComponent as SendGray} from '../../Images/Feed/send-gray.svg';
+import {ReactComponent as SendBlue} from '../../Images/Feed/send-blue.svg';
+import {ReactComponent as Edit} from '../../Images/Feed/edit.svg';
+import {ReactComponent as Save} from '../../Images/Feed/done.svg';
+import {ReactComponent as Delete} from '../../Images/Feed/delete-black.svg';
 
 
-import { AuthContext } from '../../AuthContext.js';
+import {AuthContext} from '../../AuthContext.js';
 
 import Posts from '../Posts/Posts.js';
 
-function Comments({ userId, id, likes, postUrl, comments, text, name, profileImage, date, setCommentPressed }) {
+function Comments({userId, id, likes, postUrl, text, name, profileImage, date, setCommentPressed}) {
     const [inputText, setInputText] = useState('');
     const [commentText, setCommentText] = useState('');
-    const { user, usersList, postsList, setPostsListFun } = useContext(AuthContext);
+    const {user, usersList, postsList, setPostsListFun} = useContext(AuthContext);
     const [editComment, setEditComment] = useState(false);
     const [inputHeight, setInputHeight] = useState('auto'); // State to manage input height
     const [commentIdChanged, seCommentIdChaged] = useState();
+    const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+        const fetchComments = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/api/posts/${id}/comments`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'authorization': 'bearer ' + user.token // attach the token
+                    }
+                })
+                const commentList = await response.json()
+                setComments(commentList);
+            } catch (error) {
+// handle error
+            }
+        };
+        fetchComments();
+    }, []);
+
+
     const handleInputChange = (event, setter) => {
         setter(event.target.value);
         adjustHeight(event.target);
@@ -32,8 +54,8 @@ function Comments({ userId, id, likes, postUrl, comments, text, name, profileIma
     const getUserInfoById = (id) => {
         const user = usersList.find(user => user.id === id);
         if (user) {
-            const { profileImage, name } = user;
-            return { profileImage, name };
+            const {profileImage, name} = user;
+            return {profileImage, name};
         } else {
             return null;
         }
@@ -55,12 +77,22 @@ function Comments({ userId, id, likes, postUrl, comments, text, name, profileIma
                     comment: inputText,
                 },
             ];
-
             // Update the post with the new array of comments
             updatedPosts[postIndex] = {
                 ...postToUpdate,
                 comments: updatedComments,
             };
+
+            //save comment in db:
+            const response = fetch(`http://localhost:8080/api/users/${user.id}/posts/${id}/comments`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    'authorization': 'bearer ' + user.token // attach the token
+                },
+                body: JSON.stringify({text: inputText})
+            })
+
 
             // Update the state with the new post list
             setPostsListFun(updatedPosts);
@@ -134,55 +166,62 @@ function Comments({ userId, id, likes, postUrl, comments, text, name, profileIma
         <div id="CommentContent">
             <div id="commentsPattern">
                 <div id="topCommentsPattern">
-                    <p style={{ fontWeight: 'bold' }}>{name}{'\''}s Post</p>
-                    <Close id="closeButton" onClick={() => setCommentPressed(0)} />
+                    <p style={{fontWeight: 'bold'}}>{name}{'\''}s Post</p>
+                    <Close id="closeButton" onClick={() => setCommentPressed(0)}/>
                 </div>
                 <div id="allCommentsContent">
-                    <Posts fromComments={1} likes={likes} postUrl={postUrl} comments={comments} text={text} name={name} profileImage={profileImage} date={date} userId={userId} />
+                    <Posts fromComments={1} likes={likes} postUrl={postUrl} comments={comments} text={text} name={name}
+                           profileImage={profileImage} date={date} userId={userId}/>
                     {comments.map((comment, index) => {
-                        return (
-                            <div key={index} id="commentAndProfile">
-                                <img className="profileImageComments" src={getUserInfoById(comment.id).profileImage} alt="profile" />
-                                <div id="eachComment">
-                                    <p style={{ fontWeight: 'bold' }}>{getUserInfoById(comment.id).name}</p>
-                                    {(user.id == comment.id && editComment && commentIdChanged == comment.id) ?
-                                        <>
-                                            <div
-                                                contentEditable
-                                                onInput={(event) => handleCommentChange(event, setCommentText)}
-                                                style={{
-                                                    height: inputHeight, // Set input height dynamically
+                            return (
+                                <div key={index} id="commentAndProfile">
+                                    <img className="profileImageComments" src={getUserInfoById(comment.id).profileImage}
+                                         alt="profile"/>
+                                    <div id="eachComment">
+                                        <p style={{fontWeight: 'bold'}}>{getUserInfoById(comment.id).name}</p>
+                                        {(user.id == comment.id && editComment && commentIdChanged == comment.id) ?
+                                            <>
+                                                <div
+                                                    contentEditable
+                                                    onInput={(event) => handleCommentChange(event, setCommentText)}
+                                                    style={{
+                                                        height: inputHeight, // Set input height dynamically
 
-                                                }} >
-                                                {commentText}
-                                            </div>
-                                            <Save className="editOrDeleteComment" onClick={() => saveCommentChanges(comment.id)} />
-                                            <Delete className="editOrDeleteComment" onClick={() => deleteComment(comment.id)} />
-                                        </>
-                                        :
-                                        (user.id == comment.id ? <>
-                                            <p>{comment.comment}</p>
-                                            <Edit className="editOrDeleteComment" onClick={() => editCommentFun(comment.comment, comment.id)} />
-                                            <Delete className="editOrDeleteComment" onClick={() => deleteComment(comment.id)} />
-                                        </> : user.id != comment.id && <p>{comment.comment}</p>)
-                                    }
+                                                    }}>
+                                                    {commentText}
+                                                </div>
+                                                <Save className="editOrDeleteComment"
+                                                      onClick={() => saveCommentChanges(comment.id)}/>
+                                                <Delete className="editOrDeleteComment"
+                                                        onClick={() => deleteComment(comment.id)}/>
+                                            </>
+                                            :
+                                            (user.id == comment.id ? <>
+                                                <p>{comment.comment}</p>
+                                                <Edit className="editOrDeleteComment"
+                                                      onClick={() => editCommentFun(comment.comment, comment.id)}/>
+                                                <Delete className="editOrDeleteComment"
+                                                        onClick={() => deleteComment(comment.id)}/>
+                                            </> : user.id != comment.id && <p>{comment.comment}</p>)
+                                        }
 
-                                    
+
+                                    </div>
+
                                 </div>
-
-                            </div>
-                        )
-                    }
+                            )
+                        }
                     )
                     }
                 </div>
                 <div id="addComm">
-                    <img className="profileImageComments" src={user.profileImage} />
-                    <input value={inputText} onChange={(event) => handleInputChange(event, setInputText)} id="inputLineComments" type="text" placeholder="Add a comment..." />
+                    <img className="profileImageComments" src={user.profileImage}/>
+                    <input value={inputText} onChange={(event) => handleInputChange(event, setInputText)}
+                           id="inputLineComments" type="text" placeholder="Add a comment..."/>
                     <div data-testid="sendIconCommants" className='sentIconsCon'>
                         {(inputText != null && inputText != '') ?
-                            <SendBlue id="sendIconCommants" data-testid="blueIconPress" onClick={addNewComment} /> :
-                            <SendGray id="sendIconCommants" />
+                            <SendBlue id="sendIconCommants" data-testid="blueIconPress" onClick={addNewComment}/> :
+                            <SendGray id="sendIconCommants"/>
                         }
                     </div>
                 </div>
