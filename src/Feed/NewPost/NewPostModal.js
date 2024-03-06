@@ -45,7 +45,6 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
 
         const newPost = await response.json();
         const add = {...newPost, "likes": 0, "comments": []}
-        console.log("newPostModal: newPost: ", newPost, "add: ", add);
         // Update the post list in the component's state
         setPostsListFun([add, ...updatedPostList]);
 
@@ -142,9 +141,8 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
             },
             body: JSON.stringify({userId: user.id, postId: id})
         })
-
-        /*const newPosts = postsList.filter(post => post.id !== id);
-        setPostsListFun(newPosts);*/
+        const newPosts = postsList.filter(post => post.id !== id);
+        setPostsListFun(newPosts);
     }
 
     return (
