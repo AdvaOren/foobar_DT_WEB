@@ -15,7 +15,7 @@ function NewPost({ id, newPostPressed, setNewPostPressed }) {
     function addNewPost() {
         setNewPostPressed(newPostPressed ? 0 : 1);
     }
-
+    
     return (
         <div className="newPostContent">
             {newPostPressed ? (
@@ -34,6 +34,7 @@ function NewPost({ id, newPostPressed, setNewPostPressed }) {
 
             <div className="profilAndInput">
                 <img id="profileImage" src={user.profileImage} />
+
                 <input className="inputLine" type="text" placeholder={message} onClick={addNewPost} />
             </div>
             <hr style={{ width: "90%", color: "#e3e3e3", opacity: 0.3 }}></hr>

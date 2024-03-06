@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import users from "./data/users.json"
 import posts from "./data/posts.json"
+import axios from 'axios';
 
 
 const AuthContext = React.createContext();
@@ -69,20 +70,14 @@ function AuthProvider({ children }) {
             username: userData.username,
             name: userData.firstName + " " + userData.lastName,
             id: 0,
-            profileImage: userData.profileImage,
+            profileImage: userData.img,
             token: 0,
             email: userData.email,
             password: userData.password
         }
         try {
-            const response = await fetch('http://localhost:8080/api/users', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            });
-            newUser.id = await response.json();
+            const response = await axios.post('http://localhost:8080/api/users', userData);
+            newUser.id = await response.data;
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             } else {

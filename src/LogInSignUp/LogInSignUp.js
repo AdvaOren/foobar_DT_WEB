@@ -5,6 +5,7 @@ import { PasswordValid } from '../Validation/Validation.js'
 import StartScreenLogo from '../Logo/StartScreenLogo.js';
 import { AuthContext } from '../AuthContext.js';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function LogInSignUp() {
     const navigate = useNavigate();
@@ -38,13 +39,12 @@ function LogInSignUp() {
                 email: userDetails.email,
                 password: userDetails.password
             }
-
             const res = await fetch('http://localhost:8080/api/tokens', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(userDetails),
+                body: JSON.stringify({username: userDetails.email, password: userDetails.password, email: userDetails.email}),
             });
 
             const json = await res.json()
@@ -57,11 +57,14 @@ function LogInSignUp() {
     }
 
     const userExists = async (email) => {
-        const res = await fetch(`http://localhost:8080/api/users/${email}`); // Find user exists by email
-        if (res.ok) {
-            const data = await res.json(); // Parse response body as JSON
-            if (data && Object.keys(data).length > 0) {
-                return data; // User found
+        const res = await axios.get(`http://localhost:8080/api/users/${email}`);
+        if (res.statusText) {
+            const data = await res.data; // Parse response body as JSON
+            const user = await data.user; // Access the 'user' property from the response body
+            if (user && Object.keys(user).length > 0) {
+                const newUrl = "data:image/png;base64," + user.img;
+                user.img = newUrl;
+                return user; // User found
             } else {
                 return false // User not found
             }
@@ -117,5 +120,7 @@ function LogInSignUp() {
 
     )
 }
+
+
 
 export default LogInSignUp;

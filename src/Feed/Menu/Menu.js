@@ -55,7 +55,6 @@ function Menu() {
         profilePic: user.profileImage,
         name: user.name
     };
-
     return (
         <div id="MenuContent">
             <div className="patternContent" key={user.id} onClick={() => navigate("/profilePage", { state: userDet })}>
