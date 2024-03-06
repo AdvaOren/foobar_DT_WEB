@@ -33,6 +33,7 @@
     border-radius: 10px;
     background-color: var(--buttons-background);
     font-size: 1em;
+    color: var(--text-color);
 }
 
 #editProfile:hover {

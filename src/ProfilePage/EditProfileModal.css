@@ -18,7 +18,7 @@
     background-color: #1877f2;
     color: #eff1f4;
     width: 30%;
-    height: 14%;
+    /* height: 14%; */
     border-radius: 10px;
 }
 #saveButton:hover {
@@ -27,9 +27,10 @@
 }
 
 #editModalPattern {
+
     overflow-x: hidden;
     width: 50%;
-    height: 70%;
+    height: 400px;
     background-color: var(--topbar-posts-background-color);
     display: flex;
     flex-direction: column;
@@ -72,38 +73,26 @@
 }
 
 #inputFileEdit{
-    font-size: 16px;
+    width: 50%;
+    height: 50px;
+    padding: 4px 10px;
+    /* margin: 5px 5px; */
+    border-radius: 10px;
+    font-size: 20px;
+    border-width: 0.1px;
+    border-radius: 10px;
+    border-color: #ededeb;
+    /* outline: none; */
+    background-color: var(--comments-background-color);
     color: var(--text-color);
-    justify-content: center;
-    height: 100px;
-    width: 100%;
+    /* font-size: 16px;
+    color: var(--text-color);
+    justify-content: center; */
+    
+    /* height: 200px;
+    width: 100%; */
+}
+.menuTextInPage {
+    color: var(--text-color)
 }
 
-/* Hide the default file input button */
-input[type="file"] {
-    display: none;
-}
-
-/* Style the custom button */
-.custom-file-input {
-    background-color: #f0f0f0;
-    color: #333;
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Style the label to resemble a button */
-.custom-file-input-label {
-    display: inline-block;
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Optional: Add hover effect */
-.custom-file-input-label:hover {
-    background-color: #e0e0e0;
-}
