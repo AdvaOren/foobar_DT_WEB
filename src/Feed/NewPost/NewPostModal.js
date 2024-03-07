@@ -110,17 +110,13 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
                                 })
                             }
                         )
-                        return await response.json();
+                        const json = await response.json;
+                        return {
+                               ...post,
+                            text: inputText,
+                            postUrl: isValidHttpUrl(selectedFile) ? selectedFile : URL.createObjectURL(selectedFile)
+                        };
                     }
-
-
-                    /*    // Update the fields
-                    return {
-                        ...post,
-                        text: inputText,
-                        postUrl: isValidHttpUrl(selectedFile) ? selectedFile : URL.createObjectURL(selectedFile)
-                    };
-                }*/
                     return post; // For other posts, return them as they are
                 }
             )
@@ -154,6 +150,7 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
         })
         const newPosts = postsList.filter(post => post.id !== id);
         setPostsListFun(newPosts);
+        setNewPostPressed(0)
     }
 
     return (
