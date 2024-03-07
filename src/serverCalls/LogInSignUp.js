@@ -31,3 +31,19 @@ export const getToken = async (userName, password, email) => {
 export const addUserServer = async (userData) => {
     return await axios.post('http://localhost:8080/api/users', userData);
 }
+
+export const getUsersList = async (userId, token) => {
+    try {
+        const response = await fetch(`http://localhost:8080/api/users/${userId}/friends`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                'authorization': 'bearer ' + token // attach the token
+            }
+        })
+        return await response.json();
+    } catch (error) {
+        // Handle network or parsing errors
+        console.error('Error fetching user friends:', error);
+    }
+}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import users from "./data/users.json"
 import posts from "./data/posts.json"
 import axios from 'axios';
-import { getToken, addUserServer } from './serverCalls/LogInSignUp.js';
+import { getToken, addUserServer, getUsersList } from './serverCalls/LogInSignUp.js';
 
 
 const AuthContext = React.createContext();
@@ -36,9 +36,21 @@ function AuthProvider({ children }) {
     }
 
 
-    const login = (userData) => {
+    const login = async (userData) => {
         setIsLoggedIn(true);
         setUser(userData);
+        const newUsersList = await getUsersList(userData.id, userData.token); //Get friends list from DB
+        let friendsListN = [];
+        newUsersList.map((friend) => {
+            friendsListN.push({
+                id: friend._id,
+                profileImage: friend.img,
+                name: friend.firstName + " " + friend.lastName,
+                userName: friend.email,
+                password: friend.password
+            })
+        })
+        setUsersList(friendsListN);
     };
 
     const logout = () => {
