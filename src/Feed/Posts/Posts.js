@@ -34,13 +34,12 @@ function Posts({id, userId, likes, postUrl, comments, text, name, profileImage, 
 
 
     async function addLike() {
-        const response = await fetch(`http://localhost:8080/api/posts/${id}/like/${user.id}`, {
+        const response = await fetch(`http://localhost:8080/api/users/${user.id}/posts/${id}/like`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 'authorization': 'bearer ' + user.token // attach the token
-            },
-         //   body: JSON.stringify({userId: user.id, postId: id})
+            }
         });
         //extract like count from response
         const amount = await response.json()
