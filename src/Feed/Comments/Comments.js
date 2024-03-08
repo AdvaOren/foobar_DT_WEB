@@ -25,21 +25,23 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/posts/${id}/comments`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        'authorization': 'bearer ' + user.token // attach the token
-                    }
-                })
-                const commentList = await response.json()
-                setComments(commentList);
+                for (let i = 1; i < 3; i++) {
+                    const response = await fetch(`http://localhost:8080/api/posts/${id}/comments?page=${i}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            'authorization': 'bearer ' + user.token // attach the token
+                        }
+                    })
+                    const commentList = await response.json()
+                    setComments([...comments,...commentList]);
+                }
             } catch (error) {
 // handle error
             }
         };
         fetchComments();
-    }, [/*comments*/]);
+    }, [comments]);
 
 
     const handleInputChange = (event, setter) => {
@@ -60,7 +62,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
             return null;
         }
     };
-    const addNewComment = () => {
+    const addNewComment = async () => {
         const postIndex = postsList.findIndex((post) => post.id === id);
 
         if (postIndex !== -1) {
@@ -69,22 +71,9 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
 
             // Get the post you want to update
             const postToUpdate = updatedPosts[postIndex];
-            // Create a new array for updated comments
-            const updatedComments = [
-                ...postToUpdate.comments,
-                {
-                    id: user.id,
-                    comment: inputText,
-                },
-            ];
-            // Update the post with the new array of comments
-            updatedPosts[postIndex] = {
-                ...postToUpdate,
-                comments: updatedComments,
-            };
 
             //save comment in db:
-            const response = fetch(`http://localhost:8080/api/users/${user.id}/posts/${id}/comments`, {
+            const response = await fetch(`http://localhost:8080/api/users/${user.id}/posts/${id}/comments`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -92,8 +81,24 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                 },
                 body: JSON.stringify({text: inputText})
             })
+            const comment = await response.json();
+            // Create a new array for updated comments
+            const updatedComments = [
+                    ...postToUpdate.comments,
+                    {
+                        userId: user.id,
+                        id: comment._id,
+                        comment: inputText,
+                    },
+                ]
+            ;
+            // Update the post with the new array of comments
+            updatedPosts[postIndex] = {
+                ...postToUpdate,
+                comments: updatedComments,
+            };
 
-
+            console.log(comments);
             // Update the state with the new post list
             setPostsListFun(updatedPosts);
             setInputText('');
@@ -173,13 +178,14 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                     <Posts fromComments={1} likes={likes} postUrl={postUrl} comments={comments} text={text} name={name}
                            profileImage={profileImage} date={date} userId={userId}/>
                     {comments.map((comment, index) => {
+
                             return (
                                 <div key={index} id="commentAndProfile">
                                     <img className="profileImageComments" src={getUserInfoById(comment.id).profileImage}
                                          alt="profile"/>
                                     <div id="eachComment">
                                         <p style={{fontWeight: 'bold'}}>{getUserInfoById(comment.id).name}</p>
-                                        {(user.id == comment.id && editComment && commentIdChanged == comment.id) ?
+                                        {(user.id == comment.userId && editComment && commentIdChanged == comment.id) ?
                                             <>
                                                 <div
                                                     contentEditable
@@ -196,7 +202,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                                                         onClick={() => deleteComment(comment.id)}/>
                                             </>
                                             :
-                                            (user.id == comment.id ? <>
+                                            (user.id == comment.userId ? <>
                                                 <p>{comment.comment}</p>
                                                 <Edit className="editOrDeleteComment"
                                                       onClick={() => editCommentFun(comment.comment, comment.id)}/>
