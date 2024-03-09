@@ -22,7 +22,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
     const [commentIdChanged, seCommentIdChaged] = useState();
     const [comments, setComments] = useState([]);
 
-    useEffect(() => {
+    useEffect( () => {
         const fetchComments = async () => {
             try {
                 for (let i = 1; i < 3; i++) {
@@ -34,14 +34,15 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                         }
                     })
                     const commentList = await response.json()
-                    setComments([...comments,...commentList]);
+                    console.log(commentList)
+                    setComments(prevComments => [...prevComments, ...commentList]);
                 }
             } catch (error) {
 // handle error
             }
         };
         fetchComments();
-    }, [comments]);
+    }, [/*comments*/]);
 
 
     const handleInputChange = (event, setter) => {
@@ -83,32 +84,47 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
             })
             const comment = await response.json();
             // Create a new array for updated comments
+            const names = user.name.split(' ')
             const updatedComments = [
-                    ...postToUpdate.comments,
+                    ...comments,
                     {
-                        userId: user.id,
-                        id: comment._id,
-                        comment: inputText,
+                        first: {
+                            id: comment._id,
+                            text: inputText
+                        },
+                        second: {
+                            userId: user.id,
+                            profileImage: user.profileImage,
+                            firstName: names[0],
+                            lastName: names[1]
+                        }
                     },
                 ]
-            ;
+
             // Update the post with the new array of comments
             updatedPosts[postIndex] = {
                 ...postToUpdate,
                 comments: updatedComments,
             };
-
-            console.log(comments);
+            setComments(updatedComments);
             // Update the state with the new post list
             setPostsListFun(updatedPosts);
             setInputText('');
         }
     };
-    const deleteComment = (commentId) => {
+    const deleteComment = async (commentId) => {
+        const response = await fetch(`http://localhost:8080/api/users/${user.id}/posts/${id}/comments`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                'authorization': 'bearer ' + user.token // attach the token
+            }
+        })
         let newPostList = postsList.map(post => {
             // Check if this is the post to update
             if (post.id === id) {
                 // Filter out the comment with the given commentId
+
                 return {
                     ...post,
                     comments: post.comments.filter(comment => comment.id !== commentId)
@@ -138,7 +154,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                         // Update the comment string
                         return {
                             ...comment,
-                            comment: commentText
+                            content: commentText
                         };
                     } else {
                         // Return the original comment if the ID doesn't match
@@ -178,14 +194,13 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                     <Posts fromComments={1} likes={likes} postUrl={postUrl} comments={comments} text={text} name={name}
                            profileImage={profileImage} date={date} userId={userId}/>
                     {comments.map((comment, index) => {
-
                             return (
                                 <div key={index} id="commentAndProfile">
-                                    <img className="profileImageComments" src={getUserInfoById(comment.id).profileImage}
+                                    <img className="profileImageComments" src={comment.second.profileImage}
                                          alt="profile"/>
                                     <div id="eachComment">
-                                        <p style={{fontWeight: 'bold'}}>{getUserInfoById(comment.id).name}</p>
-                                        {(user.id == comment.userId && editComment && commentIdChanged == comment.id) ?
+                                        <p style={{fontWeight: 'bold'}}>{comment.second.firstName + " " + comment.second.lastName}</p>
+                                        {(user.id == comment.second.userId && editComment && commentIdChanged == comment.first.id) ?
                                             <>
                                                 <div
                                                     contentEditable
@@ -194,21 +209,21 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                                                         height: inputHeight, // Set input height dynamically
 
                                                     }}>
-                                                    {commentText}
+                                                    {comment.first.text}
                                                 </div>
                                                 <Save className="editOrDeleteComment"
-                                                      onClick={() => saveCommentChanges(comment.id)}/>
+                                                      onClick={() => saveCommentChanges(comment.first.id)}/>
                                                 <Delete className="editOrDeleteComment"
-                                                        onClick={() => deleteComment(comment.id)}/>
+                                                        onClick={() => deleteComment(comment.first.id)}/>
                                             </>
                                             :
                                             (user.id == comment.userId ? <>
-                                                <p>{comment.comment}</p>
+                                                <p>{comment.first.content}</p>
                                                 <Edit className="editOrDeleteComment"
-                                                      onClick={() => editCommentFun(comment.comment, comment.id)}/>
+                                                      onClick={() => editCommentFun(comment.first.text, comment.first.id)}/>
                                                 <Delete className="editOrDeleteComment"
-                                                        onClick={() => deleteComment(comment.id)}/>
-                                            </> : user.id != comment.id && <p>{comment.comment}</p>)
+                                                        onClick={() => deleteComment(comment.first.id)}/>
+                                            </> : user.id != comment.id && <p>{comment.first.text}</p>)
                                         }
 
 
