@@ -41,7 +41,7 @@ function LogInSignUp() {
                 lastName: userDetails.lastName,
                 firstName: userDetails.firstName,
             }
-            const res = await getToken(userDetails.email, userDetails.password, userDetails.email);
+            const res = await getToken(userDetails._id);
             const json = await res.json()
             userDet.token = json.token;
             login(userDet);

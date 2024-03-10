@@ -9,7 +9,7 @@ import ProfilePage from './ProfilePage/ProfilePage.js';
 
 
 function App() {
-    const { theme, usersList } = useContext(AuthContext);
+    const { theme } = useContext(AuthContext);
 
     return (
         <div className={theme}>
