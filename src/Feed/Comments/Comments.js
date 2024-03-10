@@ -39,7 +39,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
             }
         };
         fetchComments();
-    }, []);
+    }, [/*comments*/]);
 
 
     const handleInputChange = (event, setter) => {

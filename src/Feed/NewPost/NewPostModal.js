@@ -38,14 +38,26 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
             body: JSON.stringify({
                 content: inputText,
                 img: selectedFile ? URL.createObjectURL(selectedFile) : null,
-                userId: user.id,
                 date: new Date().toISOString()
             })
         })
 
         const newPost = await response.json();
-        const add = {...newPost, "likes": 0, "comments": []}
-        console.log("newPostModal: newPost: ", newPost, "add: ", add);
+        //newPost._doc is the post details
+        const postDet = newPost._doc;
+        const add = {
+            id: postDet._id,
+            userId: user.id,
+            text: postDet.text,
+            postUrl: selectedFile ? URL.createObjectURL(selectedFile) : null,
+            date: postDet.date,
+            likes: 0,
+            comments: [],
+            name: newPost.name,
+            profileImage: newPost.profileImage
+        }
+
+
         // Update the post list in the component's state
         setPostsListFun([add, ...updatedPostList]);
 
@@ -92,8 +104,7 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
                                     'authorization': 'bearer ' + user.token // attach the token
                                 },
                                 body: JSON.stringify({
-                                    userId: user.id,
-                                    id: id,
+
                                     img: isValidHttpUrl(selectedFile) ? selectedFile : URL.createObjectURL(selectedFile),
                                     content: inputText
                                 })
@@ -139,12 +150,10 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
             headers: {
                 "Content-Type": "application/json",
                 'authorization': 'bearer ' + user.token // attach the token
-            },
-            body: JSON.stringify({userId: user.id, postId: id})
+            }
         })
-
-        /*const newPosts = postsList.filter(post => post.id !== id);
-        setPostsListFun(newPosts);*/
+        const newPosts = postsList.filter(post => post.id !== id);
+        setPostsListFun(newPosts);
     }
 
     return (
