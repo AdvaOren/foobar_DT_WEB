@@ -22,21 +22,18 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
     const [commentIdChanged, seCommentIdChaged] = useState();
     const [comments, setComments] = useState([]);
 
-    useEffect( () => {
+    useEffect(() => {
         const fetchComments = async () => {
             try {
-                for (let i = 1; i < 3; i++) {
-                    const response = await fetch(`http://localhost:8080/api/posts/${id}/comments?page=${i}`, {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                            'authorization': 'bearer ' + user.token // attach the token
-                        }
-                    })
-                    const commentList = await response.json()
-                    console.log(commentList)
-                    setComments(prevComments => [...prevComments, ...commentList]);
-                }
+                const response = await fetch(`http://localhost:8080/api/posts/${id}/comments`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'authorization': 'bearer ' + user.token // attach the token
+                    }
+                })
+                const commentList = await response.json()
+                setComments(prevComments => [...prevComments, ...commentList]);
             } catch (error) {
 // handle error
             }
@@ -86,20 +83,20 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
             // Create a new array for updated comments
             const names = user.name.split(' ')
             const updatedComments = [
-                    ...comments,
-                    {
-                        first: {
-                            id: comment._id,
-                            text: inputText
-                        },
-                        second: {
-                            userId: user.id,
-                            profileImage: user.profileImage,
-                            firstName: names[0],
-                            lastName: names[1]
-                        }
+                ...comments,
+                {
+                    first: {
+                        id: comment._id,
+                        text: inputText
                     },
-                ]
+                    second: {
+                        userId: user.id,
+                        profileImage: user.profileImage,
+                        firstName: names[0],
+                        lastName: names[1]
+                    }
+                },
+            ]
 
             // Update the post with the new array of comments
             updatedPosts[postIndex] = {
