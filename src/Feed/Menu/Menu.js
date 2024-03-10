@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import "./Menu.css"
-import { ReactComponent as Friends } from '../../Images/Feed/user-friends.svg';
+import Friends from '../../Friends/Friends.js';
+import { ReactComponent as FriendIcon } from '../../Images/Feed/user-friends.svg';
 import { ReactComponent as Memories } from '../../Images/Feed/clock.svg';
 import { ReactComponent as Saved } from '../../Images/Feed/saved.svg';
 import { ReactComponent as Groups } from '../../Images/Feed/group.svg';
@@ -15,11 +16,12 @@ import { useNavigate } from 'react-router';
 function Menu() {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
-
+    const [friendsClicked, setFriendsClicked] = useState(false);
     const menuDetails = [
         {
             text: "Friends",
-            url: Friends
+            url: FriendIcon,
+            onClickFun: ()=>setFriendsClicked(true)
         },
         {
             text: "Memories",
@@ -57,6 +59,7 @@ function Menu() {
     };
     return (
         <div id="MenuContent">
+            {friendsClicked && <Friends setFriendsClicked={setFriendsClicked} />}
             <div className="patternContent" key={user.id} onClick={() => navigate("/profilePage", { state: userDet })}>
                 <img alt='profileImg' id="profileImage" src={user.profileImage} />
                 <p className='menuText' style={{ fontWeight: 'bold' }}>{user.name}</p>
@@ -64,7 +67,7 @@ function Menu() {
             {
                 menuDetails.map((detail, index) => {
                     return (
-                        <div className="patternContent" key={index}>
+                        <div onClick={detail.onClickFun ? detail.onClickFun : () => {}} className="patternContent" key={index}>
                             <detail.url className='detailsIcon' />
                             <p className='menuText'>{detail.text}</p>
                         </div>

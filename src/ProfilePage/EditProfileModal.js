@@ -111,30 +111,6 @@ function EditProfileModal({ userId, setEditClicked }) {
                 <button id="saveButton" type="submit" onClick={saveDet}>Save</button>
             </div>
         </div>
-        // <div id="editProfileModalContent">
-        //     <div id="editModalPattern">
-        //         <div id="topEditPattern">
-        //             <p style={{ fontWeight: 'bold' }}>Edit Profile</p>
-        //             <Close id="closeButtonEdit" onClick={() => setEditClicked(false)} />
-        //         </div>
-
-        //         <input id="firstName" type="text" className="inputTextEdit" placeholder="First Name"
-        //             aria-label="First Name"
-        //         />
-        //         <input id="lastName" className="inputTextEdit" type="text" placeholder="Last Name" aria-label="Last Name"
-        //         />
-        //         <input id="password" className="inputTextEdit" type="text" placeholder="New Password" aria-label="New Password"
-        //         />
-        //         <input id="email" className="inputTextEdit" type="text" placeholder="New Email" aria-label="New Email"
-        //         />
-        //         {selectedFile != null &&
-        //             <img src={isValidHttpUrl(selectedFile) ? selectedFile : URL.createObjectURL(selectedFile)}
-        //                 id="postImageEdit" />}
-
-        //         <input id="inputFileEdit" type="file" onChange={handleFileChange} />
-        //         <button id="saveButton" type="submit" onClick={saveDet}>Save</button>
-        //     </div>
-        // </div>
     );
 }
 

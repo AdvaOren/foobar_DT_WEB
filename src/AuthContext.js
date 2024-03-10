@@ -5,6 +5,7 @@ import users from "./data/users.json"
 import posts from "./data/posts.json"
 import axios from 'axios';
 import { getToken, addUserServer, getUsersList } from './serverCalls/LogInSignUp.js';
+import { getPostList } from './serverCalls/posts.js';
 
 
 const AuthContext = React.createContext();
@@ -50,7 +51,9 @@ function AuthProvider({ children }) {
                 password: friend.password
             })
         })
+        //const postsListNew = await getPostList(userData.token);
         setUsersList(friendsListN);
+
     };
 
     const logout = () => {
@@ -82,7 +85,7 @@ function AuthProvider({ children }) {
             if (response.statusText != "OK") {
                 throw new Error('Network response was not ok');
             } else {
-                const res = await getToken(userData.email, userData.password, userData.email);
+                const res = await getToken(newUser.id);
                 const json = await res.json()
                 newUser.token = json.token;
             }
