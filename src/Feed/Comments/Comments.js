@@ -33,7 +33,22 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                     }
                 })
                 const commentList = await response.json()
-                setComments(prevComments => [...prevComments, ...commentList]);
+                let newComments = [];
+                commentList.map((comment) => {
+                    newComments.push({
+                        first: {
+                            id: comment.first._id,
+                            text: comment.first.text
+                        },
+                        second: {
+                            userId: comment.second._id,
+                            firstName: comment.second.firstName,
+                            lastName:comment.second.lastName,
+                            img: "data:image/png;base64," + comment.second.img
+                        }
+                    })
+                })
+                setComments(prevComments => [...newComments]);
             } catch (error) {
 // handle error
             }
@@ -110,7 +125,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
         }
     };
     const deleteComment = async (commentId) => {
-        const response = await fetch(`http://localhost:8080/api/users/${user.id}/posts/${id}/comments`, {
+        const response = await fetch(`http://localhost:8080/api/users/${user.id}/posts/${id}/comments/${commentId}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -124,7 +139,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
 
                 return {
                     ...post,
-                    comments: post.comments.filter(comment => comment.id !== commentId)
+                    comments: post.comments.filter(comment => comment.first.id !== commentId)
                 };
             }
             // If this is not the post to update, return it unchanged
@@ -140,6 +155,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
     }
 
     const saveCommentChanges = (commentId) => {
+
         // Make a copy of the postList array
         const updatedPostList = postsList.map(post => {
             // Check if the post ID matches the target ID
@@ -193,7 +209,8 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                     {comments.map((comment, index) => {
                             return (
                                 <div key={index} id="commentAndProfile">
-                                    <img className="profileImageComments" src={comment.second.profileImage}
+                                    <img className="profileImageComments"
+                                         src={comment.second.img}
                                          alt="profile"/>
                                     <div id="eachComment">
                                         <p style={{fontWeight: 'bold'}}>{comment.second.firstName + " " + comment.second.lastName}</p>
@@ -206,7 +223,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                                                         height: inputHeight, // Set input height dynamically
 
                                                     }}>
-                                                    {comment.first.text}
+                                                    {commentText}
                                                 </div>
                                                 <Save className="editOrDeleteComment"
                                                       onClick={() => saveCommentChanges(comment.first.id)}/>
@@ -214,8 +231,8 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                                                         onClick={() => deleteComment(comment.first.id)}/>
                                             </>
                                             :
-                                            (user.id == comment.userId ? <>
-                                                <p>{comment.first.content}</p>
+                                            (user.id == comment.second.userId ? <>
+                                                <p>{comment.first.text}</p>
                                                 <Edit className="editOrDeleteComment"
                                                       onClick={() => editCommentFun(comment.first.text, comment.first.id)}/>
                                                 <Delete className="editOrDeleteComment"
