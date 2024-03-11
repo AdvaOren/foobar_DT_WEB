@@ -34,7 +34,6 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                         }
                     })
                     const commentList = await response.json()
-                    console.log(commentList)
                     setComments(prevComments => [...prevComments, ...commentList]);
                 }
             } catch (error) {

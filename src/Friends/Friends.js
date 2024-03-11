@@ -12,7 +12,6 @@ function Friends({ setFriendsClicked }) {
     useEffect(() => {
         async function fetchData() {
             await getFriendsList(user.id, user.token).then((response) => {
-                console.log("response", response);
                 setFriendsList(response);
             });
         }

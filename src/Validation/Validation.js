@@ -1,4 +1,3 @@
-import { useReducer } from "react";
 
 export function UserNameValid(userName) {
     // Define the regular expression to match any character from the alphabet
@@ -78,7 +77,7 @@ export function isDateValid(date) {
  * Input: the new member
  * Output: fill or not
  */
-export function checkForEmptyInput(member) {
+export function checkForEmptyInput(member, passwordVerification) {
     let hasEmptyInputBox = false;
     Object.keys(member).forEach(key => {
         if (member[key] === "")

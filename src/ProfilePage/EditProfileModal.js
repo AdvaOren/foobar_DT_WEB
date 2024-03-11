@@ -3,13 +3,13 @@ import "./EditProfileModal.css"
 import { ReactComponent as Close } from '../Images/Feed/close-circle.svg';
 import { deleteUser, editUserNImage, editUserWImage } from "../serverCalls/EditProfile.js";
 import { AuthContext } from "../AuthContext.js";
+import { PasswordValid } from "../Validation/Validation.js";
 
-function EditProfileModal({ userId, setEditClicked }) {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+function EditProfileModal({ setEditClicked }) {
     const { user, setUserVar, logout } = useContext(AuthContext);
-
+    const [passwordFix, setPasswordFix] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
+
     const DeleteAccount = async (e) => {
         await deleteUser(user.id, user.token);
         logout();
@@ -19,11 +19,10 @@ function EditProfileModal({ userId, setEditClicked }) {
         var firstName = document.getElementById('firstName').value;
         var lastName = document.getElementById('lastName').value;
         var password = document.getElementById('password').value;
-        var email = document.getElementById('email').value;
+
         // Nothing has changed
         if ((firstName == '' || firstName == ' ') && (lastName == '' || lastName == ' ')
-            && selectedFile == null && (password == '' || password == ' ')
-            && (email == '' || email == ' ')) {
+            && selectedFile == null && (password == '' || password == ' ')) {
             setEditClicked(false);
             return;
         }
@@ -31,14 +30,16 @@ function EditProfileModal({ userId, setEditClicked }) {
         firstName = (firstName == '' || firstName == ' ') ? user.firstName : firstName;
         lastName = (lastName == '' || lastName == ' ') ? user.lastName : lastName;
         password = (password == '' || password == ' ') ? user.password : password;
-        email = (email == '' || email == ' ') ? user.email : email;
+        const newPassFix = PasswordValid(password)
+        setPasswordFix(newPassFix);
+        if (newPassFix != "") {
+            return;
+        }
         let userDet = {
-            username: email,
             name: firstName + " " + lastName,
             id: user.id,
             profileImage: (selectedFile == null) ? user.profileImage : selectedFile,
             token: user.token,
-            email: email,
             password: password,
             lastName: lastName,
             firstName: firstName,
@@ -46,11 +47,12 @@ function EditProfileModal({ userId, setEditClicked }) {
         try {
             // Image has changed
             if (selectedFile != null) {
-                await editUserWImage(user.id, email, firstName, lastName, password, user.token, selectedFile);
+                console.log("selectedFile edit", selectedFile);
+                await editUserWImage(user.id, firstName, lastName, password, user.token, selectedFile);
             }
             // Image has not changed
             else{
-                await editUserNImage(user.id, email, firstName, lastName, password, user.token);
+                await editUserNImage(user.id, firstName, lastName, password, user.token);
             }
             setUserVar(userDet);
             setEditClicked(false);
@@ -102,9 +104,8 @@ function EditProfileModal({ userId, setEditClicked }) {
                     /><br></br>
                     <input id="lastName" className="inputTextEdit" type="text" placeholder="Last Name" aria-label="Last Name"
                     /><br></br>
+                    <span style={{ color: 'red' }}>{passwordFix}</span><br></br>
                     <input id="password" className="inputTextEdit" type="text" placeholder="New Password" aria-label="New Password"
-                    /><br></br>
-                    <input id="email" className="inputTextEdit" type="text" placeholder="New Email" aria-label="New Email"
                     /><br></br>
                     {selectedFile != null &&
                         <img src={isValidHttpUrl(selectedFile) ? selectedFile : URL.createObjectURL(selectedFile)}

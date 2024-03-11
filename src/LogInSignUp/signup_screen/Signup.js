@@ -50,7 +50,7 @@ function Signup() {
 
     const signupCLicked = async function (e) {
         initMemeber(newMember);
-        let hasEmptyInputBox = checkForEmptyInput(newMember);
+        let hasEmptyInputBox = checkForEmptyInput(newMember, passwordVerification);
         if (hasEmptyInputBox) {
             valid()
             return;

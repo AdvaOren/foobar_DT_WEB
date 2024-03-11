@@ -8,7 +8,6 @@ export const getPostList = async (token) => {
                 'authorization': 'bearer ' + token // attach the token
             }
         })
-        console.log("response", response.json());
         return await response.json();
     } catch (error) {
         // Handle network or parsing errors

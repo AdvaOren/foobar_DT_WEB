@@ -19,7 +19,6 @@ export const userExists = async (email) => {
 }
 
 export const getToken = async (id) => {
-    console.log("id: ", id);
     return await fetch('http://localhost:8080/api/tokens', {
         method: 'post',
         headers: {
