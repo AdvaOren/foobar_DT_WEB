@@ -18,6 +18,7 @@ import {useNavigate} from 'react-router';
 
 
 function Posts({id, userId, likes, postUrl, comments, text, name, profileImage, date, fromComments}) {
+    console.log("postUrl", postUrl);
     const navigate = useNavigate();
     const [likePressed, setLikePressed] = useState(0);
     const {user, postsList, setPostsListFun, theme} = useContext(AuthContext);
@@ -96,7 +97,7 @@ function Posts({id, userId, likes, postUrl, comments, text, name, profileImage, 
                 <div className="likeNdComm">
                     <div className='commentsAndNum'>
                         <Comment className='comm'/>
-                        <p>{comments.length}</p>
+                        <p>{comments ? comments.length : 0}</p>
                     </div>
 
                     <div className='likesAndNum'>

@@ -57,10 +57,10 @@ function LogInSignUp() {
         setter(newUserFix)
     };
 
-    const handlePasswordChange = (event, setter) => {
+    const handlePasswordChange = (event) => {
         const value = event.target.value;
         const newPassFix = PasswordValid(value)
-        setter(newPassFix);
+        setPasswordFix(newPassFix);
     };
 
 
@@ -74,7 +74,7 @@ function LogInSignUp() {
                     onChange={(event) => handleUsernameChange(event, setUsernameFix)} />
                 <span style={{ color: 'red' }}>{passwordFix}</span>
                 <input id="password" className="inputText" type="password" placeholder="Password" aria-label="Password"
-                    required onChange={(event) => handlePasswordChange(event, setPasswordFix)} />
+                    required onChange={(event) => handlePasswordChange(event)} />
                 <button id="logInButton" type="submit"
                     onClick={getUserInput}>Log In</button>
                 <span style={{ color: 'red' }}>{cantFindUser}</span>

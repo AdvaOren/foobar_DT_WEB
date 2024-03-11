@@ -1,5 +1,5 @@
 
-export const getPostList = async(token)=>{
+export const getPostList = async (token) => {
     try {
         const response = await fetch(`http://localhost:8080/api/posts`, {
             method: "GET",

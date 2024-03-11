@@ -24,12 +24,18 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
     };
 
     const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0]);
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setSelectedFile(reader.result);
+        };
+        reader.readAsDataURL(file);
     };
 
     const addNewPost = async () => {
         if (selectedFile == null) return;
         const updatedPostList = postsList ? [...postsList] : [];
+        console.log("selectedFile", selectedFile);
         const response = await fetch((`http://localhost:8080/api/users/${user.id}/posts`), {
             "method": "POST",
             headers: {
@@ -38,7 +44,7 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
             },
             body: JSON.stringify({
                 content: inputText,
-                img: selectedFile ? URL.createObjectURL(selectedFile) : null,
+                img: await selectedFile ,
                 date: new Date().toISOString()
             })
         })
@@ -48,12 +54,12 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
             id: newPost._id,
             userId: user.id,
             text: newPost.content,
-            postUrl: selectedFile ? URL.createObjectURL(selectedFile) : null,
+            postUrl: selectedFile,
             date: newPost.date,
             likes: 0,
             comments: [],
             name: newPost.name,
-            profileImage: newPost.profileImage
+            profileImage:  "data:image/png;base64," + newPost.profileImage
         }
 
 

@@ -1,9 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import users from "./data/users.json"
-import posts from "./data/posts.json"
-import axios from 'axios';
 import { getToken, addUserServer, getUsersList } from './serverCalls/LogInSignUp.js';
 import { getPostList } from './serverCalls/posts.js';
 
@@ -22,8 +19,8 @@ function AuthProvider({ children }) {
         lastName: '',
         password: ''
     });
-    const [usersList, setUsersList] = useState(users);
-    const [postsList, setPostsList] = useState(posts);
+    const [usersList, setUsersList] = useState([]);
+    const [postsList, setPostsList] = useState([]);
     const [theme, setTheme] = useState("theme-light");
 
     // function to toggle between light and dark theme
@@ -45,14 +42,40 @@ function AuthProvider({ children }) {
         newUsersList.map((friend) => {
             friendsListN.push({
                 id: friend._id,
-                profileImage: friend.img,
+                profileImage: "data:image/png;base64," + friend.img,
                 name: friend.firstName + " " + friend.lastName,
                 userName: friend.email,
                 password: friend.password
             })
         })
-        //const postsListNew = await getPostList(userData.token);
         setUsersList(friendsListN);
+        const postsListNew = await getPostList(userData.token);
+        const formattedPosts = postsListNew ? await postsListNew.map(post => ({
+            id: post.first._id,
+            userId: post.second._id,
+            likes: post.third.likeAmount,
+            postUrl: "data:image/png;base64," + post.first.img,
+            text: post.first.content,
+            userName: post.second.email,
+            name: post.second.firstName + " " + post.second.lastName,
+            profileImage: "data:image/png;base64," + post.second.img,
+            date: post.first.date
+        })) : [];
+        // console.log("post.first.img", postsListNew[0].first.img);
+        // console.log("post.second.img", postsListNew[0].second.img);
+        
+        setPostsList(formattedPosts);
+        // {
+        //     id: postsListNew[i].first._id,
+        //     userId: postsListNew[i].second._id,
+        //     likes: postsListNew[i].third.likeAmount,
+        //     postUrl: postsListNew[i].first.img,
+        //     text: postsListNew[i].first.content,
+        //     userName: postsListNew[i].second.email,
+        //     name: postsListNew[i].second.firstName + " " + postsListNew[i].second.lastName,
+        //     profileImage: postsListNew[i].second.img,
+        //     date: postsListNew[i].first.date
+        // },
 
     };
 

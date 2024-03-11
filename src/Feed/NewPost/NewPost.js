@@ -6,7 +6,6 @@ import { ReactComponent as ImagesIcon } from '../../Images/Feed/images-icon.svg'
 import { ReactComponent as Smiley } from '../../Images/Feed/smiley.svg';
 import NewPostModal from './NewPostModal.js'; // Import the NewPostModal component
 import { AuthContext } from '../../AuthContext.js';
-import {useParams} from "react-router";
 
 function NewPost({ id, newPostPressed, setNewPostPressed }) {
     const { user } = useContext(AuthContext);

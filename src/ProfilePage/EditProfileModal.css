@@ -17,15 +17,35 @@
 #saveButton {
     background-color: #1877f2;
     color: #eff1f4;
+    border: none;
     width: 30%;
-    /* height: 14%; */
+    padding: 10px;
+    margin-right: 20px;
+    margin-left: 10px;
     border-radius: 10px;
 }
+
 #saveButton:hover {
     background-color: #1265d1;
     
 }
 
+#DeleteButton{
+    background-color: #ed4a4a;
+    border: none;
+    color: #eff1f4;
+    width: 30%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#DeleteButton:hover {
+    background-color: #d13f3f;
+    
+}
+#inputFilePost{
+    margin-bottom: 20px;
+}
 #editModalPattern {
 
     overflow-x: hidden;
@@ -61,7 +81,7 @@
     width: 50%;
     height: 50px;
     padding: 4px 10px;
-    /* margin: 5px 5px; */
+    margin: 5px 5px;
     border-radius: 10px;
     font-size: 20px;
     border-width: 0.1px;
@@ -94,5 +114,14 @@
 }
 .menuTextInPage {
     color: var(--text-color)
+}
+
+.EditProfilePattern {
+    border-radius: 10px;
+    width: 60vw;
+    height: 90%;
+    background-color: var(--newpost-background);
+    overflow: scroll;
+    color: var(--text-color);
 }
 

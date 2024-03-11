@@ -29,9 +29,9 @@ function Feed() {
             <TopBar/>
 
             <div id="menuAndPost">
-                <Menu/>
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <NewPost id={user.id} newPostPressed={newPostPressed} setNewPostPressed={setNewPostPressed}/>
+                <Menu />
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh' }}>
+                    <NewPost id={user.id} newPostPressed={newPostPressed} setNewPostPressed={setNewPostPressed} />
                     <div id="posts">
                         {
                             postsList.map((post, index) =>
