@@ -164,7 +164,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                 "Content-Type": "application/json",
                 'authorization': 'bearer ' + user.token // attach the token
             },
-            body: JSON.stringify({text: inputText})
+            body: JSON.stringify({text: commentText})
         })
         // Make a copy of the postList array
         const updatedPostList = postsList.map(post => {
@@ -175,17 +175,19 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                     // Check if the comment ID matches the target ID
                     if (comment.first.id === commentId) {
                         // Update the comment string
-                        return {
+                        const upC = {
                             first: {id: comment.first.id, text: commentText},
-                            ...comment
+                            second: {...comment.second}
                         }
+                        console.log(upC)
+                        return upC
                     } else {
                         // Return the original comment if the ID doesn't match
                         return comment;
                     }
+
                 });
                 //update localy in react
-                console.log(updatedComments)
                 setComments(updatedComments);
                 // Return the post object with updated comments
                 return {
