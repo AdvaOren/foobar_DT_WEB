@@ -43,7 +43,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                         second: {
                             userId: comment.second._id,
                             firstName: comment.second.firstName,
-                            lastName:comment.second.lastName,
+                            lastName: comment.second.lastName,
                             img: "data:image/png;base64," + comment.second.img
                         }
                     })
@@ -106,7 +106,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                     },
                     second: {
                         userId: user.id,
-                        profileImage: user.profileImage,
+                        img: user.profileImage,
                         firstName: names[0],
                         lastName: names[1]
                     }
@@ -132,19 +132,22 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                 'authorization': 'bearer ' + user.token // attach the token
             }
         })
+        let deletedComments = [];
         let newPostList = postsList.map(post => {
             // Check if this is the post to update
+
             if (post.id === id) {
                 // Filter out the comment with the given commentId
-
+                deletedComments = post.comments.filter(comment => comment.first.id !== commentId)
                 return {
                     ...post,
-                    comments: post.comments.filter(comment => comment.first.id !== commentId)
+                    comments: deletedComments
                 };
             }
             // If this is not the post to update, return it unchanged
             return post;
         });
+        setComments(deletedComments)
         setPostsListFun(newPostList);
     }
 
@@ -154,8 +157,15 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
         seCommentIdChaged(commentId);
     }
 
-    const saveCommentChanges = (commentId) => {
-
+    const saveCommentChanges = async (commentId) => {
+        const response = await fetch(`http://localhost:8080/api/users/${user.id}/posts/${id}/comments/${commentId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                'authorization': 'bearer ' + user.token // attach the token
+            },
+            body: JSON.stringify({text: inputText})
+        })
         // Make a copy of the postList array
         const updatedPostList = postsList.map(post => {
             // Check if the post ID matches the target ID
@@ -163,17 +173,20 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                 // Map through the comments array of the post
                 const updatedComments = post.comments.map(comment => {
                     // Check if the comment ID matches the target ID
-                    if (comment.id === commentId) {
+                    if (comment.first.id === commentId) {
                         // Update the comment string
                         return {
-                            ...comment,
-                            content: commentText
-                        };
+                            first: {id: comment.first.id, text: commentText},
+                            ...comment
+                        }
                     } else {
                         // Return the original comment if the ID doesn't match
                         return comment;
                     }
                 });
+                //update localy in react
+                console.log(updatedComments)
+                setComments(updatedComments);
                 // Return the post object with updated comments
                 return {
                     ...post,
@@ -184,6 +197,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                 return post;
             }
         });
+
 
         // Update the state with the updated postList
         setPostsListFun(updatedPostList);
