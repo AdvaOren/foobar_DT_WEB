@@ -21,9 +21,7 @@ function Posts({id, userId, likes, postUrl, comments, text, name, profileImage, 
     const navigate = useNavigate();
     const [likePressed, setLikePressed] = useState(0);
     const {user, postsList, setPostsListFun, theme} = useContext(AuthContext);
-
     const [commentPressed, setCommentPressed] = useState(0);
-
     const [sharePressed, setSharePressed] = useState(0);
     const [editPost, setEditPost] = useState(0);
     const userDet = {

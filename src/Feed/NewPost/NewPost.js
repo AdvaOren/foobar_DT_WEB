@@ -19,7 +19,7 @@ function NewPost({ id, newPostPressed, setNewPostPressed }) {
         <div className="newPostContent">
             {newPostPressed ? (
                 <NewPostModal
-                    editPost={false}
+                    Post={false}
                     name={user.name}
                     profileImage={user.profileImage}
                     setNewPostPressed={setNewPostPressed}

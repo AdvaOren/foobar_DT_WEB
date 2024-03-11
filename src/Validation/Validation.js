@@ -12,6 +12,10 @@ export function UserNameValid(userName) {
 
 }
 
+/**
+ * The function check if the password stand in the criteria
+ * Output: if the password is legal or not
+ */
 export function PasswordValid(password) {
     // Define regular expressions for each requirement
     // At least 8 characters
@@ -55,5 +59,34 @@ export function PasswordValid(password) {
     // Return true if all requirements are met
     return "";
 
+}
+
+/** the function check two thing:
+ 1) that the date in the past
+ 2) that exists such a date, for example 30/2 is not exists
+ * Input:  the date to check
+ * Output: if the date is fine
+ */
+export function isDateValid(date) {
+    let today = new Date()
+    let gotDate = new Date(date)
+    return (today > gotDate && date.slice(-2) == gotDate.getDate());
+}
+
+/**
+ * The function check if the user filled in all the fields
+ * Input: the new member
+ * Output: fill or not
+ */
+export function checkForEmptyInput(member) {
+    let hasEmptyInputBox = false;
+    Object.keys(member).forEach(key => {
+        if (member[key] === "")
+            hasEmptyInputBox = true;
+    });
+    //check for the verification password that don't have field in the member object
+    if (passwordVerification === "")
+        hasEmptyInputBox = true;
+    return hasEmptyInputBox;
 }
 

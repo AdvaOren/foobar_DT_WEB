@@ -1,33 +1,32 @@
-import React, { useState, useEffect, useContext  } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import "./Feed.css"
 import "./Posts/Post.css";
 import Menu from './Menu/Menu.js';
 import NewPost from './NewPost/NewPost.js';
 import Posts from './Posts/Posts.js';
 import TopBar from './TopBar/TopBar.js';
-import { AuthContext } from '../AuthContext.js';
+import {AuthContext} from '../AuthContext.js';
 
 function Feed() {
     const [newPostPressed, setNewPostPressed] = useState(0);
-    const { postsList, setPostsListFun, user } = useContext(AuthContext);
-    useEffect(() => {
+    const {postsList, setPostsListFun, user} = useContext(AuthContext);
+    useEffect( () => {
         // Sort postList by date in descending order
         const sortedPosts = [...postsList].sort((a, b) => {
-          // Convert date strings to Date objects
-          const dateA = new Date(a.date);
-          const dateB = new Date(b.date);
-          
-          // Compare dates
-          return dateB - dateA;
+            // Convert date strings to Date objects
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+
+            // Compare dates
+            return dateB - dateA;
         });
-    
         // Update state with sorted posts
         setPostsListFun(sortedPosts);
-      }, []); // Empty dependency array ensures this effect runs only once
-    
+    }, []); // Empty dependency array ensures this effect runs only once
+
     return (
         <div className="mainContent">
-            <TopBar />
+            <TopBar/>
 
             <div id="menuAndPost">
                 <Menu />

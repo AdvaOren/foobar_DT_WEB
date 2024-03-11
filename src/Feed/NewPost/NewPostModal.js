@@ -10,6 +10,7 @@ import {ReactComponent as DeleteW} from '../../Images/Feed/delete-white.svg';
 
 import {AuthContext} from '../../AuthContext.js';
 import {json} from "react-router";
+import logInSignUp from "../../LogInSignUp/LogInSignUp.js";
 
 
 function NewPostModal({id, profileImage, name, setNewPostPressed, postText, postImage, editPost}) {
@@ -43,15 +44,12 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
         })
 
         const newPost = await response.json();
-        //newPost._doc is the post details
-        const postDet = newPost._doc;
-        console.log("newPost", newPost);
         const add = {
-            id: postDet._id,
+            id: newPost._id,
             userId: user.id,
-            text: postDet.text,
+            text: newPost.content,
             postUrl: selectedFile ? URL.createObjectURL(selectedFile) : null,
-            date: postDet.date,
+            date: newPost.date,
             likes: 0,
             comments: [],
             name: newPost.name,
@@ -96,37 +94,32 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
         setSelectedFile(null);*/
     };
     const changePost = async () => {
-        const updatedPostList = await postsList.map(async post => {
+        const response = await fetch((`http://localhost:8080/api/users/${user.id}/posts/${id}`), {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    'authorization': 'bearer ' + user.token // attach the token
+                },
+                body: JSON.stringify({
+                    img: isValidHttpUrl(selectedFile) ? selectedFile : URL.createObjectURL(selectedFile),
+                    content: inputText
+                })
+            }
+        )
+        const updatedPostList = await postsList.map( post => {
                     if (post.id === id) {
-                        const response = fetch((`http://localhost:8080/api/users/${user.id}/posts/${id}`), {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    'authorization': 'bearer ' + user.token // attach the token
-                                },
-                                body: JSON.stringify({
-
-                                    img: isValidHttpUrl(selectedFile) ? selectedFile : URL.createObjectURL(selectedFile),
-                                    content: inputText
-                                })
-                            }
-                        )
-                        return await response.json();
+                        return  {
+                            ...post,
+                            text: inputText,
+                            postUrl: isValidHttpUrl(selectedFile) ? selectedFile : URL.createObjectURL(selectedFile)
+                        };
                     }
-
-
-                    /*    // Update the fields
-                    return {
-                        ...post,
-                        text: inputText,
-                        postUrl: isValidHttpUrl(selectedFile) ? selectedFile : URL.createObjectURL(selectedFile)
-                    };
-                }*/
                     return post; // For other posts, return them as they are
                 }
+
             )
         ;
-
+        console.log(updatedPostList[0]);
         setPostsListFun(updatedPostList); // Update the state with the modified post list
 
         setNewPostPressed(0); // Close the modal
@@ -155,6 +148,7 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
         })
         const newPosts = postsList.filter(post => post.id !== id);
         setPostsListFun(newPosts);
+        setNewPostPressed(0)
     }
 
     return (

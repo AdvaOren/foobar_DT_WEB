@@ -30,7 +30,8 @@ export const editUserNImage = async (id, email, firstName, lastName, password, t
             firstName: firstName,
             lastName: lastName,
             password: password,
-            userId: id
+            userId: id,
+            img: ""
         })
     })
 }
