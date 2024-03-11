@@ -45,6 +45,7 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
         const newPost = await response.json();
         //newPost._doc is the post details
         const postDet = newPost._doc;
+        console.log("newPost", newPost);
         const add = {
             id: postDet._id,
             userId: user.id,

@@ -1,4 +1,3 @@
-import axios from 'axios';
 
 
 export const editUserWImage = async (id, email, firstName, lastName, password, token, profileImg) => {
@@ -33,5 +32,15 @@ export const editUserNImage = async (id, email, firstName, lastName, password, t
             password: password,
             userId: id
         })
+    })
+}
+
+export const deleteUser = async (id, token) => {
+    await fetch((`http://localhost:8080/api/users/${id}`), {
+        "method": "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            'authorization': 'bearer ' + token // attach the token
+        }
     })
 }

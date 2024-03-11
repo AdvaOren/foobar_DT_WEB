@@ -31,7 +31,7 @@ function Feed() {
 
             <div id="menuAndPost">
                 <Menu />
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh' }}>
                     <NewPost id={user.id} newPostPressed={newPostPressed} setNewPostPressed={setNewPostPressed} />
                     <div id="posts">
                         {

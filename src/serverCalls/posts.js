@@ -1,5 +1,5 @@
 
-export const getPostList = async(token)=>{
+export const getPostList = async (token) => {
     try {
         const response = await fetch(`http://localhost:8080/api/posts`, {
             method: "GET",
@@ -8,6 +8,7 @@ export const getPostList = async(token)=>{
                 'authorization': 'bearer ' + token // attach the token
             }
         })
+        console.log("response", response.json());
         return await response.json();
     } catch (error) {
         // Handle network or parsing errors

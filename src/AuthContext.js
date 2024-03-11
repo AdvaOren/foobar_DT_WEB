@@ -22,8 +22,8 @@ function AuthProvider({ children }) {
         lastName: '',
         password: ''
     });
-    const [usersList, setUsersList] = useState(users);
-    const [postsList, setPostsList] = useState(posts);
+    const [usersList, setUsersList] = useState([]);
+    const [postsList, setPostsList] = useState([]);
     const [theme, setTheme] = useState("theme-light");
 
     // function to toggle between light and dark theme
@@ -51,7 +51,7 @@ function AuthProvider({ children }) {
                 password: friend.password
             })
         })
-        //const postsListNew = await getPostList(userData.token);
+        const postsListNew = await getPostList(userData.token);
         setUsersList(friendsListN);
 
     };

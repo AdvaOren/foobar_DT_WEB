@@ -1,16 +1,19 @@
 import React, { useRef, useState, useContext } from "react";
 import "./EditProfileModal.css"
 import { ReactComponent as Close } from '../Images/Feed/close-circle.svg';
-import { editUserNImage, editUserWImage } from "../serverCalls/EditProfile.js";
+import { deleteUser, editUserNImage, editUserWImage } from "../serverCalls/EditProfile.js";
 import { AuthContext } from "../AuthContext.js";
 
 function EditProfileModal({ userId, setEditClicked }) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const { user, setUserVar } = useContext(AuthContext);
+    const { user, setUserVar, logout } = useContext(AuthContext);
 
     const [selectedFile, setSelectedFile] = useState(null);
-
+    const DeleteAccount = async (e) => {
+        await deleteUser(user.id, user.token);
+        logout();
+    }
     const saveDet = async (e) => {
         e.preventDefault();
         var firstName = document.getElementById('firstName').value;
@@ -79,7 +82,7 @@ function EditProfileModal({ userId, setEditClicked }) {
 
     return (
         <div className="newPostModal">
-            <div className='newPostPattern'>
+            <div className='EditProfilePattern'>
                 <div className="topModal">
                     <p style={{
                         fontWeight: 'bold',
@@ -96,19 +99,20 @@ function EditProfileModal({ userId, setEditClicked }) {
                 <div id="addNewPost">
                     <input id="firstName" type="text" className="inputTextEdit" placeholder="First Name"
                         aria-label="First Name"
-                    />
+                    /><br></br>
                     <input id="lastName" className="inputTextEdit" type="text" placeholder="Last Name" aria-label="Last Name"
-                    />
+                    /><br></br>
                     <input id="password" className="inputTextEdit" type="text" placeholder="New Password" aria-label="New Password"
-                    />
+                    /><br></br>
                     <input id="email" className="inputTextEdit" type="text" placeholder="New Email" aria-label="New Email"
-                    />
+                    /><br></br>
                     {selectedFile != null &&
                         <img src={isValidHttpUrl(selectedFile) ? selectedFile : URL.createObjectURL(selectedFile)}
                             id="postImageFromUser" />}
-                    <input type="file" onChange={(e)=>handleFileChange(e)} id="inputFilePost" />
+                    <input type="file" onChange={(e)=>handleFileChange(e)} id="inputFilePost" /><br></br>
                 </div>
                 <button id="saveButton" type="submit" onClick={saveDet}>Save</button>
+                <button id="DeleteButton" type="submit" onClick={DeleteAccount}>Delete Account</button>
             </div>
         </div>
     );

@@ -4,14 +4,12 @@
     display: flex;
     border-style: groove;
     width: 50vw;
-    height: 20%;
     border-radius: 10px;
     border-color: #e1e2e3;
     border-width: 1px;
     background-color: var(--topbar-posts-background-color);
     margin-top: 120px;
     flex-direction: column;
-    margin-bottom: 20px;
 }
 
 #profileImage {
