@@ -10,7 +10,6 @@
     position: fixed;
     box-shadow: 10px 10px 5px #b3b5b4;
     justify-content: space-between;
-    z-index: 999;
 
 }
 
@@ -26,7 +25,7 @@
     padding: 10px;
     font-size: 16px;
     height: 30px;
-    width: 15%;
+    width: fit-content;
 }
 
 #logOutBtn{
@@ -51,12 +50,12 @@
     
 }
 
-#themeMode {
-    width: 30px !important;
-    height: 30px !important;
+.themeMode {
+    width: 90px !important;
+    height: 90px !important;
     padding: 20px;
 }
 
-#themeMode:hover {
+.themeMode:hover {
     cursor: pointer;
 }

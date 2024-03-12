@@ -56,6 +56,10 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
         fetchComments();
     }, [/*comments*/]);
 
+    //TODO!
+    useEffect(() => {
+        setComments(comments);
+    },[comments])
 
     const handleInputChange = (event, setter) => {
         setter(event.target.value);
@@ -179,7 +183,6 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                             first: {id: comment.first.id, text: commentText},
                             second: {...comment.second}
                         }
-                        console.log(upC)
                         return upC
                     } else {
                         // Return the original comment if the ID doesn't match
@@ -221,7 +224,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                 </div>
                 <div id="allCommentsContent">
                     <Posts fromComments={1} likes={likes} postUrl={postUrl} comments={comments} text={text} name={name}
-                           profileImage={profileImage} date={date} userId={userId}/>
+                           profileImage={profileImage} date={date} userId={userId} isLiked={0}/>
                     {comments.map((comment, index) => {
                             return (
                                 <div key={index} id="commentAndProfile">

@@ -18,7 +18,7 @@ function TopBar() {
                 <input id="inputLine" type="text" placeholder="Search Facebook" />
             </div>
             <div onClick={toggleTheme}>
-                {theme == 'theme-light' ? <LightMode id="themeMode" /> : <DarkMode id="themeMode" />}
+                {theme == 'theme-light' ? <LightMode className="themeMode" /> : <DarkMode className="themeMode" />}
             </div>
             <div onClick={logout} id="logOutBtn">LogOut</div>
 

@@ -35,7 +35,6 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
     const addNewPost = async () => {
         if (selectedFile == null) return;
         const updatedPostList = postsList ? [...postsList] : [];
-        console.log("selectedFile", selectedFile);
         const response = await fetch((`http://localhost:8080/api/users/${user.id}/posts`), {
             "method": "POST",
             headers: {
@@ -125,7 +124,6 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
 
             )
         ;
-        console.log(updatedPostList[0]);
         setPostsListFun(updatedPostList); // Update the state with the modified post list
 
         setNewPostPressed(0); // Close the modal

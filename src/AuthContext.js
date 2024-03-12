@@ -49,34 +49,19 @@ function AuthProvider({ children }) {
             })
         })
         setUsersList(friendsListN);
-        const postsListNew = await getPostList(userData.token);
-        const formattedPosts = postsListNew ? await postsListNew.map(post => ({
-            id: post.first._id,
-            userId: post.second._id,
-            likes: post.third.likeAmount,
-            postUrl: "data:image/png;base64," + post.first.img,
-            text: post.first.content,
-            userName: post.second.email,
-            name: post.second.firstName + " " + post.second.lastName,
-            profileImage: "data:image/png;base64," + post.second.img,
-            date: post.first.date
-        })) : [];
-        // console.log("post.first.img", postsListNew[0].first.img);
-        // console.log("post.second.img", postsListNew[0].second.img);
-        
-        setPostsList(formattedPosts);
-        // {
-        //     id: postsListNew[i].first._id,
-        //     userId: postsListNew[i].second._id,
-        //     likes: postsListNew[i].third.likeAmount,
-        //     postUrl: postsListNew[i].first.img,
-        //     text: postsListNew[i].first.content,
-        //     userName: postsListNew[i].second.email,
-        //     name: postsListNew[i].second.firstName + " " + postsListNew[i].second.lastName,
-        //     profileImage: postsListNew[i].second.img,
-        //     date: postsListNew[i].first.date
-        // },
-
+        // const postsListNew = await getPostList(userData.token);
+        // const formattedPosts = postsListNew ? await postsListNew.map(post => ({
+        //     id: post.first._id,
+        //     userId: post.second._id,
+        //     likes: post.third.likeAmount,
+        //     postUrl: "data:image/png;base64," + post.first.img,
+        //     text: post.first.content,
+        //     userName: post.second.email,
+        //     name: post.second.firstName + " " + post.second.lastName,
+        //     profileImage: "data:image/png;base64," + post.second.img,
+        //     date: post.first.date
+        // })) : [];
+        // setPostsList(formattedPosts);
     };
 
     const logout = () => {

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import "./ProfilePage.css"
 import NewPost from '../Feed/NewPost/NewPost.js';
 import Posts from "../Feed/Posts/Posts.js";
@@ -11,15 +11,48 @@ import { useLocation } from 'react-router';
 import "../Feed/Posts/Post.css";
 
 import EditProfileModal from './EditProfileModal.js';
+import { addMember, deleteMemberDB, getFriendship, sendFriendReq } from '../serverCalls/Friends.js';
+import { getFriendPostsList, getPostList } from '../serverCalls/posts.js';
 
 //TODO change list of post for each user, check if friend or not, add logic of adding friend and edit profile
 function ProfilePage() {
     const [newPostPressed, setNewPostPressed] = useState(0);
-    const { postsList, user, theme } = useContext(AuthContext);
+    const { user, theme, setPostsListFun, postsList } = useContext(AuthContext);
+    // const [postsList, setPostsList] = useState([]);
     const location = useLocation();
     let { userId, name, profilePic } = location.state;
     const [editClicked, setEditClicked] = useState(false);
-    
+    const [status, setStatus] = useState("noMember");
+    useEffect(() => {
+        const fetchData = async () => {
+            const status = await getFriendship(user.id, userId, user.token);
+            setStatus(status.status == "wait" ? "pending" : status.status == "approve" ? "approve" : "noMember");
+            const postsListNew = await getFriendPostsList(userId, user.token);
+            const formattedPosts = postsListNew ? await postsListNew.map(post => ({
+                id: post.first._id,
+                userId: userId,
+                likes: post.second.likeAmount,
+                postUrl: "data:image/png;base64," + post.first.img,
+                text: post.first.content,
+                name: name,
+                profileImage: profilePic,
+                date: post.first.date,
+                isLiked: post.second.isLiked
+            })) : [];
+            setPostsListFun(formattedPosts);
+        }
+        fetchData();
+    }, []);
+
+    const handleBtnClicked = async () => {
+        if (status === "noMember") {
+            await sendFriendReq(userId, user.token);
+            setStatus("pending");
+        } else {
+            await deleteMemberDB(user.id, userId, user.token);
+            setStatus("noMember");
+        }
+    }
     return (
         <div className="mainContent">
             {editClicked ? <EditProfileModal userId={userId} setEditClicked={setEditClicked} /> : <div></div>}
@@ -38,9 +71,9 @@ function ProfilePage() {
                             {theme === 'theme-light' ? <Edit className="editIcon" /> : <EditW className="editIcon" />}
                         </div>
                         :
-                        <div id="addFriendBtn">
-                            Add Friend
-                            <AddFriend className="editIcon" />
+                        <div id={status === "pending" ? "pendingFriendBtn" : "addFriendBtn"} onClick={handleBtnClicked}>
+                            {status === "pending" ? "Pending" : status === "noMember" ? "Add Friend" : "Remove Friend"}
+                            {status === "noMember" && <AddFriend className="editIcon" />}
                         </div>
                     }
 
@@ -50,7 +83,7 @@ function ProfilePage() {
                     <div id="posts">
                         {
                             postsList.map((post, index) =>
-                                <Posts setNewPostPressed={setNewPostPressed} fromComments={0} key={index} {...post} />
+                                <Posts fromComments={0} key={index} {...post} />
                             )
                         }
                     </div>

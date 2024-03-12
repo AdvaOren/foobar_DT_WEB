@@ -6,8 +6,8 @@ import { useRef, useState, useContext } from "react";
 import Image, { updateValuesImage } from "./image/Image.js";
 import { AuthContext } from '../../AuthContext.js';
 import { useNavigate } from 'react-router';
+import { PasswordValid } from '../../Validation/Validation.js';
 import { userExists } from '../../serverCalls/LogInSignUp.js';
-import { PasswordValid, checkForEmptyInput, isDateValid } from '../../Validation/Validation.js';
 
 let firstName, setFirstName;
 let lastName, setLastName;
@@ -48,24 +48,32 @@ function Signup() {
         "img": ""
     }
 
-    const signupCLicked = async function (e) {
+    const signupCLicked = async (e) => {
+        e.preventDefault();
         initMemeber(newMember);
-        let hasEmptyInputBox = checkForEmptyInput(newMember, passwordVerification);
+        let hasEmptyInputBox = checkForEmptyInput(newMember);
         if (hasEmptyInputBox) {
             valid()
             return;
         }
-        const exists = await userExists(newMember.email); //check for existing user by email
-        if (exists && Object.keys(exists).length > 0) {
+        let exists;
+        exists = await userExists(newMember.email); //check for existing user by email
+
+
+        if (exists) {
             handleExists(newMember);
         } else if (!isDateValid(newMember.date)) { //check that the date is valid
             handleIllegalDate(newMember);
         } else if (password !== passwordVerification) { //check the passwords identical
             handlePasswordsNotMatch(newMember);
-        } else if ( PasswordValid(password) != "") { //check the password stand in the criteria
+        } else if (PasswordValid(password) != '') { //check the password stand in the criteria
             handlePasswordNotValid(newMember);
         } else { //add the new member
-            addMember(e);
+            await addMember(e);
+            // setTimeout(() => {
+            // }
+            navigate('/feed');
+
         }
     }
 
@@ -81,7 +89,7 @@ function Signup() {
             firstName: copy.firstName,
             lastName: copy.lastName,
             password: copy.password,
-            img: copy.img
+            img: copy.img,
         };
         const newUser = await addUser(userData);
         updateValuesInputBox("", "", "", "", "");
@@ -89,12 +97,26 @@ function Signup() {
         updateValuesImage("");
         updateValuesGender("")
         resetMember(newMember, resetRef);
-        resetRef.current.click();
-        closeRef.current.click();
-        signupRef.current.classList.remove('was-validated')
-        login(newUser);
-        navigate('/feed');
+        await resetRef.current.click();
+        await closeRef.current.click();
+        await signupRef.current.classList.remove('was-validated')
+        await login(newUser);
     }
+
+    // const userExists = async (email) => {
+    //     const res = await fetch(`http://localhost:8080/api/users/${email}`); // Find user exists by email
+    //     if (res.ok) {
+    //         const data = await res.json(); // Parse response body as JSON
+    //         if (data && Object.keys(data).length > 0) {
+    //             return true; // User found
+    //         } else {
+    //             return false // User not found
+    //         }
+    //     } else {
+    //         console.error('Error:', res.status);
+    //         return false;
+    //     }
+    // }
     return (
         <div className="modal fade" id="signinModal" tabIndex="-1" aria-labelledby="modalLabel"
             aria-hidden="true">
@@ -154,7 +176,15 @@ function handlePasswordNotValid(newMember) {
     valid();
 }
 
-
+/**
+ * The function check if the password stand in the criteria
+ * Output: if the password is legal or not
+ */
+export function checkPassword(passwordForTest) {
+    const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    return /[A-Z]/.test(passwordForTest) && /[a-z]/.test(passwordForTest)
+        && specialChars.test(passwordForTest) && passwordForTest.length >= 8;
+}
 
 /**
  * The function handle the case that the password and the verification password are not identical
@@ -197,7 +227,22 @@ function handleExists(newMember) {
     valid();
 }
 
-
+/**
+ * The function check if the user filled in all the fields
+ * Input: the new member
+ * Output: fill or not
+ */
+function checkForEmptyInput(member) {
+    let hasEmptyInputBox = false;
+    Object.keys(member).forEach(key => {
+        if (member[key] === "")
+            hasEmptyInputBox = true;
+    });
+    //check for the verification password that don't have field in the member object
+    if (passwordVerification === "")
+        hasEmptyInputBox = true;
+    return hasEmptyInputBox;
+}
 
 /**
  * The function init the new member with the parms that the user enter.
@@ -227,7 +272,17 @@ function resetMember(member, resetRef) {
     resetRef.current.click();
 }
 
-
+/** the function check two thing:
+ 1) that the date in the past
+ 2) that exists such a date, for example 30/2 is not exists
+ * Input:  the date to check
+ * Output: if the date is fine
+ */
+export function isDateValid(date) {
+    let today = new Date()
+    let gotDate = new Date(date)
+    return (today > gotDate && date.slice(-2) == gotDate.getDate());
+}
 
 /**
  * The function disabling signup form submissions if there are invalid fields

@@ -44,7 +44,7 @@ function LogInSignUp() {
             const res = await getToken(userDetails._id);
             const json = await res.json()
             userDet.token = json.token;
-            login(userDet);
+            await login(userDet);
             // Navigate to the desired path
             navigate('/feed');
         }

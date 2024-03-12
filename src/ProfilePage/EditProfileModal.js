@@ -47,7 +47,6 @@ function EditProfileModal({ setEditClicked }) {
         try {
             // Image has changed
             if (selectedFile != null) {
-                console.log("selectedFile edit", selectedFile);
                 await editUserWImage(user.id, firstName, lastName, password, user.token, selectedFile);
             }
             // Image has not changed

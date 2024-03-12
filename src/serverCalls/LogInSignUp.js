@@ -1,22 +1,32 @@
 import axios from 'axios';
 
 
-export const userExists = async (email) => {
-    const res = await axios.get(`http://localhost:8080/api/users/${email}`);
-    if (res.statusText == "OK") {
-        const user = await res.data; // Parse response body as JSON
-        if (user && Object.keys(user).length > 0) {
-            const newUrl = "data:image/png;base64," + user.img;
-            user.img = newUrl;
-            return user; // User found
+export async function userExists(email)  {
+    try {
+        const res = await axios.get(`http://localhost:8080/api/users/${email}`);        
+        if (res.statusText == "OK") {
+            const user = await res.data; // Parse response body as JSON
+            if (user && Object.keys(user).length > 0) {
+                const newUrl = "data:image/png;base64," + user.img;
+                user.img = newUrl;
+                return user; // User found
+            } else {
+                return false // User not found
+            }
         } else {
-            return false // User not found
+            console.error('Error:', res.status);
+            return false;
         }
-    } else {
-        console.error('Error:', res.status);
-        return false;
+
+    }
+    catch (error) {
+        // Handle network or parsing errors
+        console.error('Error:', error);
+        return false
     }
 }
+
+
 
 export const getToken = async (id) => {
     return await fetch('http://localhost:8080/api/tokens', {
