@@ -18,7 +18,6 @@ import { getFriendPostsList, getPostList } from '../serverCalls/posts.js';
 function ProfilePage() {
     const [newPostPressed, setNewPostPressed] = useState(0);
     const { user, theme, setPostsListFun, postsList } = useContext(AuthContext);
-    // const [postsList, setPostsList] = useState([]);
     const location = useLocation();
     let { userId, name, profilePic } = location.state;
     const [editClicked, setEditClicked] = useState(false);
@@ -82,7 +81,7 @@ function ProfilePage() {
                     {user.id === userId && <NewPost id={user.id} newPostPressed={newPostPressed} setNewPostPressed={setNewPostPressed} />}
                     <div id="posts">
                         {
-                            postsList.map((post, index) =>
+                            postsList && postsList.map((post, index) =>
                                 <Posts fromComments={0} key={index} {...post} />
                             )
                         }

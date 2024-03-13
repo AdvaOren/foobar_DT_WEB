@@ -31,9 +31,10 @@ function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage,
     };
     useEffect(() => {
         setLikePressed(isLiked);
-    }, [isLiked]);
+    }, [postsList]);
 
-    async function addLike() {
+    async function addLike(e) {
+        e.preventDefault();
         const response = await fetch(`http://localhost:8080/api/users/${user.id}/posts/${id}/like`, {
             method: "POST",
             headers: {
@@ -113,7 +114,7 @@ function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage,
                 <>
                     <hr></hr>
                     <div className='bottomPost'>
-                        <div className='eachItem item1' data-testid="addlike" onClick={addLike}>
+                        <div className='eachItem item1' data-testid="addlike" onClick={(e) => addLike(e)}>
                             {likePressed ? <LikeBlue className='bottomIcon' /> : <LikeBlack className='bottomIcon' />}
                             <p>Like</p>
                         </div>
