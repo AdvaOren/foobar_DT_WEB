@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router';
 
 
 function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage, date, fromComments, isLiked }) {
+    console.log("comments", comments);
     const navigate = useNavigate();
     const [likePressed, setLikePressed] = useState(isLiked);
     const { user, postsList, setPostsListFun, theme } = useContext(AuthContext);

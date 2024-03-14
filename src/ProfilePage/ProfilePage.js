@@ -79,7 +79,6 @@ function ProfilePage() {
 
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    {user.id === userId && <NewPost id={user.id} newPostPressed={newPostPressed} setNewPostPressed={setNewPostPressed} />}
                     <div id="posts">
                         {
                             postsList && postsList.map((post, index) =>
