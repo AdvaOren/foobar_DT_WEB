@@ -11,6 +11,8 @@
 
 כדאי להריץ על גוגל כרום, אין משתמש הארדקודד ולכן צריך להירשם ידנית.
 
+עבור חלק 3: נא להסתכל על הענף production3
+
 # The project process
 We began by carefully reviewing the project assignment, ensuring a clear understanding of the requirements. Next, we leveraged JIRA to organize our workflow, creating a new sprint containing all relevant tasks for the exercise. Each task was meticulously prepared, outlining the steps needed to complete them by the project's conclusion.
 
