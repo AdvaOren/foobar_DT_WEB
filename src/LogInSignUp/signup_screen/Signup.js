@@ -281,7 +281,7 @@ function resetMember(member, resetRef) {
 export function isDateValid(date) {
     let today = new Date()
     let gotDate = new Date(date)
-    return (today > gotDate && date.slice(-2) == gotDate.getDate());
+    return (today > gotDate);
 }
 
 /**

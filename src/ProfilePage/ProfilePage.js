@@ -40,7 +40,7 @@ function ProfilePage() {
                 isLiked: post.second.isLiked,
                 commentsAmount: post.second.commentsAmount
             })) : [];
-            console.log("in prof: ",formattedPosts)
+            await formattedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
             setPostsListFun(formattedPosts);
         }
         fetchData();
@@ -84,7 +84,7 @@ function ProfilePage() {
                     {user.id === userId && <NewPost id={user.id} newPostPressed={newPostPressed} setNewPostPressed={setNewPostPressed} />}
                     <div id="posts">
                         {
-                            postsList.map((post, index) =>
+                            postsList && postsList.map((post, index) =>
                                 <Posts fromComments={0} key={index} {...post} />
                             )
                         }
