@@ -11,7 +11,7 @@
 
 כדאי להריץ על גוגל כרום, אין משתמש הארדקודד ולכן צריך להירשם ידנית.
 
-עבור חלק 3: נא להסתכל על הענף production3
+עבור חלק 3: נא להסתכל על הענף productionBranch3 עבור הקוד של האתר, הקוד עבר build ונמצא בתיקיית הפאבליק של השרת.
 
 # The project process
 We began by carefully reviewing the project assignment, ensuring a clear understanding of the requirements. Next, we leveraged JIRA to organize our workflow, creating a new sprint containing all relevant tasks for the exercise. Each task was meticulously prepared, outlining the steps needed to complete them by the project's conclusion.
