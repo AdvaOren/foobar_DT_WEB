@@ -23,7 +23,7 @@ Collaboration was central to our approach, with all team members actively contri
 
 
 # Project download
-git clone https://github.com/AdvaOren/Project2Web.git
+git clone https://github.com/tzuriel/foobar_DT_WEB.git
 cd foobar_DT_WEB/
 npm i
 npm install eslint jest --save-dev
