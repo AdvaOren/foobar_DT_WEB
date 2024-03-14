@@ -18,6 +18,7 @@ import { getFriendPostsList, getPostList } from '../serverCalls/posts.js';
 function ProfilePage() {
     const [newPostPressed, setNewPostPressed] = useState(0);
     const { user, theme, setPostsListFun, postsList } = useContext(AuthContext);
+    // const [postsList, setPostsList] = useState([]);
     const location = useLocation();
     let { userId, name, profilePic } = location.state;
     const [editClicked, setEditClicked] = useState(false);
@@ -36,7 +37,8 @@ function ProfilePage() {
                 name: name,
                 profileImage: profilePic,
                 date: post.first.date,
-                isLiked: post.second.isLiked
+                isLiked: post.second.isLiked,
+                commentsAmount: post.second.commentsAmount
             })) : [];
             await formattedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
             setPostsListFun(formattedPosts);

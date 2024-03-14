@@ -24,14 +24,14 @@ function Feed() {
                 name: post.second.firstName + " " + post.second.lastName,
                 profileImage: "data:image/png;base64," + post.second.img,
                 date: post.first.date,
-                isLiked: post.third.isLiked
+                isLiked: post.third.isLiked,
+                commentsAmount: post.third.commentsAmount
             })) : [];
             await formattedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
             setPostsListFun(formattedPosts);
         }
         fetchData();
     }, []);
-
     return (
         <div className="mainContent" style={{ height: window.screen.height }}>
             <TopBar />

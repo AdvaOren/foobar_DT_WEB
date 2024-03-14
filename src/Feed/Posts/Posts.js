@@ -17,19 +17,37 @@ import { AuthContext } from '../../AuthContext.js';
 import { useNavigate } from 'react-router';
 
 
-function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage, date, fromComments, isLiked }) {
-    console.log("comments", comments);
+function Posts({
+                   id,
+                   userId,
+                   likes,
+                   postUrl,
+                   comments,
+                   text,
+                   name,
+                   profileImage,
+                   date,
+                   fromComments,
+                   isLiked,
+                   commentsAmount
+               }) {
     const navigate = useNavigate();
     const [likePressed, setLikePressed] = useState(isLiked);
     const { user, postsList, setPostsListFun, theme } = useContext(AuthContext);
     const [commentPressed, setCommentPressed] = useState(0);
     const [sharePressed, setSharePressed] = useState(0);
     const [editPost, setEditPost] = useState(0);
+    const [commentsCount, setCommentsCount] = useState(commentsAmount);
     const userDet = {
         userId: userId,
         profilePic: profileImage,
         name: name
     };
+
+    useEffect(() => {
+        /*setCommentsCount(commentsAmount)*/
+        console.log(commentsCount, commentsAmount)
+    },[])
     useEffect(() => {
         setLikePressed(isLiked);
     }, [postsList]);
@@ -78,9 +96,9 @@ function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage,
     return (
         <div className="eachPost">
             {commentPressed ? <Comments likes={likes} postUrl={postUrl} comments={comments} text={text} name={name}
-                profileImage={profileImage} date={date} setCommentPressed={setCommentPressed}
-                id={id} userId={userId} /> : <div></div>}
-            {sharePressed ? <Share setSharePressed={setSharePressed} /> : <div></div>}
+                                        profileImage={profileImage} date={date} setCommentPressed={setCommentPressed}
+                                        id={id} userId={userId} setCommentsCount={setCommentsCount} /> : <div></div>}
+            {sharePressed ? <Share setSharePressed={setSharePressed}/> : <div></div>}
             {editPost ? <NewPostModal id={id} editPost={true} profileImage={profileImage} name={name}
                 setNewPostPressed={setEditPost} postText={text} postImage={postUrl} /> :
                 <div></div>}
@@ -99,8 +117,8 @@ function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage,
             <div className='class1'>
                 <div className="likeNdComm">
                     <div className='commentsAndNum'>
-                        <Comment className='comm' />
-                        <p>{comments ? comments.length : 0}</p>
+                        <Comment className='comm'/>
+                        <p>{commentsCount}</p>
                     </div>
 
                     <div className='likesAndNum'>
