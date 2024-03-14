@@ -13,7 +13,7 @@ import {AuthContext} from '../../AuthContext.js';
 
 import Posts from '../Posts/Posts.js';
 
-function Comments({userId, id, likes, postUrl, text, name, profileImage, date, setCommentPressed}) {
+function Comments({userId, id, likes, postUrl, text, name, profileImage, date, setCommentPressed,setCommentsCount}) {
     const [inputText, setInputText] = useState('');
     const [commentText, setCommentText] = useState('');
     const {user, usersList, postsList, setPostsListFun} = useContext(AuthContext);
@@ -54,12 +54,9 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
             }
         };
         fetchComments();
-    }, [/*comments*/]);
+    }, []);
 
-    //TODO!
-    useEffect(() => {
-        setComments(comments);
-    },[comments])
+
 
     const handleInputChange = (event, setter) => {
         setter(event.target.value);
@@ -122,6 +119,8 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                 ...postToUpdate,
                 comments: updatedComments,
             };
+            console.log("in comments: ", updatedComments.length)
+            setCommentsCount(updatedComments.length)
             setComments(updatedComments);
             // Update the state with the new post list
             setPostsListFun(updatedPosts);
@@ -142,7 +141,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
 
             if (post.id === id) {
                 // Filter out the comment with the given commentId
-                deletedComments = post.comments.filter(comment => comment.first.id !== commentId)
+                deletedComments = comments.filter(comment => comment.first.id !== commentId)
                 return {
                     ...post,
                     comments: deletedComments
@@ -151,6 +150,8 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
             // If this is not the post to update, return it unchanged
             return post;
         });
+        console.log("in comments: ", deletedComments.length)
+        setCommentsCount(deletedComments.length)
         setComments(deletedComments)
         setPostsListFun(newPostList);
     }

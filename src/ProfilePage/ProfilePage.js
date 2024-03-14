@@ -37,8 +37,10 @@ function ProfilePage() {
                 name: name,
                 profileImage: profilePic,
                 date: post.first.date,
-                isLiked: post.second.isLiked
+                isLiked: post.second.isLiked,
+                commentsAmount: post.second.commentsAmount
             })) : [];
+            console.log("in prof: ",formattedPosts)
             setPostsListFun(formattedPosts);
         }
         fetchData();

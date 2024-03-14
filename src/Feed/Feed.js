@@ -7,6 +7,7 @@ import Posts from './Posts/Posts.js';
 import TopBar from './TopBar/TopBar.js';
 import { AuthContext } from '../AuthContext.js';
 import { getPostList } from '../serverCalls/posts.js';
+import {post} from "axios";
 
 function Feed() {
     const [newPostPressed, setNewPostPressed] = useState(0);
@@ -14,7 +15,7 @@ function Feed() {
     useEffect(() => {
         const fetchData = async () => {
             const postsListNew = await getPostList(user.token);
-            const formattedPosts = postsListNew ? await postsListNew.map(post => ({
+             const formattedPosts = postsListNew ? await postsListNew.map(post => ({
                 id: post.first._id,
                 userId: post.second._id,
                 likes: post.third.likeAmount,
@@ -24,13 +25,16 @@ function Feed() {
                 name: post.second.firstName + " " + post.second.lastName,
                 profileImage: "data:image/png;base64," + post.second.img,
                 date: post.first.date,
-                isLiked: post.third.isLiked
+                isLiked: post.third.isLiked,
+                commentsAmount: post.third.commentsAmount
             })) : [];
+            console.log("set")
             setPostsListFun(formattedPosts);
         }
+
         fetchData();
     }, []);
-
+    console.log("before set")
     return (
         <div className="mainContent">
             <TopBar />
