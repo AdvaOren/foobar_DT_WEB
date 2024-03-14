@@ -123,6 +123,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                 comments: updatedComments,
             };
             setComments(updatedComments);
+            await updatedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
             // Update the state with the new post list
             setPostsListFun(updatedPosts);
             setInputText('');
@@ -152,6 +153,8 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
             return post;
         });
         setComments(deletedComments)
+        await newPostList.sort((a, b) => new Date(b.date) - new Date(a.date));
+
         setPostsListFun(newPostList);
     }
 
@@ -203,7 +206,7 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
             }
         });
 
-
+        await updatedPostList.sort((a, b) => new Date(b.date) - new Date(a.date));
         // Update the state with the updated postList
         setPostsListFun(updatedPostList);
 

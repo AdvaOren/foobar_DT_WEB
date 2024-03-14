@@ -38,6 +38,7 @@ function ProfilePage() {
                 date: post.first.date,
                 isLiked: post.second.isLiked
             })) : [];
+            await formattedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
             setPostsListFun(formattedPosts);
         }
         fetchData();

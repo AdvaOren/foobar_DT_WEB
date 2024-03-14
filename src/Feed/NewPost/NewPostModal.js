@@ -61,9 +61,10 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
             profileImage:  "data:image/png;base64," + newPost.profileImage
         }
 
-
+        const updatedPostList2 = [add, ...updatedPostList];
+        await updatedPostList2.sort((a, b) => new Date(b.date) - new Date(a.date));
         // Update the post list in the component's state
-        setPostsListFun([add, ...updatedPostList]);
+        setPostsListFun([updatedPostList2]);
 
         // Close the modal
         setNewPostPressed(0);
@@ -71,32 +72,6 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
         // Clear the input field
         setInputText('');
         setSelectedFile(null);
-
-
-        /* if (selectedFile == null) return;
-        const updatedPostList = postsList ? [...postsList] : [];
-
-        // Create a new post object
-        const newPost = {
-            "id": updatedPostList.length + 1,
-            "userId": user.id,
-            "likes": 0,
-            "postUrl": selectedFile ? URL.createObjectURL(selectedFile) : null,
-            "comments": [],
-            "text": inputText,
-            "name": name,
-            "profileImage": profileImage,
-            "date": new Date().toISOString()
-        };
-        // Update the post list in the component's state
-        setPostsListFun([newPost, ...updatedPostList]);
-
-        // Close the modal
-        setNewPostPressed(0);
-
-        // Clear the input field
-        setInputText('');
-        setSelectedFile(null);*/
     };
     const changePost = async () => {
         const response = await fetch((`http://localhost:8080/api/users/${user.id}/posts/${id}`), {
@@ -124,6 +99,7 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
 
             )
         ;
+        await updatedPostList.sort((a, b) => new Date(b.date) - new Date(a.date));
         setPostsListFun(updatedPostList); // Update the state with the modified post list
 
         setNewPostPressed(0); // Close the modal
@@ -151,6 +127,7 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
             }
         })
         const newPosts = postsList.filter(post => post.id !== id);
+        await newPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
         setPostsListFun(newPosts);
         setNewPostPressed(0)
     }

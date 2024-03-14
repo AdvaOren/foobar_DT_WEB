@@ -60,6 +60,7 @@ function Posts({ id, userId, likes, postUrl, comments, text, name, profileImage,
                 isLiked: !likePressed
             };
             setLikePressed(!likePressed);
+            await updatedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
             setPostsListFun(updatedPosts);
         }
     }

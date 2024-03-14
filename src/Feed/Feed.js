@@ -26,13 +26,14 @@ function Feed() {
                 date: post.first.date,
                 isLiked: post.third.isLiked
             })) : [];
+            await formattedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
             setPostsListFun(formattedPosts);
         }
         fetchData();
     }, []);
 
     return (
-        <div className="mainContent">
+        <div className="mainContent" style={{ height: window.screen.height }}>
             <TopBar />
 
             <div id="menuAndPost">
