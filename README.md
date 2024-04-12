@@ -13,6 +13,8 @@
 
 עבור חלק 3: נא להסתכל על הענף productionBranch3 עבור הקוד של האתר, הקוד עבר build ונמצא בתיקיית הפאבליק של השרת.
 
+בעקבות תקלה הקישור של השרת לא נמצא בקובץ הdetails לכן אנחנו מוסיפים אותו פה  <code>https://github.com/tzuriel/foobar_DAT_server</code>
+
 # The project process
 We began by carefully reviewing the project assignment, ensuring a clear understanding of the requirements. Next, we leveraged JIRA to organize our workflow, creating a new sprint containing all relevant tasks for the exercise. Each task was meticulously prepared, outlining the steps needed to complete them by the project's conclusion.
 
