@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getToken, addUserServer, getUsersList } from './serverCalls/LogInSignUp.js';
-import { getPostList } from './serverCalls/posts.js';
 
 
 const AuthContext = React.createContext();
