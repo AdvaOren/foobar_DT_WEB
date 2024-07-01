@@ -6,10 +6,19 @@
     align-items: stretch;
     background-color: var(--feed-background-color);
     gap: 10px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    height: 100%;
+}
+#menuAndPost {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: var(--feed-background-color);
+
 }
 
 #contentPage {
     display: flex;
     flex-direction: row;
 }
+

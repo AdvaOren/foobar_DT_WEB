@@ -1,3 +1,4 @@
+
 .theme-light {
     --feed-background-color: #F0F2F5;
     --topbar-posts-background-color: white;
@@ -20,6 +21,5 @@
     --menu-hover-color: rgba(62, 64, 66, 0.6);
     --newpost-background: rgb(11, 11, 11);
     --buttons-background: #3E4042;
-
-
 }
+

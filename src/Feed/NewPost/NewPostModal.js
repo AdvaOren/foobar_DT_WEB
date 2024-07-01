@@ -63,12 +63,11 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
                 comments: [],
                 name: newPost.name,
                 profileImage:  "data:image/png;base64," + newPost.profileImage
-            }
-    
+            }            
             const updatedPostList2 = [add, ...updatedPostList];
             updatedPostList2.sort((a, b) => new Date(b.date) - new Date(a.date));
             // Update the post list in the component's state
-            setPostsListFun([updatedPostList2]);
+            setPostsListFun(updatedPostList2);
     
             // Close the modal
             setNewPostPressed(0);
@@ -77,7 +76,6 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
             setInputText('');
             setSelectedFile(null);
         } catch (error) {
-            console.log("in catch ", error);
             setInvalidUrl("Invalid url")
         }
     };
@@ -100,6 +98,7 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
                 return;
             }
             const updatedPostList = await postsList.map( post => {
+
                         if (post.id === id) {
                             return  {
                                 ...post,
@@ -190,14 +189,18 @@ function NewPostModal({id, profileImage, name, setNewPostPressed, postText, post
     );
 }
 
+
 NewPostModal.propTypes = {
-    profileImage: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    profileImage: PropTypes.string,
     name: PropTypes.string.isRequired,
     setNewPostPressed: PropTypes.func.isRequired,
     postText: PropTypes.string,
-    postImage: URL,
+    postImage: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.instanceOf(URL) // Allow either a string or a URL object
+    ]),
     editPost: PropTypes.bool,
-
 };
 
 export default NewPostModal;

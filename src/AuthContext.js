@@ -26,8 +26,10 @@ function AuthProvider({ children }) {
     function toggleTheme() {
         if (theme == 'theme-dark') {
             setTheme('theme-light');
+            document.documentElement.style.setProperty('--feed-background-color', '#F0F2F5');
         } else {
             setTheme('theme-dark');
+            document.documentElement.style.setProperty('--feed-background-color', '#18191A');
 
         }
     }
@@ -48,19 +50,6 @@ function AuthProvider({ children }) {
             })
         })
         setUsersList(friendsListN);
-        // const postsListNew = await getPostList(userData.token);
-        // const formattedPosts = postsListNew ? await postsListNew.map(post => ({
-        //     id: post.first._id,
-        //     userId: post.second._id,
-        //     likes: post.third.likeAmount,
-        //     postUrl: "data:image/png;base64," + post.first.img,
-        //     text: post.first.content,
-        //     userName: post.second.email,
-        //     name: post.second.firstName + " " + post.second.lastName,
-        //     profileImage: "data:image/png;base64," + post.second.img,
-        //     date: post.first.date
-        // })) : [];
-        // setPostsList(formattedPosts);
     };
 
     const logout = () => {

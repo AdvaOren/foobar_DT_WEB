@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import "./ProfilePage.css"
-import NewPost from '../Feed/NewPost/NewPost.js';
 import Posts from "../Feed/Posts/Posts.js";
 import TopBar from '../Feed/TopBar/TopBar.js';
 import { AuthContext } from '../AuthContext.js';
@@ -16,9 +15,7 @@ import { getFriendPostsList, getPostList } from '../serverCalls/posts.js';
 
 //TODO change list of post for each user, check if friend or not, add logic of adding friend and edit profile
 function ProfilePage() {
-    const [newPostPressed, setNewPostPressed] = useState(0);
     const { user, theme, setPostsListFun, postsList } = useContext(AuthContext);
-    // const [postsList, setPostsList] = useState([]);
     const location = useLocation();
     let { userId, name, profilePic } = location.state;
     const [editClicked, setEditClicked] = useState(false);

@@ -4,7 +4,7 @@ import "./NewPost.css";
 import { ReactComponent as Video } from '../../Images/Feed/video.svg';
 import { ReactComponent as ImagesIcon } from '../../Images/Feed/images-icon.svg';
 import { ReactComponent as Smiley } from '../../Images/Feed/smiley.svg';
-import NewPostModal from './NewPostModal.js'; // Import the NewPostModal component
+import NewPostModal from './NewPostModal.js'; 
 import { AuthContext } from '../../AuthContext.js';
 
 function NewPost({ id, newPostPressed, setNewPostPressed }) {
@@ -19,7 +19,6 @@ function NewPost({ id, newPostPressed, setNewPostPressed }) {
         <div className="newPostContent">
             {newPostPressed ? (
                 <NewPostModal
-                    Post={false}
                     name={user.name}
                     profileImage={user.profileImage}
                     setNewPostPressed={setNewPostPressed}

@@ -45,10 +45,6 @@ function Posts({
     };
 
     useEffect(() => {
-        /*setCommentsCount(commentsAmount)*/
-        console.log(commentsCount, commentsAmount)
-    },[])
-    useEffect(() => {
         setLikePressed(isLiked);
     }, [postsList]);
 
@@ -92,7 +88,6 @@ function Posts({
     function share() {
         setSharePressed(sharePressed ? 0 : 1);
     }
-
     return (
         <div className="eachPost">
             {commentPressed ? <Comments likes={likes} postUrl={postUrl} comments={comments} text={text} name={name}

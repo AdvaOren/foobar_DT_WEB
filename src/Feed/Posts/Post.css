@@ -5,6 +5,8 @@
     flex-direction: column;
     gap: 100px;
     margin-top: 20px;
+    background-color: var(--feed-background-color);
+
 }
 
 .eachPost {
@@ -116,8 +118,6 @@ hr {
 }
 
 #editIcon {
-    width: 40px;
-    height: 40px;
-    padding: 15px;
-    flex-grow: 1;
+    height: 6vh;
+    right: 0;
 }

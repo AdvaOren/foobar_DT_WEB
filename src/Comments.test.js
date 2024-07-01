@@ -5,7 +5,6 @@ import { AuthProvider } from './AuthContext.js';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 test('renders correctly with comments', () => {
-    // Mock comments data
     const comments = [
         { id: 1, comment: 'First comment' },
         { id: 2, comment: 'Second comment' },

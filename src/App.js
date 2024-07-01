@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LogInSignUp from "./LogInSignUp/LogInSignUp.js";
@@ -10,6 +10,9 @@ import ProfilePage from './ProfilePage/ProfilePage.js';
 
 function App() {
     const { theme } = useContext(AuthContext);
+    useEffect(()=>{
+        document.documentElement.style.setProperty('--feed-background-color', '#F0F2F5');
+    },[]);
 
     return (
         <div className={theme}>

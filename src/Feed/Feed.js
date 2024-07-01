@@ -35,7 +35,6 @@ function Feed() {
     return (
         <div className="mainContent" style={{ height: window.screen.height }}>
             <TopBar />
-
             <div id="menuAndPost">
                 <Menu />
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh' }}>

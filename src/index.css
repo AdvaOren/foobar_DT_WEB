@@ -5,9 +5,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+  background-color: var(--feed-background-color);
 
+}
+:root {
+  --feed-background-color: #f0f0f0; /* Example color, replace with your desired color */
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--feed-background-color);
 }

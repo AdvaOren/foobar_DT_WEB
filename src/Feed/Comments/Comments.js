@@ -111,7 +111,6 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
                 ...postToUpdate,
                 comments: updatedComments,
             };
-            console.log("in comments: ", updatedComments.length)
             setCommentsCount(updatedComments.length)
             setComments(updatedComments);
             await updatedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -143,7 +142,6 @@ function Comments({userId, id, likes, postUrl, text, name, profileImage, date, s
             // If this is not the post to update, return it unchanged
             return post;
         });
-        console.log("in comments: ", deletedComments.length)
         setCommentsCount(deletedComments.length)
         setComments(deletedComments)
         await newPostList.sort((a, b) => new Date(b.date) - new Date(a.date));
