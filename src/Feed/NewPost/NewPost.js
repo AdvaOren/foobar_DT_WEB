@@ -26,13 +26,9 @@ function NewPost({ id, newPostPressed, setNewPostPressed }) {
                     postText=''
                     postImage={null}
                 />
-            ) : (
-                <div></div>
-            )}
-
+            ) : (<div></div>)}
             <div className="profilAndInput">
                 <img id="profileImage" src={user.profileImage} />
-
                 <input className="inputLine" type="text" placeholder={message} onClick={addNewPost} />
             </div>
             <hr style={{ width: "90%", color: "#e3e3e3", opacity: 0.3 }}></hr>
