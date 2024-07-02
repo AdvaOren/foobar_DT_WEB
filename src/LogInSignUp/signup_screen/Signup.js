@@ -1,9 +1,13 @@
 import './Signup.css'
-import Birthdate, {updateValuesBirthdate} from "./birthdate/Birthdate.js";
-import Gender, {updateValuesGender} from "./gender/Gender.js";
-import InputBoxes, {updateValuesInputBox} from "./input_boxes/InputBoxes.js"
-import {useRef, useState} from "react";
-import Image, {updateValuesImage} from "./image/Image.js";
+import Birthdate, { updateValuesBirthdate } from "./birthdate/Birthdate.js";
+import Gender, { updateValuesGender } from "./gender/Gender.js";
+import InputBoxes, { updateValuesInputBox } from "./input_boxes/InputBoxes.js"
+import { useRef, useState, useContext } from "react";
+import Image, { updateValuesImage } from "./image/Image.js";
+import { AuthContext } from '../../AuthContext.js';
+import { useNavigate } from 'react-router';
+import { PasswordValid } from '../../Validation/Validation.js';
+import { userExists } from '../../serverCalls/LogInSignUp.js';
 
 let firstName, setFirstName;
 let lastName, setLastName;
@@ -17,7 +21,8 @@ let gender, setGender;
 let img, setImg
 let signupRef;
 
-function Signup({loginMembers}) {
+function Signup() {
+    const navigate = useNavigate();
     [firstName, setFirstName] = useState('');
     [lastName, setLastName] = useState('');
     [email, setEmail] = useState('');
@@ -30,6 +35,7 @@ function Signup({loginMembers}) {
     [img, setImg] = useState('');
     const closeRef = useRef(null);
     const resetRef = useRef(null);
+    const { login, addUser, user } = useContext(AuthContext);
     signupRef = useRef('');
 
     let newMember = {
@@ -39,40 +45,67 @@ function Signup({loginMembers}) {
         "password": "",
         "date": "",
         "gender": "",
-        "img":""
+        "img": ""
     }
 
-    const signupCLicked = function (e) {
+    const signupCLicked = async (e) => {
+        e.preventDefault();
         initMemeber(newMember);
         let hasEmptyInputBox = checkForEmptyInput(newMember);
         if (hasEmptyInputBox) {
             valid()
             return;
         }
-        //check for existing user by email
-        let exists = false;
-        loginMembers.forEach((member) => {
-            if (member.email === newMember.email) {
-                exists = true;
-            }
-        });
+        let exists;
+        exists = await userExists(newMember.email); //check for existing user by email
+
+
         if (exists) {
             handleExists(newMember);
         } else if (!isDateValid(newMember.date)) { //check that the date is valid
             handleIllegalDate(newMember);
         } else if (password !== passwordVerification) { //check the passwords identical
             handlePasswordsNotMatch(newMember);
-        } else if (!checkPassword(password)) { //check the password stand in the criteria
+        } else if (PasswordValid(password) != '') { //check the password stand in the criteria
             handlePasswordNotValid(newMember);
         } else { //add the new member
-            addMember(e, newMember, loginMembers, closeRef,resetRef);
+            await addMember(e);
+            // setTimeout(() => {
+            // }
+            navigate('/feed');
+
         }
     }
 
+    /**
+     * The function add new member to the system
+     * Input: the event, the new member, all the members, and ref to the close button and the reset button
+     */
+    async function addMember(e) {
+        e.preventDefault()
+        const copy = JSON.parse(JSON.stringify(newMember));
+        const userData = {
+            email: copy.email,
+            firstName: copy.firstName,
+            lastName: copy.lastName,
+            password: copy.password,
+            img: copy.img,
+        };
+        const newUser = await addUser(userData);
+        updateValuesInputBox("", "", "", "", "");
+        updateValuesBirthdate("", "", "");
+        updateValuesImage("");
+        updateValuesGender("")
+        resetMember(newMember, resetRef);
+        await resetRef.current.click();
+        await closeRef.current.click();
+        await signupRef.current.classList.remove('was-validated')
+        await login(newUser);
+    }
 
     return (
-        <div className="modal fade" id="signinModal"  tabIndex="-1" aria-labelledby="modalLabel"
-             aria-hidden="true">
+        <div className="modal fade" id="signinModal" tabIndex="-1" aria-labelledby="modalLabel"
+            aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -80,8 +113,8 @@ function Signup({loginMembers}) {
                             <div className="row">
                                 <h1 className="modal-title fs-2 col-6" id="modalLabel">Sign Up</h1>
                                 <button type="button" className="btn-close float-end"
-                                        data-bs-dismiss="modal" ref={closeRef}
-                                        aria-label="Close"></button>
+                                    data-bs-dismiss="modal" ref={closeRef}
+                                    aria-label="Close"></button>
                             </div>
                             <div className="row " id="sub-title">
                                 <div className="row ">It's quick and easy.</div>
@@ -91,11 +124,11 @@ function Signup({loginMembers}) {
                     <div className="modal-body">
                         <form className="container-fluid g-3 needs-validation" noValidate id="signUpForm" ref={signupRef}>
                             <InputBoxes member={newMember} setFirstName={setFirstName} setLastName={setLastName}
-                                        setEmail={setEmail} setPassword={setPassword}
-                                        setPasswordVerification={setPasswordVerification}/>
-                            <Birthdate member={newMember} setDay={setDay} setMonth={setMonth} setYear={setYear}/>
-                            <Gender member={newMember} setGender={setGender}/>
-                            <Image img={img} setImg={setImg}/>
+                                setEmail={setEmail} setPassword={setPassword}
+                                setPasswordVerification={setPasswordVerification} />
+                            <Birthdate member={newMember} setDay={setDay} setMonth={setMonth} setYear={setYear} />
+                            <Gender member={newMember} setGender={setGender} />
+                            <Image img={img} setImg={setImg} />
                             <p className="super-mini text-secondary-emphasis">People who use our service
                                 may have uploaded your contact information to Facebook. Learn more.</p>
                             <p className="super-mini text-secondary-emphasis">By clicking Sign Up, you
@@ -103,7 +136,7 @@ function Signup({loginMembers}) {
                                 SMS notifications from us and can opt out at any time.</p>
                             <div className="row">
                                 <button type="submit" onClick={signupCLicked} title="submit-btn"
-                                        className="col-4 fs-5 p-0 btn btn-signup fw-bold top-50 start-50 translate-middle-x">
+                                    className="col-4 fs-5 p-0 btn btn-signup fw-bold top-50 start-50 translate-middle-x">
                                     Sign Up
                                 </button>
                             </div>
@@ -151,23 +184,7 @@ function handlePasswordsNotMatch(newMember) {
     valid()
 }
 
-/**
- * The function add new member to the system
- * Input: the event, the new member, all the members, and ref to the close button and the reset button
- */
-function addMember(e, newMember, loginMembers, closeRef,resetRef) {
-    e.preventDefault()
-    const copy = JSON.parse(JSON.stringify(newMember));
-    loginMembers.push(copy);
-    console.log("add new member")
-    updateValuesInputBox("", "", "", "","");
-    updateValuesBirthdate("", "", "");
-    updateValuesImage("");
-    updateValuesGender("")
-    resetMember(newMember,resetRef);
-    closeRef.current.click();
-    signupRef.current.classList.remove('was-validated')
-}
+
 
 /**
  * The function handle the case that the user enter an illegal date
@@ -234,7 +251,7 @@ function initMemeber(member) {
 /**The function reset the member
  * Input: the member to reset
  */
-function resetMember(member,resetRef) {
+function resetMember(member, resetRef) {
     Object.keys(member).forEach(key => {
         member[key] = ""
     });
@@ -250,7 +267,7 @@ function resetMember(member,resetRef) {
 export function isDateValid(date) {
     let today = new Date()
     let gotDate = new Date(date)
-    return (today > gotDate && date.slice(-2) == gotDate.getDate());
+    return (today > gotDate);
 }
 
 /**
@@ -266,5 +283,7 @@ function valid() {
         signupRef.current.classList.add('was-validated')
     }, false)
 }
+
+
 
 export default Signup;

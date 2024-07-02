@@ -3,15 +3,26 @@ import React from "react";
 let imgInputRef;
 let imgRef;
 
-function Image({img,setImg}) {
+function Image({ img, setImg }) {
     imgInputRef = React.useRef(null);
     imgRef = React.useRef();
 
+    const handleImageChanged = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImg(reader.result);
+        };
+        reader.readAsDataURL(file);
+    }
     return (
         <>
             <label className="form-label" htmlFor="imgFile">Default file input example</label>
             <input type="file" className="form-control" id="imgFile" required ref={imgInputRef} title="img-input"
-                   onChange={(e) => setImg(URL.createObjectURL(e.target.files[0]))}></input>
+                onChange={(e) =>
+                    handleImageChanged(e) 
+                // setImg(URL.createObjectURL(e.target.files[0]))
+                }></input>
             <img src={img} className="rounded m-t-10px signup-img" alt="" ref={imgRef}></img>
         </>
     );

@@ -21,3 +21,22 @@ We began by carefully reviewing the project assignment, ensuring a clear underst
 Throughout the project, we remained adaptable, identifying additional requirements as they arose. These new tasks were promptly assigned to team members who were best equipped to handle them efficiently.
 
 Collaboration was central to our approach, with all team members actively contributing to the project's codebase. Despite its challenges, our teamwork and dedication ensured successful progress at every stage of development.
+
+
+
+# Project download
+git clone https://github.com/tzuriel/foobar_DT_WEB.git
+cd foobar_DT_WEB/
+npm i
+npm install eslint jest --save-dev
+npm install eslint-plugin-jest --save-dev
+
+add "jest" to "plugins" in .eslintrc file: 
+#
+"plugins": [ 
+        "jest",
+        "@typescript-eslint",
+        "react"
+    ]
+#
+npm start

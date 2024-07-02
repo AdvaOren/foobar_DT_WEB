@@ -1,4 +1,4 @@
-@import url('../mode.css');
+@import url('../../mode.css');
 
 #content {
     width: 100%;
@@ -25,7 +25,7 @@
     padding: 10px;
     font-size: 16px;
     height: 30px;
-    width: 15%;
+    width: fit-content;
 }
 
 #logOutBtn{
@@ -50,12 +50,12 @@
     
 }
 
-#themeMode {
-    width: 30px !important;
-    height: 30px !important;
+.themeMode {
+    width: 90px !important;
+    height: 90px !important;
     padding: 20px;
 }
 
-#themeMode:hover {
+.themeMode:hover {
     cursor: pointer;
 }

@@ -1,16 +1,17 @@
-@import url('../mode.css');
+@import url('../../mode.css');
 
 .newPostModal {
     width: 100vw;
-    height: 100%;
-    background-color: rgb(207, 209, 208, 0.6);
+    height: 90%;
+    background-color: var(--comments-background-color);
     position: fixed;
     box-shadow: 10px 10px 5px #cfd1d0;
-    top: 0;
+    top: 80px;
     left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+
 
 
 }

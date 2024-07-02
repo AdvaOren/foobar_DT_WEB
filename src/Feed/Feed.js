@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext  } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import "./Feed.css"
 import "./Posts/Post.css";
 import Menu from './Menu/Menu.js';
@@ -6,39 +6,43 @@ import NewPost from './NewPost/NewPost.js';
 import Posts from './Posts/Posts.js';
 import TopBar from './TopBar/TopBar.js';
 import { AuthContext } from '../AuthContext.js';
+import { getPostList } from '../serverCalls/posts.js';
 
 function Feed() {
     const [newPostPressed, setNewPostPressed] = useState(0);
-    const { postsList, setPostsListFun, user } = useContext(AuthContext);
-
-    
+    const { postsList, user, setPostsListFun } = useContext(AuthContext);
     useEffect(() => {
-        // Sort postList by date in descending order
-        const sortedPosts = [...postsList].sort((a, b) => {
-          // Convert date strings to Date objects
-          const dateA = new Date(a.date);
-          const dateB = new Date(b.date);
-          
-          // Compare dates
-          return dateB - dateA;
-        });
-    
-        // Update state with sorted posts
-        setPostsListFun(sortedPosts);
-      }, []); // Empty dependency array ensures this effect runs only once
-    
+        const fetchData = async () => {
+            const postsListNew = await getPostList(user.token);
+            const formattedPosts = postsListNew ? await postsListNew.map(post => ({
+                id: post.first._id,
+                userId: post.second._id,
+                likes: post.third.likeAmount,
+                postUrl: "data:image/png;base64," + post.first.img,
+                text: post.first.content,
+                userName: post.second.email,
+                name: post.second.firstName + " " + post.second.lastName,
+                profileImage: "data:image/png;base64," + post.second.img,
+                date: post.first.date,
+                isLiked: post.third.isLiked,
+                commentsAmount: post.third.commentsAmount
+            })) : [];
+            await formattedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+            setPostsListFun(formattedPosts);
+        }
+        fetchData();
+    }, []);
     return (
-        <div className="mainContent">
+        <div className="mainContent" style={{ height: window.screen.height }}>
             <TopBar />
-
             <div id="menuAndPost">
                 <Menu />
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh' }}>
                     <NewPost id={user.id} newPostPressed={newPostPressed} setNewPostPressed={setNewPostPressed} />
                     <div id="posts">
                         {
-                            postsList.map((post) =>
-                                <Posts setNewPostPressed={setNewPostPressed} fromComments={0} key={post.id} {...post} />
+                            postsList && postsList.map((post, index) =>
+                                <Posts fromComments={0} key={index} {...post} />
                             )
                         }
                     </div>

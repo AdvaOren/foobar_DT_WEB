@@ -1,26 +1,24 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
+import React, {useContext, useEffect} from 'react';
 import "./NewPost.css";
 import { ReactComponent as Video } from '../../Images/Feed/video.svg';
 import { ReactComponent as ImagesIcon } from '../../Images/Feed/images-icon.svg';
 import { ReactComponent as Smiley } from '../../Images/Feed/smiley.svg';
-import NewPostModal from './NewPostModal.js'; // Import the NewPostModal component
+import NewPostModal from './NewPostModal.js'; 
 import { AuthContext } from '../../AuthContext.js';
 
 function NewPost({ id, newPostPressed, setNewPostPressed }) {
     const { user } = useContext(AuthContext);
-
     let message = "What's on your mind, " + user.name + "?";
 
     function addNewPost() {
         setNewPostPressed(newPostPressed ? 0 : 1);
     }
-
+    
     return (
         <div className="newPostContent">
             {newPostPressed ? (
                 <NewPostModal
-                    editPost={false}
                     name={user.name}
                     profileImage={user.profileImage}
                     setNewPostPressed={setNewPostPressed}
@@ -28,10 +26,7 @@ function NewPost({ id, newPostPressed, setNewPostPressed }) {
                     postText=''
                     postImage={null}
                 />
-            ) : (
-                <div></div>
-            )}
-
+            ) : (<div></div>)}
             <div className="profilAndInput">
                 <img id="profileImage" src={user.profileImage} />
                 <input className="inputLine" type="text" placeholder={message} onClick={addNewPost} />

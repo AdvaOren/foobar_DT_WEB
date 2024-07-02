@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import "./Feed/mode.css";
+
 import App from './App.js';
 import reportWebVitals from './reportWebVitals.js';
 import { AuthProvider } from './AuthContext.js';
@@ -9,11 +8,7 @@ import { AuthProvider } from './AuthContext.js';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-    <head >
-      <link rel="stylesheet" type="text/css" href="./Feed/mode.css"></link>
-    </head>
     <AuthProvider>
-
       <App />
     </AuthProvider>
   </>
